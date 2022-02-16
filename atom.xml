@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://DennyWanye.GitHub.io</id>
     <title>DennyWanye</title>
-    <updated>2022-02-15T11:05:16.422Z</updated>
+    <updated>2022-02-16T11:07:09.682Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://DennyWanye.GitHub.io"/>
     <link rel="self" href="https://DennyWanye.GitHub.io/atom.xml"/>
@@ -10,6 +10,153 @@
     <logo>https://DennyWanye.GitHub.io/images/avatar.png</logo>
     <icon>https://DennyWanye.GitHub.io/favicon.ico</icon>
     <rights>All rights reserved 2022, DennyWanye</rights>
+    <entry>
+        <title type="html"><![CDATA[ReactDnd插件使用]]></title>
+        <id>https://DennyWanye.GitHub.io/post/reactdnd-cha-jian-shi-yong/</id>
+        <link href="https://DennyWanye.GitHub.io/post/reactdnd-cha-jian-shi-yong/">
+        </link>
+        <updated>2022-02-16T07:29:53.000Z</updated>
+        <content type="html"><![CDATA[<p>### 一个用ReactDnd库做的一个Demo</p>
+<p>主要用到的两个方法：DropTarget DragSource</p>
+<p>Example.js:</p>
+<p>import Container from './Container';<br>
+import { DndProvider } from &quot;react-dnd&quot;;<br>
+import { HTML5Backend } from &quot;react-dnd-html5-backend&quot;;<br>
+​<br>
+export const Example = () =&gt; {<br>
+return (&lt;DndProvider backend={ HTML5Backend }&gt;<br>
+<Container /><br>
+</DndProvider>);<br>
+};<br>
+​<br>
+Container.js:</p>
+<p>import React, { PureComponent } from 'react'<br>
+import TabItem from &quot;./TabItem&quot;;</p>
+<p>export default class Container extends PureComponent{</p>
+<pre><code>constructor(props) {
+    super(props)
+    this.state = {
+        tabs: [1,2,3,4,5,6,7,8,9,10],
+    }
+}
+
+changeTabLocation = (index, targetIndex) =&gt; {
+    if(this.state.tabs) {
+        const tabs = this.state.tabs
+        let temp = tabs[index]
+        tabs[index] = tabs[targetIndex]
+        tabs[targetIndex] = temp
+        this.setState(tabs)
+    }
+}
+
+renderTabs() {
+    return &lt;TabItem tabs={this.state.tabs} changeTabLocation={this.changeTabLocation.bind(this)} /&gt;
+}
+
+render() {
+    return (&lt;div className=&quot;container&quot;&gt;
+        {this.renderTabs()}
+    &lt;/div&gt;)
+}
+</code></pre>
+<p>}</p>
+<p>import React, { PureComponent } from 'react'<br>
+import TabItem from &quot;./TabItem&quot;;<br>
+​<br>
+export default class Container extends PureComponent{<br>
+​<br>
+constructor(props) {<br>
+super(props)<br>
+this.state = {<br>
+tabs: [1,2,3,4,5,6,7,8,9,10],<br>
+}<br>
+}<br>
+​<br>
+changeTabLocation = (index, targetIndex) =&gt; {<br>
+if(this.state.tabs) {<br>
+const tabs = this.state.tabs<br>
+let temp = tabs[index]<br>
+tabs[index] = tabs[targetIndex]<br>
+tabs[targetIndex] = temp<br>
+this.setState(tabs)<br>
+}<br>
+}<br>
+​<br>
+renderTabs() {<br>
+return <TabItem tabs={this.state.tabs} changeTabLocation={this.changeTabLocation.bind(this)} /><br>
+}<br>
+​<br>
+render() {<br>
+return (<div className="container"><br>
+{this.renderTabs()}<br>
+</div>)<br>
+}<br>
+}<br>
+​<br>
+TabItem.js:</p>
+<p>import React, { PureComponent } from 'react'<br>
+import { DragSource, DropTarget } from 'react-dnd'<br>
+import { ItemTypes } from './ItemTypes.js'<br>
+​<br>
+​<br>
+​<br>
+class ItemCom extends PureComponent {<br>
+constructor(props) {<br>
+super(props);<br>
+}<br>
+​<br>
+render(){<br>
+const { content, connectDropTarget, connectDragSource, isDragging } = this.props<br>
+const opacity = isDragging ? 0 : 1<br>
+return connectDropTarget(connectDragSource(&lt;div style={{ opacity }} className=&quot;tab-item&quot;&gt;{content}</div>))<br>
+}<br>
+}<br>
+​<br>
+const dropTarget = DropTarget(ItemTypes.TAB, {<br>
+drop(props, monitor, component) {<br>
+if(props.index != monitor.getItem().index) {<br>
+props.changeTabLocation(props.index, monitor.getItem().index)<br>
+}<br>
+console.log(props)<br>
+console.log(monitor.getItem())<br>
+},<br>
+},(connect)=&gt; ({<br>
+connectDropTarget: connect.dropTarget(),<br>
+}))(ItemCom)<br>
+​<br>
+const DargSourceDom = DragSource( ItemTypes.TAB, {<br>
+beginDrag(props) {<br>
+const { content, index } = props;<br>
+return { content, index };<br>
+},<br>
+}, (connect, monitor) =&gt; ({<br>
+connectDragSource: connect.dragSource(),<br>
+isDragging: monitor.isDragging(),<br>
+})<br>
+)(dropTarget)<br>
+​<br>
+​<br>
+const TabItem = ({ tabs, changeTabLocation}) =&gt; {<br>
+return <div><br>
+{<br>
+tabs.map((item,index)=&gt; {<br>
+return <DargSourceDom index={index} changeTabLocation={changeTabLocation}  content={item}/><br>
+})<br>
+}<br>
+</div><br>
+}<br>
+​<br>
+export default TabItem<br>
+​<br>
+在 DropTarget 中对于 drop 的处理</p>
+<p>对于 DropTarget DragSource 所做的包裹处理。</p>
+<p>这两个方法第三个参数都是传到 ItemCom 中的  props 中。</p>
+<pre><code>关于 monitor 中可以监听到的状态 这里有详细的介绍 DragSourceMonitor DropTargetMonitor 。
+</code></pre>
+<p>是我的水平太辣鸡了，还是这个作者写的文档真的不怎么样？</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[React.memo()]]></title>
         <id>https://DennyWanye.GitHub.io/post/reactmemo/</id>
