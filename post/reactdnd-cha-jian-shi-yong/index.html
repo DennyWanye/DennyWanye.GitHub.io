@@ -6,7 +6,7 @@
 
 <title>ReactDnd插件使用 | DennyWanye</title>
 
-<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1645094527212">
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1645630936714">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
@@ -77,7 +77,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1645094527212"
+            <form id="gridea-search-form" style="position: relative" data-update="1645630936714"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -223,6 +223,152 @@ export default TabItem
 <p>对于 <code>DropTarget</code> <code>DragSource</code> 所做的包裹处理。</p>
 <p>这两个方法第三个参数都是传到 <code>ItemCom</code> 中的  <code>props</code> 中。</p>
 <p>​	关于 <code>monitor</code> 中可以监听到的状态 这里有详细的介绍 <a href="https://react-dnd.github.io/react-dnd/docs/api/drag-source-monitor">DragSourceMonitor</a> <a href="https://react-dnd.github.io/react-dnd/docs/api/drop-target-monitor">DropTargetMonitor</a> 。</p>
+</li>
+<li>
+<p>添加  CustomDragLayer</p>
+<p>3.1 添加 CunstomDragLayer</p>
+<pre><code class="language-jsx">import Container from './Container';
+import CustomDragLayer from './CustomDragLayer';
+import { DndProvider } from &quot;react-dnd&quot;;
+import {HTML5Backend} from &quot;react-dnd-html5-backend&quot;;
+
+export const Example = () =&gt; {
+    return (&lt;DndProvider backend={ HTML5Backend }&gt;
+			&lt;Container /&gt;
+			&lt;CustomDragLayer /&gt;
+		&lt;/DndProvider&gt;);
+};
+
+</code></pre>
+<p>CustomDragLayer.js</p>
+<pre><code class="language-jsx">import { DragLayer } from 'react-dnd';
+import { ItemTypes } from './ItemTypes';
+import { BoxDragPreview } from './BoxDragPreview';
+const layerStyles = {
+    position: 'fixed',
+    pointerEvents: 'none',
+    zIndex: 100,
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+};
+function getItemStyles (props) {
+    const { initialOffset, currentOffset } = props
+    if (!initialOffset || !currentOffset) {
+        return {
+            display: 'none'
+        }
+    }
+
+    let { x, y } = currentOffset
+    y = initialOffset.y
+
+    const transform = `translate(${x}px, ${y}px)`
+    return {
+        transform: transform,
+        WebkitTransform: transform
+    }
+}
+const CustomDragLayer = (props) =&gt; {
+    const { item, itemType, isDragging } = props;
+    function renderItem() {
+        switch (itemType) {
+            case ItemTypes.BOX:
+                return &lt;BoxDragPreview title={item.title}/&gt;;
+            default:
+                return null;
+        }
+    }
+    if (!isDragging) {
+        return null;
+    }
+    return (&lt;div style={layerStyles}&gt;
+			&lt;div style={getItemStyles(props)}&gt;{renderItem()}&lt;/div&gt;
+		&lt;/div&gt;);
+};
+export default DragLayer((monitor,props) =&gt; {
+    return ({
+        item: monitor.getItem(),
+        itemType: monitor.getItemType(),
+        initialOffset: monitor.getInitialSourceClientOffset(),
+        currentOffset: monitor.getSourceClientOffset(),
+        isDragging: monitor.isDragging(),
+    })
+})(CustomDragLayer);
+
+</code></pre>
+<p>3.2 隐藏原生的拖动动画</p>
+<pre><code class="language-jsx">import { PureComponent } from 'react';
+import { DragSource } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
+import { ItemTypes } from './ItemTypes';
+import { Box } from './Box';
+function getStyles(props) {
+    const { left, top, isDragging } = props;
+    const transform = `translate3d(${left}px, ${top}px, 0)`;
+    return {
+        position: 'absolute',
+        transform,
+        WebkitTransform: transform,
+        // IE fallback: hide the real node using CSS when dragging
+        // because IE will ignore our custom &quot;empty image&quot; drag preview.
+        opacity: isDragging ? 0 : 1,
+        height: isDragging ? 0 : '',
+    };
+}
+class DraggableBox extends PureComponent {
+    componentDidMount() {
+        const { connectDragPreview } = this.props;
+        if (connectDragPreview) {
+            // Use empty image as a drag preview so browsers don't draw it
+            // and we can draw whatever we want on the custom drag layer instead.
+            connectDragPreview(getEmptyImage(), {
+                // IE fallback: specify that we'd rather screenshot the node
+                // when it already knows it's being dragged so we can hide it with CSS.
+                captureDraggingState: true,
+            });
+        }
+    }
+    render() {
+        const { title, connectDragSource } = this.props;
+        return connectDragSource(&lt;div style={getStyles(this.props)} role=&quot;DraggableBox&quot;&gt;
+				&lt;Box title={title}/&gt;
+			&lt;/div&gt;);
+    }
+}
+export default DragSource(ItemTypes.BOX, {
+    beginDrag(props) {
+        const { id, title, left, top } = props;
+        return { id, title, left, top };
+    },
+}, (connect, monitor) =&gt; ({
+    connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging(),
+}))(DraggableBox);
+
+</code></pre>
+<p>3.3 这种CustomDragLayer的核心方法就是 CustomDragLayer.js中的 <code>getItemStyles</code>:</p>
+<pre><code class="language-jsx">function getItemStyles (props) {
+    const { initialOffset, currentOffset } = props
+    if (!initialOffset || !currentOffset) {
+        return {
+            display: 'none'
+        }
+    }
+
+    let { x, y } = currentOffset
+    y = initialOffset.y
+
+    //这里的 x y 坐标就是计算出来的 定制化拖动对象坐标
+    const transform = `translate(${x}px, ${y}px)`
+    return {
+        transform: transform,
+        WebkitTransform: transform
+    }
+}
+</code></pre>
 </li>
 </ol>
 
