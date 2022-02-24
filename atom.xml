@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://DennyWanye.GitHub.io</id>
     <title>DennyWanye</title>
-    <updated>2022-02-23T15:50:17.695Z</updated>
+    <updated>2022-02-24T08:28:11.378Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://DennyWanye.GitHub.io"/>
     <link rel="self" href="https://DennyWanye.GitHub.io/atom.xml"/>
@@ -10,6 +10,181 @@
     <logo>https://DennyWanye.GitHub.io/images/avatar.png</logo>
     <icon>https://DennyWanye.GitHub.io/favicon.ico</icon>
     <rights>All rights reserved 2022, DennyWanye</rights>
+    <entry>
+        <title type="html"><![CDATA[flex布局的flex-grow、flex-shrink、flex-basis]]></title>
+        <id>https://DennyWanye.GitHub.io/post/flex-bu-ju-de-flex-growflex-shrinkflex-basis/</id>
+        <link href="https://DennyWanye.GitHub.io/post/flex-bu-ju-de-flex-growflex-shrinkflex-basis/">
+        </link>
+        <updated>2022-02-24T07:43:58.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="flex-basis-用于设置子元素占用的空间">flex-basis： 用于设置子元素占用的空间。</h3>
+<ol>
+<li>如果设置为 <code>flex-basis: auto;</code>，子项的宽度由其 <code>width</code>数值决定，如果宽度为 <code>auto</code>，则由其内容撑起的宽度决定。</li>
+<li>如果设置为 <code>flex-basis: 700px;</code>，则子项的宽度会被覆盖为<code>700px</code>。</li>
+</ol>
+<h3 id="flex-grow用来瓜分父项的剩余空间">flex-grow：用来“瓜分”父项的“剩余空间”。</h3>
+<p>根据每个子项<code>flex-grow</code> 的值，来“瓜分”父项的剩余空间。</p>
+<p>例子：</p>
+<pre><code class="language-css">.father{
+    width: 500px;
+    height: 30px;
+    display: flex;
+    background-color: #eee;
+}
+
+.children-1 {
+    width: 100px;
+    background-color: pink;
+}
+
+.children-2 {
+    width: 100px;
+    flex-grow: 1;
+    background-color: blue;
+}
+
+.children-3 {
+    width: 100px;
+    flex-grow: 3;
+    background-color: red;
+}
+</code></pre>
+<pre><code class="language-html">&lt;div class=&quot;father&quot;&gt;
+  &lt;div class=&quot;children-1&quot;&gt;1&lt;/div&gt;
+  &lt;div class=&quot;children-2&quot;&gt;2&lt;/div&gt;
+  &lt;div class=&quot;children-3&quot;&gt;3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<ol>
+<li>默认为0，即不参与瓜分</li>
+<li>瓜分的份数 = 每个子项<code>flex-grow</code>的数量之和</li>
+<li>瓜分的宽度 = 父项未分配出去的宽度，此时为 500 - 300 = 200px</li>
+<li>每个子项瓜分到的宽度 = 瓜分的宽度 / 瓜分的份数 * 子项 <code>flex-grow</code>的数量</li>
+</ol>
+<h3 id="flex-shrink用来吸收超出的空间">flex-shrink用来“吸收”超出的空间</h3>
+<pre><code class="language-css">.father{
+    width: 500px;
+    height: 30px;
+    display: flex;
+    background-color: #eee;
+}
+
+.children-1 {
+    width: 300px;
+    flex-basis: 400px;
+    background-color: pink;
+}
+
+.children-2 {
+    width: 100px;
+    flex-basis: 200px;
+    background-color: blue;
+    flex-shrink: 1;
+}
+
+.children-3 {
+    width: 100px;
+    flex-basis: auto;
+    background-color: red;
+    flex-shrink: 2;
+}
+</code></pre>
+<p>因为<code>flex-basis: 400px</code>覆盖了原本设置的宽度，所以<code>children-1</code>的宽度为 400px。</p>
+<p>同理<code>children-2</code>的宽度为200px。</p>
+<p>因为<code>flex-basis: auto</code>，所以<code>children-3</code>的宽度为<code>width</code>的宽度，即是100px。</p>
+<ol>
+<li>超出的宽度为<code>200px</code></li>
+<li>因为<code>flex-shrink</code>默认值为1，所以子项的<code>flex-shrink</code>值总和为 4。</li>
+<li>每个子项所减少的宽度 = 200px / 4 * 每个子项的<code>flex-shrink</code>的值。</li>
+</ol>
+<p>[原教程链接](flex-basis： 用于设置子元素占用的空间。</p>
+<ol>
+<li>如果设置为 <code>flex-basis: auto;</code>，子项的宽度由其 <code>width</code>数值决定，如果宽度为 <code>auto</code>，则由其内容撑起的宽度决定。</li>
+<li>如果设置为 <code>flex-basis: 700px;</code>，则子项的宽度会被覆盖为<code>700px</code>。</li>
+</ol>
+<h3 id="flex-grow用来瓜分父项的剩余空间-2">flex-grow：用来“瓜分”父项的“剩余空间”。</h3>
+<p>根据每个子项<code>flex-grow</code> 的值，来“瓜分”父项的剩余空间。</p>
+<p>例子：</p>
+<pre><code class="language-css">.father{
+    width: 500px;
+    height: 30px;
+    display: flex;
+    background-color: #eee;
+}
+
+.children-1 {
+    width: 100px;
+    background-color: pink;
+}
+
+.children-2 {
+    width: 100px;
+    flex-grow: 1;
+    background-color: blue;
+}
+
+.children-3 {
+    width: 100px;
+    flex-grow: 3;
+    background-color: red;
+}
+</code></pre>
+<pre><code class="language-html">&lt;div class=&quot;father&quot;&gt;
+  &lt;div class=&quot;children-1&quot;&gt;1&lt;/div&gt;
+  &lt;div class=&quot;children-2&quot;&gt;2&lt;/div&gt;
+  &lt;div class=&quot;children-3&quot;&gt;3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<ol>
+<li>默认为0，即不参与瓜分</li>
+<li>瓜分的份数 = 每个子项<code>flex-grow</code>的数量之和</li>
+<li>瓜分的宽度 = 父项未分配出去的宽度，此时为 500 - 300 = 200px</li>
+<li>每个子项瓜分到的宽度 = 瓜分的宽度 / 瓜分的份数 * 子项 <code>flex-grow</code>的数量</li>
+</ol>
+<h3 id="flex-shrink用来吸收超出的空间-2">flex-shrink用来“吸收”超出的空间</h3>
+<pre><code class="language-css">.father{
+    width: 500px;
+    height: 30px;
+    display: flex;
+    background-color: #eee;
+}
+
+.children-1 {
+    width: 300px;
+    flex-basis: 400px;
+    background-color: pink;
+}
+
+.children-2 {
+    width: 100px;
+    flex-basis: 200px;
+    background-color: blue;
+    flex-shrink: 1;
+}
+
+.children-3 {
+    width: 100px;
+    flex-basis: auto;
+    background-color: red;
+    flex-shrink: 2;
+}
+</code></pre>
+<p>因为<code>flex-basis: 400px</code>覆盖了原本设置的宽度，所以<code>children-1</code>的宽度为 400px。</p>
+<p>同理<code>children-2</code>的宽度为200px。</p>
+<p>因为<code>flex-basis: auto</code>，所以<code>children-3</code>的宽度为<code>width</code>的宽度，即是100px。</p>
+<ol>
+<li>
+<p>超出的宽度为<code>200px</code></p>
+</li>
+<li>
+<p>因为<code>flex-shrink</code>默认值为1，所以子项的<code>flex-shrink</code>值总和为 4。</p>
+</li>
+<li>
+<p>每个子项所减少的宽度 = 200px / 4 * 每个子项的<code>flex-shrink</code>的值</p>
+</li>
+</ol>
+<p><a href="https://zhuanlan.zhihu.com/p/39052660"><code>原教程链接</code></a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[体内平衡机制]]></title>
         <id>https://DennyWanye.GitHub.io/post/ti-nei-ping-heng-ji-zhi/</id>

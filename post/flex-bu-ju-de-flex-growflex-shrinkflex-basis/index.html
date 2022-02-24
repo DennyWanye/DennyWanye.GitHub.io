@@ -1,0 +1,345 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>flex布局的flex-grow、flex-shrink、flex-basis | DennyWanye</title>
+
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1645691275323">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            DennyWanye
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1645691275323"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    flex布局的flex-grow、flex-shrink、flex-basis
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-02-24 ·
+                    </time>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/BUmk-Nct9/" class="post-tags">
+                            # html
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/qJ0Ds1ZYA/" class="post-tags">
+                            # web
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/Bxp2msYRj/" class="post-tags">
+                            # coding
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="flex-basis-用于设置子元素占用的空间">flex-basis： 用于设置子元素占用的空间。</h3>
+<ol>
+<li>如果设置为 <code>flex-basis: auto;</code>，子项的宽度由其 <code>width</code>数值决定，如果宽度为 <code>auto</code>，则由其内容撑起的宽度决定。</li>
+<li>如果设置为 <code>flex-basis: 700px;</code>，则子项的宽度会被覆盖为<code>700px</code>。</li>
+</ol>
+<h3 id="flex-grow用来瓜分父项的剩余空间">flex-grow：用来“瓜分”父项的“剩余空间”。</h3>
+<p>根据每个子项<code>flex-grow</code> 的值，来“瓜分”父项的剩余空间。</p>
+<p>例子：</p>
+<pre><code class="language-css">.father{
+    width: 500px;
+    height: 30px;
+    display: flex;
+    background-color: #eee;
+}
+
+.children-1 {
+    width: 100px;
+    background-color: pink;
+}
+
+.children-2 {
+    width: 100px;
+    flex-grow: 1;
+    background-color: blue;
+}
+
+.children-3 {
+    width: 100px;
+    flex-grow: 3;
+    background-color: red;
+}
+</code></pre>
+<pre><code class="language-html">&lt;div class=&quot;father&quot;&gt;
+  &lt;div class=&quot;children-1&quot;&gt;1&lt;/div&gt;
+  &lt;div class=&quot;children-2&quot;&gt;2&lt;/div&gt;
+  &lt;div class=&quot;children-3&quot;&gt;3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<ol>
+<li>默认为0，即不参与瓜分</li>
+<li>瓜分的份数 = 每个子项<code>flex-grow</code>的数量之和</li>
+<li>瓜分的宽度 = 父项未分配出去的宽度，此时为 500 - 300 = 200px</li>
+<li>每个子项瓜分到的宽度 = 瓜分的宽度 / 瓜分的份数 * 子项 <code>flex-grow</code>的数量</li>
+</ol>
+<h3 id="flex-shrink用来吸收超出的空间">flex-shrink用来“吸收”超出的空间</h3>
+<pre><code class="language-css">.father{
+    width: 500px;
+    height: 30px;
+    display: flex;
+    background-color: #eee;
+}
+
+.children-1 {
+    width: 300px;
+    flex-basis: 400px;
+    background-color: pink;
+}
+
+.children-2 {
+    width: 100px;
+    flex-basis: 200px;
+    background-color: blue;
+    flex-shrink: 1;
+}
+
+.children-3 {
+    width: 100px;
+    flex-basis: auto;
+    background-color: red;
+    flex-shrink: 2;
+}
+</code></pre>
+<p>因为<code>flex-basis: 400px</code>覆盖了原本设置的宽度，所以<code>children-1</code>的宽度为 400px。</p>
+<p>同理<code>children-2</code>的宽度为200px。</p>
+<p>因为<code>flex-basis: auto</code>，所以<code>children-3</code>的宽度为<code>width</code>的宽度，即是100px。</p>
+<ol>
+<li>超出的宽度为<code>200px</code></li>
+<li>因为<code>flex-shrink</code>默认值为1，所以子项的<code>flex-shrink</code>值总和为 4。</li>
+<li>每个子项所减少的宽度 = 200px / 4 * 每个子项的<code>flex-shrink</code>的值。</li>
+</ol>
+<p>[原教程链接](flex-basis： 用于设置子元素占用的空间。</p>
+<ol>
+<li>如果设置为 <code>flex-basis: auto;</code>，子项的宽度由其 <code>width</code>数值决定，如果宽度为 <code>auto</code>，则由其内容撑起的宽度决定。</li>
+<li>如果设置为 <code>flex-basis: 700px;</code>，则子项的宽度会被覆盖为<code>700px</code>。</li>
+</ol>
+<h3 id="flex-grow用来瓜分父项的剩余空间-2">flex-grow：用来“瓜分”父项的“剩余空间”。</h3>
+<p>根据每个子项<code>flex-grow</code> 的值，来“瓜分”父项的剩余空间。</p>
+<p>例子：</p>
+<pre><code class="language-css">.father{
+    width: 500px;
+    height: 30px;
+    display: flex;
+    background-color: #eee;
+}
+
+.children-1 {
+    width: 100px;
+    background-color: pink;
+}
+
+.children-2 {
+    width: 100px;
+    flex-grow: 1;
+    background-color: blue;
+}
+
+.children-3 {
+    width: 100px;
+    flex-grow: 3;
+    background-color: red;
+}
+</code></pre>
+<pre><code class="language-html">&lt;div class=&quot;father&quot;&gt;
+  &lt;div class=&quot;children-1&quot;&gt;1&lt;/div&gt;
+  &lt;div class=&quot;children-2&quot;&gt;2&lt;/div&gt;
+  &lt;div class=&quot;children-3&quot;&gt;3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<ol>
+<li>默认为0，即不参与瓜分</li>
+<li>瓜分的份数 = 每个子项<code>flex-grow</code>的数量之和</li>
+<li>瓜分的宽度 = 父项未分配出去的宽度，此时为 500 - 300 = 200px</li>
+<li>每个子项瓜分到的宽度 = 瓜分的宽度 / 瓜分的份数 * 子项 <code>flex-grow</code>的数量</li>
+</ol>
+<h3 id="flex-shrink用来吸收超出的空间-2">flex-shrink用来“吸收”超出的空间</h3>
+<pre><code class="language-css">.father{
+    width: 500px;
+    height: 30px;
+    display: flex;
+    background-color: #eee;
+}
+
+.children-1 {
+    width: 300px;
+    flex-basis: 400px;
+    background-color: pink;
+}
+
+.children-2 {
+    width: 100px;
+    flex-basis: 200px;
+    background-color: blue;
+    flex-shrink: 1;
+}
+
+.children-3 {
+    width: 100px;
+    flex-basis: auto;
+    background-color: red;
+    flex-shrink: 2;
+}
+</code></pre>
+<p>因为<code>flex-basis: 400px</code>覆盖了原本设置的宽度，所以<code>children-1</code>的宽度为 400px。</p>
+<p>同理<code>children-2</code>的宽度为200px。</p>
+<p>因为<code>flex-basis: auto</code>，所以<code>children-3</code>的宽度为<code>width</code>的宽度，即是100px。</p>
+<ol>
+<li>
+<p>超出的宽度为<code>200px</code></p>
+</li>
+<li>
+<p>因为<code>flex-shrink</code>默认值为1，所以子项的<code>flex-shrink</code>值总和为 4。</p>
+</li>
+<li>
+<p>每个子项所减少的宽度 = 200px / 4 * 每个子项的<code>flex-shrink</code>的值</p>
+</li>
+</ol>
+<p><a href="https://zhuanlan.zhihu.com/p/39052660"><code>原教程链接</code></a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://DennyWanye.GitHub.io/post/ti-nei-ping-heng-ji-zhi/" class="post-title gt-a-link">
+                    体内平衡机制
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">Keep track of interesting things</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://DennyWanye.GitHub.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
