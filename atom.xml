@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://DennyWanye.GitHub.io</id>
     <title>DennyWanye</title>
-    <updated>2022-03-03T16:01:09.911Z</updated>
+    <updated>2022-03-09T10:50:35.404Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://DennyWanye.GitHub.io"/>
     <link rel="self" href="https://DennyWanye.GitHub.io/atom.xml"/>
@@ -10,6 +10,48 @@
     <logo>https://DennyWanye.GitHub.io/images/avatar.png</logo>
     <icon>https://DennyWanye.GitHub.io/favicon.ico</icon>
     <rights>All rights reserved 2022, DennyWanye</rights>
+    <entry>
+        <title type="html"><![CDATA[番茄工作法]]></title>
+        <id>https://DennyWanye.GitHub.io/post/fan-qie-gong-zuo-fa/</id>
+        <link href="https://DennyWanye.GitHub.io/post/fan-qie-gong-zuo-fa/">
+        </link>
+        <updated>2022-03-09T10:45:58.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="一-番茄工作法的工具">一、番茄工作法的工具：</h3>
+<ol>
+<li>
+<p>一个计时工具</p>
+</li>
+<li>
+<p>一张today's TODO List，包含以下内容：</p>
+<p>2.1 小标题，包括时间、地点、人物</p>
+<p>2.2 清单，包含今天要做的事情，先后顺序排列</p>
+<p>2.3 计划外的紧急事件</p>
+</li>
+<li>
+<p>activity inventory：</p>
+<p>3.1 标题： 人物、事件</p>
+<p>3.2 想要做什么的事情</p>
+</li>
+<li>
+<p>一份记录表，用于记录原始数据。包含：数据、摘要、完成任务所需要的番茄钟时间。</p>
+</li>
+</ol>
+<h3 id="二-法则">二、法则</h3>
+<p>规则一： 一个番茄时间共30分钟 = 25分钟工作时间 + 5分钟休息时间</p>
+<p>规则二： 一个番茄时间不可分割</p>
+<p>规则三：每四个番茄时间后，停止你的工作，进行一次较长时间的休息，15~30分钟</p>
+<p>规则四：完成一个任务，划掉一个任务</p>
+<h3 id="三-番茄工作法流程">三、番茄工作法流程</h3>
+<figure data-type="image" tabindex="1"><img src="https://DennyWanye.GitHub.io/post-images/1646822783978.png" alt="" loading="lazy"></figure>
+<p>注意：</p>
+<ol>
+<li>弄清楚完成某项任务所需要的时间</li>
+<li>减少被打断的次数</li>
+<li>估测某项任务所需要的时间</li>
+</ol>
+<p><a href="https://alloyteam.github.io/AlloyTimer/">线上工具</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[EventLoop 和 执行栈]]></title>
         <id>https://DennyWanye.GitHub.io/post/eventloop-he-zhi-xing-zhan/</id>
