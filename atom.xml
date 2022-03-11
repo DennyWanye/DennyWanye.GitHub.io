@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://DennyWanye.GitHub.io</id>
     <title>DennyWanye</title>
-    <updated>2022-03-09T10:50:35.404Z</updated>
+    <updated>2022-03-11T09:02:41.581Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://DennyWanye.GitHub.io"/>
     <link rel="self" href="https://DennyWanye.GitHub.io/atom.xml"/>
@@ -11,12 +11,350 @@
     <icon>https://DennyWanye.GitHub.io/favicon.ico</icon>
     <rights>All rights reserved 2022, DennyWanye</rights>
     <entry>
+        <title type="html"><![CDATA[Tip]]></title>
+        <id>https://DennyWanye.GitHub.io/post/tip/</id>
+        <link href="https://DennyWanye.GitHub.io/post/tip/">
+        </link>
+        <updated>2022-03-11T08:58:36.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="scss-混合">scss 混合</h2>
+<pre><code class="language-scss">
+
+@mixin center($widthCenter) {
+  width: $widthCenter;
+  margin: 0 auto;
+}
+
+@mixin  flex($justify,$row:row,$align: none) {
+  display: flex;
+  flex-direction: $row;
+  justify-content: $justify;
+  @if $align != none {
+    align-items: $align;
+  }
+}
+</code></pre>
+<h2 id="滚动条长度">滚动条长度</h2>
+<pre><code class="language-js">let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+</code></pre>
+<h2 id="input修改placeholder">input修改placeholder</h2>
+<pre><code class="language-html">.xjp-login form .xjp-login-text input::-webkit-input-placeholder {
+      font-size: .28rem;
+      font-family: Arial;
+      font-weight: bold;
+      color: white;
+      text-align: center; }
+    .xjp-login form .xjp-login-text input::-moz-placeholder {
+      /* Mozilla Firefox 19+ */
+      font-size: .28rem;
+      font-family: Arial;
+      font-weight: bold;
+      color: white;
+      text-align: center; }
+    .xjp-login form .xjp-login-text input:-moz-placeholder {
+      /* Mozilla Firefox 4 to 18 */
+      font-size: .28rem;
+      font-family: Arial;
+      font-weight: bold;
+      color: white;
+      text-align: center; }
+    .xjp-login form .xjp-login-text input:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      font-size: .28rem;
+      font-family: Arial;
+      font-weight: bold;
+      color: white;
+      text-align: center; }
+</code></pre>
+<h2 id="title">title</h2>
+<pre><code class="language-html">&lt;title&gt;PerpetualStar&lt;/title&gt;
+</code></pre>
+<h2 id="获取url参数">获取url参数</h2>
+<pre><code class="language-js">/* 获取URL中的参数 */
+function getUrlParam(name) {
+    let reg = new RegExp(&quot;(^|&amp;)&quot; + name + &quot;=([^&amp;]*)(&amp;|$)&quot;); //构造一个含有目标参数的正则表达式对象
+    let r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]);
+    return null; //返回参数值
+}
+
+</code></pre>
+<h2 id="input的内容验证数字邮箱">input的内容验证（数字，邮箱）</h2>
+<pre><code class="language-html">&lt;input type=&quot;text&quot; placeholder=&quot;Enter your phone&quot; minlength=&quot;10&quot; maxlength=&quot;10&quot; required=&quot;&quot; onkeyup=&quot;if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}&quot; onafterpaste=&quot;if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}&quot;&gt;
+
+</code></pre>
+<pre><code class="language-js">$('input[type=number]').keypress(function(e) {
+    if ((!String.fromCharCode(e.keyCode).match(/[0-9.]/))) {
+        return false;
+    }
+});
+
+$('input[type=number]')[0].oninput = function(e) {
+    if (e.target.value.length &gt; 10) {
+        e.target.value = e.target.value.slice(0, 10)
+    }
+}
+
+//判断邮箱的正则
+	let pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if (!pattern.test(email)) {
+        popInfo('Please enter correct email information')
+        return
+     }
+</code></pre>
+<h2 id="ajax请求">ajax请求</h2>
+<pre><code class="language-http">http://api.youbetterbuy.com
+</code></pre>
+<pre><code class="language-js">        $.post('http://api.youbetterbuy.com/api/consultaion/addConsultaionUser',params,function (res) {
+            if(res.retCode === 0) {
+                $.cookie('phonenum', phone, { expires: 7, path: '/' });
+                closeShade()
+                closeSign()
+                ifCookieGetInfo()
+                isDraw = false
+            }else {
+                if(res.message){
+                    popInfo(res.message);
+
+                }else {
+                    popInfo('System Error.');
+                }
+                isDraw = false
+            }
+        })
+</code></pre>
+<h2 id="whats-up-随机取值">what's up 随机取值</h2>
+<pre><code class="language-js">let halfUrl = 'http://yd2.xbetterbuy.com/wame.html?num='
+let Arr = [&quot;+918732892814&quot;, &quot;+918939704559&quot;,
+        &quot;+918939704535&quot;, &quot;+918939704614&quot;];
+    let n = Math.floor(Math.random() * Arr.length + 1) - 1;
+</code></pre>
+<h2 id="条点验证码">条点验证码</h2>
+<pre><code class="language-html">    &lt;script src=&quot;./js/captcha-mini.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<pre><code class="language-js">    
+let captcha2 = new CaptchaMini({
+        lineWidth: 1,   //线条宽度
+        lineNum: 0,       //线条数量
+        dotR: 2,          //点的半径
+        dotNum: 25,       //点的数量
+        preGroundColor: [10, 80],    //前景色区间
+        backGroundColor: [150, 250], //背景色区间
+        fontSize: 40,           //字体大小
+        fontFamily: ['Georgia', '微软雅黑', 'Helvetica', 'Arial'],  //字体类型
+        fontStyle: 'fill',      //字体绘制方法，有fill和stroke
+        content: 'QWERTYUIOPASDFGHJKLZXCVBNM',  //验证码内容
+        length: 6    //验证码长度
+    });
+    captcha2.draw(document.querySelector('#captcha2'), r =&gt; {
+        codeImgCheckLogin = r
+    });
+</code></pre>
+<h2 id="layui的提示消息">layUI的提示消息===============</h2>
+<pre><code class="language-html">    &lt;script src=&quot;../public_package/layer/layer.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+</code></pre>
+<pre><code class="language-js">/*提示消息 */
+function popInfo(str) {
+    layer.open({
+        content: str,
+        skin: 'msg',
+        time: 2
+    });
+}
+</code></pre>
+<h2 id="判断username只为数字字母空格下划线">判断username只为数字，字母，空格，下划线</h2>
+<pre><code class="language-js">/*判断username只为数字，字母，空格，下划线*/
+function  checkUsernaem( username, isSignup=true) {
+    let usern = /^[a-zA-Z0-9_ ]{1,}$/;
+    if (!usern.test(username)) {
+
+        if(isSignup) {
+            popTip(usernameErrorTip, 'red', true)
+        }
+
+        username.value = '';
+
+        return
+
+    }
+}
+</code></pre>
+<h2 id="js获取前一个访问页面的url地址documentreferrer">JS获取前一个访问页面的URL地址document.referrer</h2>
+<h2 id="让弹窗在页面中居中">让弹窗在页面中居中</h2>
+<pre><code class="language-csss">  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+</code></pre>
+<h2 id="meatvp">meat:vp</h2>
+<pre><code class="language-html">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no&quot;&gt;
+</code></pre>
+<h3 id="viewprot响应式外部设计学习">Viewprot：响应式外部设计学习</h3>
+<ol>
+<li>什么是Viewport？</li>
+</ol>
+<pre><code>viewport是用户网页的可是区域。翻译中文就是“视区”，手机浏览器是把页面放在一个虚拟的&quot;窗口&quot;（viewport）中，通常这个虚拟的&quot;窗口&quot;（viewport）比屏幕宽，这样就不用把每个网页挤到很小的窗口中（这样会破坏没有针对手机浏览器优化的网页的布局），用户可以通过平移和缩放来看网页的不同部分。
+</code></pre>
+<ol start="2">
+<li>关于viewport的三个理论？</li>
+</ol>
+<ul>
+<li>layout viewport（布局视区）：<br>
+在移动端浏览器上面，视觉视区限制了布局视区，为了能在移动设备上正常显示那些为pc端浏览器设计的网站，移动设备上的浏览器都会把自己默认的 viewport 设为980px或其他值，一般都比移动端浏览器可视区域大很多，所以就会出现浏览器出现横向滚动条的情况 。布局视区的宽度是可以用 document.documentElement.clientWidth 来获取。</li>
+</ul>
+<ol start="3">
+<li>
+<p>visual viewport（视觉视区）：<br>
+用户透过窗口可以看到的内容区域的大小，用户可以以滑动或者其他的方式来查看页面其他内容，通过 window.screen.width 来获取它的宽度，同样上一张偷来的图，帮助理解。</p>
+</li>
+<li>
+<p>如何使用viewport</p>
+</li>
+</ol>
+<ul>
+<li>利用 meta 标签设置 viewport<br>
+<code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no&quot;&gt;</code></li>
+<li>各个属性的意思：</li>
+</ul>
+<pre><code>width：控制 viewport 的大小，可以指定的一个值，如 600，或者特殊的值，如 device-width 为设备的宽度（单位为缩放为 100% 时的 CSS 的像素）。
+height：和 width 相对应，指定高度。
+initial-scale：初始缩放比例，也即是当页面第一次 load 的时候缩放比例。
+minimum-scale：允许用户缩放到的最大比例。
+maximum-scale：允许用户缩放到的最小比例。
+user-scalable：用户是否可以手动缩放。
+</code></pre>
+<pre><code>设计图的宽度 = 设备宽度
+假如 设计图的宽度为 375px，当然可以是其他的，这里是一个假如，如果是640，750就把375换成对应的数值按照以下方法换算就行就行
+因为
+    375px = 100vw
+那么
+    1px = 100 / 375 vw = 0.26666666666666666vw（约等于）
+
+为了方便计算，放大一百倍，精确到6位，只能下取舍，因为上取舍，计算宽度的时候会大于页面宽度，从而出现滚动条
+故：
+    100px = 26.666666vw（约等于）
+
+又因为给 html 标签设置 font-size 为 26.666666vw （约等于）
+
+1rem为font-size的大小
+
+所以：
+    1rem = 100px
+    0.2rem = 20px
+也就是说：
+    设计图上的 12px 换算成rem就是0.12rem，20px就写成0.2rem即可
+</code></pre>
+<h2 id="让字体颜色渐变">让字体颜色渐变</h2>
+<pre><code class="language-css">    font-size: .32rem;
+    font-family:Arial;
+    font-weight:bold;
+    color:rgba(0,0,0,1);
+
+    background:linear-gradient(0deg,rgba(253,103,87,1) 0%, rgba(255,189,80,1) 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+</code></pre>
+<h2 id="判断设备是什么硬件平台的">判断设备是什么硬件平台的</h2>
+<pre><code class="language-js">//1.js判断是否为IOS设备
+function  IsAppleStore()  {
+            var  u  =  navigator.userAgent,
+                 app  =  navigator.appVersion;        
+            var  ios  =  !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);        
+            var  iPad  =  u.indexOf('iPad')  &gt;  -1;        
+            var  iPhone  =  u.indexOf('iPhone')  &gt;  -1  ||  u.indexOf('Mac')  &gt;  -1;        
+            if  (ios  ||  iPad  ||  iPhone)  {            
+                return  true;        
+            } 
+            else  {            
+                return  false;        
+            }
+        }
+//1.js判断是否为Android设备
+function IsAndroidList() {
+            var u = navigator.userAgent;
+            if (u.indexOf('Android') &gt; -1 || u.indexOf('Adr') &gt; -1) {
+                return true
+            } else {
+                return false
+            }
+        }
+//3.js判断是否是电脑端
+function IsPC() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = [&quot;Android&quot;, &quot;iPhone&quot;,
+        &quot;SymbianOS&quot;, &quot;Windows Phone&quot;,
+        &quot;iPad&quot;, &quot;iPod&quot;];
+    var flag = true;
+    for (var v = 0; v &lt; Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
+            flag = false;
+            break;
+        }
+    }
+    return flag;
+}
+</code></pre>
+<p>文本溢出换行</p>
+<pre><code class="language-css">/*单行省略*/
+overflow: hidden; //超出的文本隐藏
+text-overflow: ellipsis; //溢出用省略号显示
+white-space: nowrap; //溢出不换行
+
+/*多行省略*/
+word-wrap:break-word;         /* 内容存在英语或数字时强制换行 */
+overflow: hidden;             /* 隐藏溢出部分 */
+text-overflow: ellipsis;      /* 显示省略符号来代表被隐藏的文本 */
+display: -webkit-box;         /* 将对象作为弹性伸缩盒子模型显示 */
+-webkit-box-orient: vertical; /* 设置盒子内排列顺序为纵向 */
+-webkit-line-clamp: 2;        /* 限制块元素显示的文本的行数 */
+</code></pre>
+<h2 id="修改html-webpack-plugin的值">修改html-webpack-plugin的值</h2>
+<pre><code class="language-js">/**
+ * @Description:    自定义配置
+ * @Author:         txf
+ * @CreateDate:     2020/5/7 13:28
+ */
+const path = require(&quot;path&quot;);
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
+
+module.exports = {
+  publicPath: process.env.NODE_ENV === &quot;production&quot; ? &quot;/solar/&quot; : &quot;./&quot;,
+  /* 输出文件目录：在npm run build时，生成文件的目录名称 */
+  outputDir: &quot;dist&quot;,
+  /* 放置生成的静态资源 (json、css、img、fonts) 的 (相对于 outputDir 的) 目录 */
+  assetsDir: &quot;static&quot;,
+  configureWebpack: {
+    resolve: {
+      alias: {
+        &quot;@&quot;: resolve(&quot;src&quot;)
+      }
+    }
+  },
+  //修改或新增html-webpack-plugin的值，在index.html里面能读取htmlWebpackPlugin.options.title
+  chainWebpack: config =&gt;{
+    config.plugin('html')
+      .tap(args =&gt; {
+        args[0].title = &quot;平台&quot;;
+        return args;
+      })
+  },
+  /* 是否在构建生产包时生成 sourceMap 文件，false将提高构建速度 */
+  productionSourceMap: false,
+  lintOnSave: false,
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[番茄工作法]]></title>
         <id>https://DennyWanye.GitHub.io/post/fan-qie-gong-zuo-fa/</id>
         <link href="https://DennyWanye.GitHub.io/post/fan-qie-gong-zuo-fa/">
         </link>
         <updated>2022-03-09T10:45:58.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="一-番茄工作法的工具">一、番茄工作法的工具：</h3>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/594059/pexels-photo-594059.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;h=300" alt="" loading="lazy"></figure>
+<h3 id="一-番茄工作法的工具">一、番茄工作法的工具：</h3>
 <ol>
 <li>
 <p>一个计时工具</p>
@@ -42,7 +380,7 @@
 <p>规则三：每四个番茄时间后，停止你的工作，进行一次较长时间的休息，15~30分钟</p>
 <p>规则四：完成一个任务，划掉一个任务</p>
 <h3 id="三-番茄工作法流程">三、番茄工作法流程</h3>
-<figure data-type="image" tabindex="1"><img src="https://DennyWanye.GitHub.io/post-images/1646822783978.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://DennyWanye.GitHub.io/post-images/1646822783978.png" alt="" loading="lazy"></figure>
 <p>注意：</p>
 <ol>
 <li>弄清楚完成某项任务所需要的时间</li>
@@ -742,16 +1080,6 @@ function MyApp({ store, cookies }) {
 <li>一点点的探索本体舒适区的极限，当然是在适合自己的感兴趣的方向。</li>
 <li>小心<strong>温水煮青蛙</strong></li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[第一次使用Blog]]></title>
-        <id>https://DennyWanye.GitHub.io/post/first_blog/</id>
-        <link href="https://DennyWanye.GitHub.io/post/first_blog/">
-        </link>
-        <updated>2021-12-11T11:03:00.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/629162/pexels-photo-629162.jpeg?cs=srgb&amp;dl=pexels-eberhard-grossgasteiger-629162.jpg&amp;fm=jpg&amp;h=400" alt="" loading="lazy"></figure>
-<p>于2022/2/11第一次使用Gridea做了这个blog（在同事的建议下）。最开始的原因是记录开发中遇见的问题，方便后续的查阅。但现在想一想觉得，也可以记录下来一些自己的所思所想。因为博客的意义是<strong>记录</strong></p>
 ]]></content>
     </entry>
 </feed>
