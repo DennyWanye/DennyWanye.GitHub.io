@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>番茄工作法 | DennyWanye</title>
+<title>react-helmet：解决单页面应用SEO问题 | DennyWanye</title>
 
 <link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1648701096935">
 
@@ -101,54 +101,60 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    番茄工作法
+                    react-helmet：解决单页面应用SEO问题
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2022-03-09 ·
+                        · 2022-03-31 ·
                     </time>
                     
-                        <a href="https://DennyWanye.GitHub.io/tag/Su5FPiFJ6/" class="post-tags">
-                            # daily
+                        <a href="https://DennyWanye.GitHub.io/tag/tT_EEc-js/" class="post-tags">
+                            # js
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/BUmk-Nct9/" class="post-tags">
+                            # html
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/qJ0Ds1ZYA/" class="post-tags">
+                            # web
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/At0ty9tCm/" class="post-tags">
+                            # react
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/Bxp2msYRj/" class="post-tags">
+                            # coding
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/594059/pexels-photo-594059.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;h=300" alt="" loading="lazy"></figure>
-<h3 id="一-番茄工作法的工具">一、番茄工作法的工具：</h3>
-<ol>
-<li>
-<p>一个计时工具</p>
-</li>
-<li>
-<p>一张today's TODO List，包含以下内容：</p>
-<p>2.1 小标题，包括时间、地点、人物</p>
-<p>2.2 清单，包含今天要做的事情，先后顺序排列</p>
-<p>2.3 计划外的紧急事件</p>
-</li>
-<li>
-<p>activity inventory：</p>
-<p>3.1 标题： 人物、事件</p>
-<p>3.2 想要做什么的事情</p>
-</li>
-<li>
-<p>一份记录表，用于记录原始数据。包含：数据、摘要、完成任务所需要的番茄钟时间。</p>
-</li>
-</ol>
-<h3 id="二-法则">二、法则</h3>
-<p>规则一： 一个番茄时间共30分钟 = 25分钟工作时间 + 5分钟休息时间</p>
-<p>规则二： 一个番茄时间不可分割</p>
-<p>规则三：每四个番茄时间后，停止你的工作，进行一次较长时间的休息，15~30分钟</p>
-<p>规则四：完成一个任务，划掉一个任务</p>
-<h3 id="三-番茄工作法流程">三、番茄工作法流程</h3>
-<figure data-type="image" tabindex="2"><img src="https://DennyWanye.GitHub.io/post-images/1646822783978.png" alt="" loading="lazy"></figure>
-<p>注意：</p>
-<ol>
-<li>弄清楚完成某项任务所需要的时间</li>
-<li>减少被打断的次数</li>
-<li>估测某项任务所需要的时间</li>
-</ol>
-<p><a href="https://alloyteam.github.io/AlloyTimer/">线上工具</a></p>
+                    <figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;h=300" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;h=300" alt="" loading="lazy"></figure>
+<h3 id="一-单页面seo问题">一、单页面SEO问题</h3>
+<p>单页应用一直有一个令人诟病的问题就是就是其对搜索引擎不友好。</p>
+<p>究其原因，就是单页应用核心就是 JavaScript 应用，而一般的搜索引擎都只在乎你页面的 HTML 而对于其中的 JavaScript 是不会执行的。</p>
+<p>虽然 Google 曾经表示会抓取单页应用（对 Ajax 的结果进行缓存），但是现在已经表示已经不再支持了。</p>
+<figure data-type="image" tabindex="3"><img src="https://blog.poi.cat/images/angular-app-in-google-search.png" alt="在 Google 中搜索 Angular 应用，只能显示一个可怜的标题(2017-6-15)" loading="lazy"></figure>
+<p>在 Google 中搜索 Angular 应用，只能显示一个可怜的标题(2017-6-15)</p>
+<p>难道单页应用就是不能实现 SEO 吗？并不是，还是可以通过一种名叫 Server-side rendering （服务器端预渲染）的方式来实现的。</p>
+<h3 id="二-react-snapshot-react-helmet">二、react-snapshot &amp; react-helmet</h3>
+<p>想调用 React 的 Server-side Rendering 的 API 的话，最简单的方法是使用 react-snapshot。</p>
+<p>它和 creat-react-app（一个类似 Angular Cli 的命令行工具）整合得很好，只需要将 <code>render()</code> 替换成 React-Snaport 提供的 <code>render()</code> 即可。它会在 Developer Mode 的时候调用 <code>Render.render()</code> 和之前一样；在 Production Mode 的时候调用 <code>ReactDomServer.toSting()</code>。</p>
+<p>在运行 <code>react-scripts build</code> 后再运行 <code>react-snapshot</code>，就会开启一个爬虫，将所以的页面遍历一遍后，导出至 HTML。</p>
+<p>运行结果：</p>
+<figure data-type="image" tabindex="4"><img src="https://blog.poi.cat/images/react-snapshot-output.png" alt="React Snapshot" loading="lazy"></figure>
+<p>使用 w3m 访问 About 页面的结果：</p>
+<figure data-type="image" tabindex="5"><img src="https://blog.poi.cat/images/view-solomon-in-w3m.png" alt="w3m 中的 solomon" loading="lazy"></figure>
+<p>同时也保留了单页应用不需要重复加载的优点：</p>
+<figure data-type="image" tabindex="6"><img src="https://blog.poi.cat/images/less-request-in-spa.png" alt="从 About 页面进入之后，我重复切换了几次页面，但是 Network 里都没有出现新的请求" loading="lazy"></figure>
+<h4 id="原理">原理：</h4>
+<p>原理是什么？每一个单页应用都有一个 <code>index.html</code> 作为的入口。</p>
+<p>而使用了 react-snapshot 之后你的单页应用相当于有了同时多个不同入口，或者说你同时拥有了复数多个功能相同的单页应用。</p>
+<h4 id="结论">结论：</h4>
+<p>如果说 react-snapshot 让你的单页应用里的 <code>body</code> 标签搜索引擎可见的话，那 react-helmet 就可以让你的单页应里的 <code>head</code> 标签能被搜索引擎爬到了。</p>
+<p>而 <code>head</code> 中的 <code>meta</code> 标签更是 SEO 的关键之一，通过它我们可以主动给爬虫提供重要的信息，例如文章的作者，发布时间等。</p>
 
                 </div>
             </article>
@@ -157,8 +163,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://DennyWanye.GitHub.io/post/eventloop-he-zhi-xing-zhan/" class="post-title gt-a-link">
-                    EventLoop 和 执行栈
+                <a href="https://DennyWanye.GitHub.io/post/tip/" class="post-title gt-a-link">
+                    Tip
                 </a>
             </div>
         
