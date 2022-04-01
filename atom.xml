@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://DennyWanye.GitHub.io</id>
     <title>DennyWanye</title>
-    <updated>2022-03-31T05:11:14.409Z</updated>
+    <updated>2022-04-01T08:29:57.494Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://DennyWanye.GitHub.io"/>
+    <link rel="self" href="https://DennyWanye.GitHub.io/atom.xml"/>
     <subtitle>Keep track of interesting things</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://DennyWanye.GitHub.io/images/avatar.png</logo>
+    <icon>https://DennyWanye.GitHub.io/favicon.ico</icon>
     <rights>All rights reserved 2022, DennyWanye</rights>
     <entry>
+        <title type="html"><![CDATA[React 组合 ]]></title>
+        <id>https://DennyWanye.GitHub.io/post/react-zu-he/</id>
+        <link href="https://DennyWanye.GitHub.io/post/react-zu-he/">
+        </link>
+        <updated>2022-04-01T07:14:55.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="一-组合">一、组合</h3>
+<p>对于<strong>有些组件（例如：A）无法提前知晓它们子组件的具体内容</strong>，我们可以将其中 <strong>无法知晓</strong>的内容作为由外部传入的参数（例如：组件B）</p>
+<pre><code class="language-jsx">funciont ComponentC (props) {
+    return &lt;ComponentA&gt;{props.componentB}&lt;/ComponentA&gt;
+}
+</code></pre>
+<p>对于上述情况，可以称组件C为组件A的特殊实例。</p>
+<h3 id="二-对于context的使用">二、对于Context的使用</h3>
+<p>Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言。</p>
+<p>基本使用：<a href="https://zh-hans.reactjs.org/docs/context.html">参考React文档</a></p>
+<p>**如果你只是想避免层层传递一些属性，<em>组合（即 一 ）<em>有时候是一个比 context 更好的解决方案。</em></em></p>
+<h3 id="reactcreatecontext">React.createContext</h3>
+<p><code>const MyContext = React.createContext(defaultValue);</code></p>
+<p>创建一个 Context 对象。当 React 渲染一个订阅了这个 Context 对象的组件，这个组件会从组件树中离自身最近的那个匹配的 <code>Provider</code> 中读取到当前的 context 值。</p>
+<p><strong>只有</strong>当组件所处的树中没有匹配到 Provider 时，其 <code>defaultValue</code> 参数才会生效。此默认值有助于在不使用 Provider 包装组件的情况下对组件进行测试。注意：将 <code>undefined</code> 传递给 Provider 的 value 时，消费组件的 <code>defaultValue</code> 不会生效。</p>
+<h3 id=""><code></code></h3>
+<h4 id="usecontext-hook">useContext Hook</h4>
+<p><code>const value = useContext(MyContext);</code></p>
+<p>接收一个 context 对象（<code>React.createContext</code> 的返回值）并返回该 context 的当前值。当前的 context 值由上层组件中距离当前组件最近的 `` 的 <code>value</code> prop 决定。</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[react-helmet：解决单页面应用SEO问题]]></title>
-        <id>http://localhost:4000/post/react-helmetjie-jue-dan-ye-mian-ying-yong-seo-wen-ti/</id>
-        <link href="http://localhost:4000/post/react-helmetjie-jue-dan-ye-mian-ying-yong-seo-wen-ti/">
+        <id>https://DennyWanye.GitHub.io/post/react-helmetjie-jue-dan-ye-mian-ying-yong-seo-wen-ti/</id>
+        <link href="https://DennyWanye.GitHub.io/post/react-helmetjie-jue-dan-ye-mian-ying-yong-seo-wen-ti/">
         </link>
         <updated>2022-03-31T03:54:28.000Z</updated>
         <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;h=300" alt="" loading="lazy"></figure>
@@ -41,12 +68,14 @@
 <h4 id="结论">结论：</h4>
 <p>如果说 react-snapshot 让你的单页应用里的 <code>body</code> 标签搜索引擎可见的话，那 react-helmet 就可以让你的单页应里的 <code>head</code> 标签能被搜索引擎爬到了。</p>
 <p>而 <code>head</code> 中的 <code>meta</code> 标签更是 SEO 的关键之一，通过它我们可以主动给爬虫提供重要的信息，例如文章的作者，发布时间等。</p>
+<p><a href="https://github.com/nfl/react-helmet#readme">Github 地址</a><br>
+<a href="https://zhuanlan.zhihu.com/p/363548678">使用例子</a></p>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[Tip]]></title>
-        <id>http://localhost:4000/post/tip/</id>
-        <link href="http://localhost:4000/post/tip/">
+        <id>https://DennyWanye.GitHub.io/post/tip/</id>
+        <link href="https://DennyWanye.GitHub.io/post/tip/">
         </link>
         <updated>2022-03-11T08:58:36.000Z</updated>
         <content type="html"><![CDATA[<h2 id="scss-混合">scss 混合</h2>
@@ -382,8 +411,8 @@ module.exports = {
     </entry>
     <entry>
         <title type="html"><![CDATA[番茄工作法]]></title>
-        <id>http://localhost:4000/post/fan-qie-gong-zuo-fa/</id>
-        <link href="http://localhost:4000/post/fan-qie-gong-zuo-fa/">
+        <id>https://DennyWanye.GitHub.io/post/fan-qie-gong-zuo-fa/</id>
+        <link href="https://DennyWanye.GitHub.io/post/fan-qie-gong-zuo-fa/">
         </link>
         <updated>2022-03-09T10:45:58.000Z</updated>
         <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/594059/pexels-photo-594059.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;h=300" alt="" loading="lazy"></figure>
@@ -413,7 +442,7 @@ module.exports = {
 <p>规则三：每四个番茄时间后，停止你的工作，进行一次较长时间的休息，15~30分钟</p>
 <p>规则四：完成一个任务，划掉一个任务</p>
 <h3 id="三-番茄工作法流程">三、番茄工作法流程</h3>
-<figure data-type="image" tabindex="2"><img src="http://localhost:4000/post-images/1646822783978.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://DennyWanye.GitHub.io/post-images/1646822783978.png" alt="" loading="lazy"></figure>
 <p>注意：</p>
 <ol>
 <li>弄清楚完成某项任务所需要的时间</li>
@@ -425,8 +454,8 @@ module.exports = {
     </entry>
     <entry>
         <title type="html"><![CDATA[EventLoop 和 执行栈]]></title>
-        <id>http://localhost:4000/post/eventloop-he-zhi-xing-zhan/</id>
-        <link href="http://localhost:4000/post/eventloop-he-zhi-xing-zhan/">
+        <id>https://DennyWanye.GitHub.io/post/eventloop-he-zhi-xing-zhan/</id>
+        <link href="https://DennyWanye.GitHub.io/post/eventloop-he-zhi-xing-zhan/">
         </link>
         <updated>2022-03-03T15:55:06.000Z</updated>
         <content type="html"><![CDATA[<p>EventLoop</p>
@@ -471,7 +500,7 @@ module.exports = {
 <p>主进程的任务执行完成后，会先判断微任务队列是否为空，不为空，则执行其中任务，为空则判断宏任务队列是否为空，不为空则取出最前面的一个任务执行。执行完成后就重复以上操作。</p>
 </li>
 </ol>
-<figure data-type="image" tabindex="1"><img src="http://localhost:4000/post-images/1646323076324.gif" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://DennyWanye.GitHub.io/post-images/1646323076324.gif" alt="" loading="lazy"></figure>
 <pre><code class="language-js">   setTimeout(function () {
        console.log(1);
    });
@@ -493,8 +522,8 @@ module.exports = {
     </entry>
     <entry>
         <title type="html"><![CDATA[flex布局的flex-grow、flex-shrink、flex-basis]]></title>
-        <id>http://localhost:4000/post/flex-bu-ju-de-flex-growflex-shrinkflex-basis/</id>
-        <link href="http://localhost:4000/post/flex-bu-ju-de-flex-growflex-shrinkflex-basis/">
+        <id>https://DennyWanye.GitHub.io/post/flex-bu-ju-de-flex-growflex-shrinkflex-basis/</id>
+        <link href="https://DennyWanye.GitHub.io/post/flex-bu-ju-de-flex-growflex-shrinkflex-basis/">
         </link>
         <updated>2022-02-24T07:43:58.000Z</updated>
         <content type="html"><![CDATA[<h3 id="flex-basis-用于设置子元素占用的空间">flex-basis： 用于设置子元素占用的空间。</h3>
@@ -668,8 +697,8 @@ module.exports = {
     </entry>
     <entry>
         <title type="html"><![CDATA[体内平衡机制]]></title>
-        <id>http://localhost:4000/post/ti-nei-ping-heng-ji-zhi/</id>
-        <link href="http://localhost:4000/post/ti-nei-ping-heng-ji-zhi/">
+        <id>https://DennyWanye.GitHub.io/post/ti-nei-ping-heng-ji-zhi/</id>
+        <link href="https://DennyWanye.GitHub.io/post/ti-nei-ping-heng-ji-zhi/">
         </link>
         <updated>2022-02-23T15:25:00.000Z</updated>
         <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/3059750/pexels-photo-3059750.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=300" alt="" loading="lazy"></figure>
@@ -696,7 +725,7 @@ module.exports = {
 <h4 id="31-追求痛苦">3.1 追求痛苦</h4>
 <p>要点：主动做一些会产生痛感的事情，之后根据机制，身体会产生快感。此时，产生的痛感不仅不会产生焦虑，还会缓解焦虑。会产生多巴胺和内啡肽（止痛）产生快感。</p>
 <h4 id="32-控制快感和痛感的获取">3.2 控制快感和痛感的获取</h4>
-<figure data-type="image" tabindex="2"><img src="http://localhost:4000/post-images/1645630748810.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://DennyWanye.GitHub.io/post-images/1645630748810.png" alt="" loading="lazy"></figure>
 <p>上面一张图为做事情产生的多巴胺数量，喝一杯咖啡为130，最后一项吸食冰毒为1300。红线以下为会破坏机制平衡的。</p>
 <p>管理好每天做<strong>高快感</strong>事情的时间。上图中红线以上的就是正常生活中高多巴胺的行为。如果个体在一天中先做高多巴胺的行为，该个体在之后的一段时间内，就会面临痛感的负面状态（焦虑，烦躁等甚至是多巴胺枯竭），导致很难甚至没有办法完成一些需要去处理且有痛感的事情。</p>
 <p>所以，可以先做需要处理且有痛感的事情，之后的时间内因为我们先做了有痛感的事情，我们会得到机制反馈的且能缓解焦虑的快感。</p>
@@ -705,7 +734,7 @@ module.exports = {
 <p>这就是预期带来的快感，这种快感是没有实际利益的。狗子并没有得到食物，只是听到了铃铛的声音。</p>
 <p>所以可以通过降低快感的预期，也即是降低预期带来的快感，从而降低快感的获取。</p>
 <h4 id="奖励预判误差">奖励预判误差</h4>
-<figure data-type="image" tabindex="3"><img src="http://localhost:4000/post-images/1645630911213.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://DennyWanye.GitHub.io/post-images/1645630911213.png" alt="" loading="lazy"></figure>
 <p>做可以获得快感的行为A，仅仅只是将成功的概率调整到50%，多巴胺即会在行动过程中上升到一个很大的水平，也是赌博之所以吸引力的原因。</p>
 <p>所以尽量不要去碰这种涉及到奖励预判误差。</p>
 <h4 id="34延迟消费多巴胺">3.4延迟消费多巴胺</h4>
@@ -717,8 +746,8 @@ module.exports = {
     </entry>
     <entry>
         <title type="html"><![CDATA[ReactDnd插件使用]]></title>
-        <id>http://localhost:4000/post/reactdnd-cha-jian-shi-yong/</id>
-        <link href="http://localhost:4000/post/reactdnd-cha-jian-shi-yong/">
+        <id>https://DennyWanye.GitHub.io/post/reactdnd-cha-jian-shi-yong/</id>
+        <link href="https://DennyWanye.GitHub.io/post/reactdnd-cha-jian-shi-yong/">
         </link>
         <updated>2022-02-16T07:29:53.000Z</updated>
         <content type="html"><![CDATA[<p>### <strong>一个用ReactDnd库做的一个Demo</strong></p>
@@ -986,8 +1015,8 @@ export default DragSource(ItemTypes.BOX, {
     </entry>
     <entry>
         <title type="html"><![CDATA[React.memo()]]></title>
-        <id>http://localhost:4000/post/reactmemo/</id>
-        <link href="http://localhost:4000/post/reactmemo/">
+        <id>https://DennyWanye.GitHub.io/post/reactmemo/</id>
+        <link href="https://DennyWanye.GitHub.io/post/reactmemo/">
         </link>
         <updated>2022-02-15T04:00:04.000Z</updated>
         <content type="html"><![CDATA[<h3 id="1怎么使用">1.怎么使用</h3>
@@ -1056,8 +1085,8 @@ function MyApp({ store, cookies }) {
     </entry>
     <entry>
         <title type="html"><![CDATA[费曼学习法]]></title>
-        <id>http://localhost:4000/post/fei-man-xue-xi-fa/</id>
-        <link href="http://localhost:4000/post/fei-man-xue-xi-fa/">
+        <id>https://DennyWanye.GitHub.io/post/fei-man-xue-xi-fa/</id>
+        <link href="https://DennyWanye.GitHub.io/post/fei-man-xue-xi-fa/">
         </link>
         <updated>2022-02-15T03:01:41.000Z</updated>
         <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/3772712/pexels-photo-3772712.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=1920" alt="" loading="lazy"></figure>
@@ -1066,7 +1095,7 @@ function MyApp({ store, cookies }) {
 <h3 id="2模拟教学">2.模拟教学</h3>
 <p><strong>通过教授他人，教授者对于知识的吸收率达到了90%。</strong></p>
 <p>我们可以在博客中写文章，模拟自己教授他人的情况，来近似达到这一目的（存疑？）</p>
-<figure data-type="image" tabindex="2"><img src="http://localhost:4000/post-images/1644895331651.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://DennyWanye.GitHub.io/post-images/1644895331651.png" alt="" loading="lazy"></figure>
 <p>注意：学习金字塔不一定是科学的，现在它的出处也无从考究，但它的理念很有启发性。</p>
 <h3 id="3重复回顾">3.重复回顾</h3>
 <p>在上述的两个过程中，会产生新的目标（也就是新的问题、发现新的知识盲区等等），此时我们就需要重复上述的步骤，来解决新的目标——通过查找各种资料，将新的目标解决，然后将解决的过程记录并背下来，讲给想象中的小白听，在博客上就是将解决目标的过程梳理成教程记录下来。</p>
@@ -1075,18 +1104,6 @@ function MyApp({ store, cookies }) {
 <p>费曼老爷子有一句很经典的话「If I couldn’t reduce it to the freshman level. That means we really don’t understand it.」</p>
 <p>将知晓的概念简化，</p>
 <p><strong>是用更简单的概念来表达，而不是用更少的语言来表达</strong>。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Rule for coding]]></title>
-        <id>http://localhost:4000/post/rule-for-coding/</id>
-        <link href="http://localhost:4000/post/rule-for-coding/">
-        </link>
-        <updated>2022-02-14T10:17:46.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/7092371/pexels-photo-7092371.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=1920" alt="" loading="lazy"></figure>
-<p><strong>If a component doesn't need some data for rendering, it doesn't need that data at all.</strong></p>
-<p><strong>think more, and do less.</strong></p>
-<p><strong>Use reverse thinking.</strong></p>
 ]]></content>
     </entry>
 </feed>
