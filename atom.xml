@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://DennyWanye.GitHub.io</id>
     <title>DennyWanye</title>
-    <updated>2022-04-02T08:34:13.201Z</updated>
+    <updated>2022-04-02T08:36:58.234Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://DennyWanye.GitHub.io"/>
     <link rel="self" href="https://DennyWanye.GitHub.io/atom.xml"/>
@@ -39,7 +39,7 @@
 <h3 id="二-对于context的使用">二、对于Context的使用</h3>
 <p>Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言。</p>
 <p>基本使用：<a href="https://zh-hans.reactjs.org/docs/context.html">参考React文档</a></p>
-<p>**如果你只是想避免层层传递一些属性，<em>组合（即 一 ）<em>有时候是一个比 context 更好的解决方案。</em></em></p>
+<p><strong>如果你只是想避免层层传递一些属性，组合（即 一 ）有时候是一个比 context 更好的解决方案。</strong></p>
 <h3 id="reactcreatecontext">React.createContext</h3>
 <p><code>const MyContext = React.createContext(defaultValue);</code></p>
 <p>创建一个 Context 对象。当 React 渲染一个订阅了这个 Context 对象的组件，这个组件会从组件树中离自身最近的那个匹配的 <code>Provider</code> 中读取到当前的 context 值。</p>

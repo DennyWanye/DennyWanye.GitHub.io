@@ -6,7 +6,7 @@
 
 <title>React 组合 和 Context | DennyWanye</title>
 
-<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1648888407222">
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1648888609691">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
@@ -77,7 +77,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1648888407222"
+            <form id="gridea-search-form" style="position: relative" data-update="1648888609691"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -136,7 +136,7 @@
 <h3 id="二-对于context的使用">二、对于Context的使用</h3>
 <p>Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言。</p>
 <p>基本使用：<a href="https://zh-hans.reactjs.org/docs/context.html">参考React文档</a></p>
-<p>**如果你只是想避免层层传递一些属性，<em>组合（即 一 ）<em>有时候是一个比 context 更好的解决方案。</em></em></p>
+<p><strong>如果你只是想避免层层传递一些属性，组合（即 一 ）有时候是一个比 context 更好的解决方案。</strong></p>
 <h3 id="reactcreatecontext">React.createContext</h3>
 <p><code>const MyContext = React.createContext(defaultValue);</code></p>
 <p>创建一个 Context 对象。当 React 渲染一个订阅了这个 Context 对象的组件，这个组件会从组件树中离自身最近的那个匹配的 <code>Provider</code> 中读取到当前的 context 值。</p>
