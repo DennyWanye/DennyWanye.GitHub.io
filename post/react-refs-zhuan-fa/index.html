@@ -1,11 +1,10 @@
 <html>
-
 <head>
     <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>友情链接 | DennyWanye</title>
+<title>React Refs 转发 | DennyWanye</title>
 
 <link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1649227341403">
 
@@ -26,12 +25,11 @@
 
 
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
-
 <body>
 <div class="main gt-bg-theme-color-first">
-        <div class="main-content">
-            <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="/">
         <img class="user-avatar" src="/images/avatar.png" alt="头像">
         <div class="site-name gt-c-content-color-first">
@@ -99,25 +97,116 @@
     }
 </script>
 
-            <div class="post-container">
-                <div class="post-detail">
-                    <article>
-                        <!-- <div class="post-content-wrapper"> -->
-                            <div class="post-content">
-                                <div class="friends-desc">
-                                    
-                                </div>
-                                <h3 id="linklist">友链列表</h3>
-                                
-                                    
-                                
-                            </div>
-                        <!-- </div> -->
-                    </article>
-                </div>
-                
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    React Refs 转发
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-04-06 ·
+                    </time>
                     
-                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+                        <a href="https://DennyWanye.GitHub.io/tag/qJ0Ds1ZYA/" class="post-tags">
+                            # web
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/At0ty9tCm/" class="post-tags">
+                            # react
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>之前一直不理解如何在React中，将类组件和函数组件之间进行Ref转发。</p>
+<p>以下是对上述示例发生情况的逐步解释：</p>
+<ol>
+<li>我们通过调用 React.createRef 创建了一个 React ref 并将其赋值给 ref 变量。</li>
+<li>我们通过指定 ref 为 JSX 属性，将其向下传递给 <FancyButton ref={ref}>。</li>
+<li>React 传递 ref 给 forwardRef 内函数 (props, ref) =&gt; ...，作为其第二个参数。</li>
+<li>我们向下转发该 ref 参数到 <button ref={ref}>，将其指定为 JSX 属性。</li>
+<li>当 ref 挂载完成，ref.current 将指向 <button> DOM 节点。</li>
+</ol>
+<p>代码：</p>
+<pre><code class="language-jsx">import React, {forwardRef, useEffect, Component, useRef} from 'react'
+
+function App() {
+    //1. 我们通过调用 React.createRef 创建了一个 React ref 并将其赋值给 ref 变量。
+    const BtnRef = useRef()
+
+    //5. 当 ref 挂载完成，ref.current 将指向 &lt;button&gt; DOM 节点。
+    console.log(BtnRef)
+
+    return (
+        &lt;div className=&quot;App&quot;&gt;
+            &lt;header className=&quot;App-header&quot;&gt;
+                //2. 我们通过指定 ref 为 JSX 属性，将其向下传递给 &lt;FancyButton ref={ref}&gt;。
+                &lt;FancyButton ref={BtnRef} children=&quot;我是一个按钮&quot;&gt;&lt;/FancyButton&gt;
+            &lt;/header&gt;
+        &lt;/div&gt;
+    )
+}
+
+//3. React 传递 ref 给 forwardRef 内函数 (props, ref) =&gt; ...，作为其第二个参数。
+const FancyButton = React.forwardRef((props, ref) =&gt; (
+    //4. 我们向下转发该 ref 参数到 &lt;button ref={ref}&gt;，将其指定为 JSX 属性。
+    &lt;button ref={ref} className=&quot;FancyButton&quot;&gt;
+        {props.children}
+    &lt;/button&gt;
+));
+
+//在类组件中用 React.createRef();
+class App extends Component {
+
+    constructor(props) {
+        super(props);
+         //1. 我们通过调用 React.createRef 创建了一个 React ref 并将其赋值给 ref 变量。
+        this.BtnRef = React.createRef();
+    }
+
+    componentDidMount() {
+       // 5. 当 ref 挂载完成，ref.current 将指向 &lt;button&gt; DOM 节点。
+        console.log(this.BtnRef)
+    }
+
+
+    render() {
+        return (
+            &lt;div className=&quot;App&quot;&gt;
+                &lt;header className=&quot;App-header&quot;&gt;
+                    //2. 我们通过指定 ref 为 JSX 属性，将其向下传递给 &lt;FancyButton ref={ref}&gt;。
+                    &lt;FancyButton ref={this.BtnRef} children=&quot;我是一个按钮&quot;&gt;&lt;/FancyButton&gt;
+                &lt;/header&gt;
+            &lt;/div&gt;
+        )
+    }
+}
+
+export default App
+
+
+
+
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://DennyWanye.GitHub.io/post/npx-gai-shu/" class="post-title gt-a-link">
+                    Npx概述
+                </a>
+            </div>
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
 <script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
 <script>
     // md5.min.js
@@ -160,15 +249,14 @@
 
 </script>
 
-                    
+            
 
-                    
-                
-            </div>
+            
+        
 
+        
 
-
-            <div class="site-footer gt-c-content-color-first">
+        <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first">Keep track of interesting things</div>
     <div class="social-container">
         
@@ -202,8 +290,7 @@
   hljs.highlightAll()
 </script>
 
-        </div>
     </div>
+</div>
 </body>
-
 </html>

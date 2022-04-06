@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://DennyWanye.GitHub.io</id>
     <title>DennyWanye</title>
-    <updated>2022-04-02T09:18:44.841Z</updated>
+    <updated>2022-04-06T06:42:23.306Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://DennyWanye.GitHub.io"/>
     <link rel="self" href="https://DennyWanye.GitHub.io/atom.xml"/>
@@ -10,6 +10,84 @@
     <logo>https://DennyWanye.GitHub.io/images/avatar.png</logo>
     <icon>https://DennyWanye.GitHub.io/favicon.ico</icon>
     <rights>All rights reserved 2022, DennyWanye</rights>
+    <entry>
+        <title type="html"><![CDATA[React Refs 转发]]></title>
+        <id>https://DennyWanye.GitHub.io/post/react-refs-zhuan-fa/</id>
+        <link href="https://DennyWanye.GitHub.io/post/react-refs-zhuan-fa/">
+        </link>
+        <updated>2022-04-06T06:18:46.000Z</updated>
+        <content type="html"><![CDATA[<p>之前一直不理解如何在React中，将类组件和函数组件之间进行Ref转发。</p>
+<p>以下是对上述示例发生情况的逐步解释：</p>
+<ol>
+<li>我们通过调用 React.createRef 创建了一个 React ref 并将其赋值给 ref 变量。</li>
+<li>我们通过指定 ref 为 JSX 属性，将其向下传递给 <FancyButton ref={ref}>。</li>
+<li>React 传递 ref 给 forwardRef 内函数 (props, ref) =&gt; ...，作为其第二个参数。</li>
+<li>我们向下转发该 ref 参数到 <button ref={ref}>，将其指定为 JSX 属性。</li>
+<li>当 ref 挂载完成，ref.current 将指向 <button> DOM 节点。</li>
+</ol>
+<p>代码：</p>
+<pre><code class="language-jsx">import React, {forwardRef, useEffect, Component, useRef} from 'react'
+
+function App() {
+    //1. 我们通过调用 React.createRef 创建了一个 React ref 并将其赋值给 ref 变量。
+    const BtnRef = useRef()
+
+    //5. 当 ref 挂载完成，ref.current 将指向 &lt;button&gt; DOM 节点。
+    console.log(BtnRef)
+
+    return (
+        &lt;div className=&quot;App&quot;&gt;
+            &lt;header className=&quot;App-header&quot;&gt;
+                //2. 我们通过指定 ref 为 JSX 属性，将其向下传递给 &lt;FancyButton ref={ref}&gt;。
+                &lt;FancyButton ref={BtnRef} children=&quot;我是一个按钮&quot;&gt;&lt;/FancyButton&gt;
+            &lt;/header&gt;
+        &lt;/div&gt;
+    )
+}
+
+//3. React 传递 ref 给 forwardRef 内函数 (props, ref) =&gt; ...，作为其第二个参数。
+const FancyButton = React.forwardRef((props, ref) =&gt; (
+    //4. 我们向下转发该 ref 参数到 &lt;button ref={ref}&gt;，将其指定为 JSX 属性。
+    &lt;button ref={ref} className=&quot;FancyButton&quot;&gt;
+        {props.children}
+    &lt;/button&gt;
+));
+
+//在类组件中用 React.createRef();
+class App extends Component {
+
+    constructor(props) {
+        super(props);
+         //1. 我们通过调用 React.createRef 创建了一个 React ref 并将其赋值给 ref 变量。
+        this.BtnRef = React.createRef();
+    }
+
+    componentDidMount() {
+       // 5. 当 ref 挂载完成，ref.current 将指向 &lt;button&gt; DOM 节点。
+        console.log(this.BtnRef)
+    }
+
+
+    render() {
+        return (
+            &lt;div className=&quot;App&quot;&gt;
+                &lt;header className=&quot;App-header&quot;&gt;
+                    //2. 我们通过指定 ref 为 JSX 属性，将其向下传递给 &lt;FancyButton ref={ref}&gt;。
+                    &lt;FancyButton ref={this.BtnRef} children=&quot;我是一个按钮&quot;&gt;&lt;/FancyButton&gt;
+                &lt;/header&gt;
+            &lt;/div&gt;
+        )
+    }
+}
+
+export default App
+
+
+
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Npx概述]]></title>
         <id>https://DennyWanye.GitHub.io/post/npx-gai-shu/</id>
@@ -1023,76 +1101,6 @@ export default DragSource(ItemTypes.BOX, {
 }
 </code></pre>
 </li>
-</ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[React.memo()]]></title>
-        <id>https://DennyWanye.GitHub.io/post/reactmemo/</id>
-        <link href="https://DennyWanye.GitHub.io/post/reactmemo/">
-        </link>
-        <updated>2022-02-15T04:00:04.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="1怎么使用">1.怎么使用</h3>
-<p>React.memo 是用来决定在何种条件改变下，组件重新渲染。可以减少一次渲染中组件渲染的数量，从而提升用户体验。</p>
-<pre><code class="language-javascript">React.memo(MyComponent, areEqual)
-
-function areEqual () {
-    /*
-  return true if passing nextProps to render would return
-  the same result as passing prevProps to render,
-  otherwise return false
-  */
-}
-</code></pre>
-<p>MyComponent: 代表的是你需要包裹的组件。</p>
-<p>areEqual： 是可选项，判断是否进行渲染的函数，返回值为布尔值。</p>
-<h3 id="2注意项">2.注意项</h3>
-<p>2.1 当areEqual没有传入的时候，其是比较组件的 props ，来判断组件是否变更，如果变更就进行重新渲染，如果没有就不对该组件进行渲染。</p>
-<p>2.2 React.memo的作用原理是判断props是否发生改变（或者是传入的areEqual函数返回的布尔值），如果是true，就重新渲染组件，反之不做其他操作。如果你的组件中有用到 <a href="https://reactjs.org/docs/hooks-state.html"><code>useState</code></a>, <a href="https://reactjs.org/docs/hooks-reference.html#usereducer"><code>useReducer</code></a> 或者 <a href="https://reactjs.org/docs/hooks-reference.html#usecontext"><code>useContext</code></a> Hook的话，当state或者context改变的时候，该组件还是会更新。</p>
-<p>2.3 当你向被memo包裹的组件传入回调函数的时候，在每一次渲染时，父组件都会提供一个不同的函数实例，这也就导致此时即使你的其他props数据都相同，但是因为传入的回调函数实例不同，导致每次渲染都会刷新该组件。</p>
-<p>原因：</p>
-<pre><code class="language-javascript">function sumNumber() {
-    return (a, b) =&gt; a + b
-}
-
-const sum1 = sumNumber()
-const sum2 = sumNumber()
-
-console.log(sum1 === sum1)  //=&gt; true
-console.log(sum2 === sum2)  //=&gt; true
-console.log(sum1 === sum2)  //=&gt; false
-</code></pre>
-<p>此时我们可以用 <a href="https://reactjs.org/docs/hooks-reference.html#usecallback"><code>useCallback</code></a>来解决</p>
-<pre><code class="language-javascript">const MemoizedLogout = React.memo(Logout);
-function MyApp({ store, cookies }) {
-  const onLogout = useCallback(
-    () =&gt; cookies.clear('session'), 
-    [cookies]
-  );
-  return (
-    &lt;div className=&quot;main&quot;&gt;
-      &lt;header&gt;
-        &lt;MemoizedLogout
-          username={store.username}
-          onLogout={onLogout}
-        /&gt;
-      &lt;/header&gt;
-      {store.content}
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-<p>###3.何时使用React.memo</p>
-<p>3.1 &quot;Performance-related changes applied incorrectly can even harm performance. Use React.memo() wisely.&quot;</p>
-<p>可使用规则： 如果你不能确认性能提升的多少，就不要使用React.memo</p>
-<p>3.2 &quot;Performance-related changes applied incorrectly can even harm performance. Use React.memo() wisely.&quot;</p>
-<p>一般来说，对于类组件，不建议使用React.memo()。类组件可以使用<code>shouldComponentUpdate()</code>方法，或者对 <code>PureComponent</code> 类组件进行扩展。</p>
-<p>3.3 小心无用的比较</p>
-<p><code>React.memo</code> 总是执行两件事：</p>
-<ol>
-<li>调用比较函数，来确认props是否发生改变</li>
-<li>如果发生了改变就渲染更新该组件，没有就不做渲染<br>
-所以当你在错误的地方调用了 <code>React.memo</code> 的时候，也就会错误的调用比较函数，造成性能的浪费。</li>
 </ol>
 ]]></content>
     </entry>
