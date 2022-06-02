@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>番茄工作法 | DennyWanye</title>
+<title>js的事件冒泡和捕获机制 | DennyWanye</title>
 
 <link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1654164911011">
 
@@ -101,54 +101,48 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    番茄工作法
+                    js的事件冒泡和捕获机制
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2022-03-09 ·
+                        · 2022-06-02 ·
                     </time>
-                    
-                        <a href="https://DennyWanye.GitHub.io/tag/Su5FPiFJ6/" class="post-tags">
-                            # daily
-                        </a>
                     
                 </div>
                 <div class="post-content">
-                    <figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/594059/pexels-photo-594059.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;h=300" alt="" loading="lazy"></figure>
-<h3 id="一-番茄工作法的工具">一、番茄工作法的工具：</h3>
-<ol>
-<li>
-<p>一个计时工具</p>
-</li>
-<li>
-<p>一张today's TODO List，包含以下内容：</p>
-<p>2.1 小标题，包括时间、地点、人物</p>
-<p>2.2 清单，包含今天要做的事情，先后顺序排列</p>
-<p>2.3 计划外的紧急事件</p>
-</li>
-<li>
-<p>activity inventory：</p>
-<p>3.1 标题： 人物、事件</p>
-<p>3.2 想要做什么的事情</p>
-</li>
-<li>
-<p>一份记录表，用于记录原始数据。包含：数据、摘要、完成任务所需要的番茄钟时间。</p>
-</li>
-</ol>
-<h3 id="二-法则">二、法则</h3>
-<p>规则一： 一个番茄时间共30分钟 = 25分钟工作时间 + 5分钟休息时间</p>
-<p>规则二： 一个番茄时间不可分割</p>
-<p>规则三：每四个番茄时间后，停止你的工作，进行一次较长时间的休息，15~30分钟</p>
-<p>规则四：完成一个任务，划掉一个任务</p>
-<h3 id="三-番茄工作法流程">三、番茄工作法流程</h3>
-<figure data-type="image" tabindex="2"><img src="https://DennyWanye.GitHub.io/post-images/1646822783978.png" alt="" loading="lazy"></figure>
-<p>注意：</p>
-<ol>
-<li>弄清楚完成某项任务所需要的时间</li>
-<li>减少被打断的次数</li>
-<li>估测某项任务所需要的时间</li>
-</ol>
-<p><a href="https://alloyteam.github.io/AlloyTimer/">线上工具</a></p>
+                    <p>最近面试总是被问到这个问题，然后自己记性也不好，所以做一下总结：</p>
+<p><strong>事件冒泡</strong>：结构上（非视觉上）嵌套关系的元素，会存在冒泡的功能，即同一事件，自子元素冒泡向父元素。（自底向上）</p>
+<p><strong>事件捕获</strong>：结构上（非视觉上）嵌套关系的元素，会存在事件捕获的功能，即同一事件，自父元素捕获至子元素（事件源元素）。（自顶向下）（ie没有捕获事件）</p>
+<p><strong>触发顺序</strong>：先捕获，后冒泡</p>
+<p>focus，blur，change，submit，reset，select等事件不冒泡</p>
+<p><strong>addEventLinstener</strong>:<br>
+三个参数：<br>
+参数1： 事件的触发方法<br>
+参数2： 事件的触发函数<br>
+参数3： 是否冒泡： false为冒泡时触发，true为捕获时触发。</p>
+<p><strong>阻止冒泡</strong>：</p>
+<p>1、w3c标准 event.stopPropagation();但ie9以下版本不支持</p>
+<p>2、ie独有：event.cancelBubble = true;</p>
+<p>通用的写法：</p>
+<pre><code class="language-js">inner.addEventListener('click',function(e){
+        if (e.stopPropagation){
+            e.stopPropagation();
+        }else{
+            e.cancelBubble = true;
+        }
+        console.log('inner111')
+    },false)
+</code></pre>
+<p><strong>阻止默认事件</strong>：</p>
+<p>默认事件 —— 表单提交，a标签跳转，右键菜单等。</p>
+<p>1、return false;以对象属性的方式注册的事件才生效</p>
+<p>2、event.preventDefault();w3c标准，ie9以下不兼容</p>
+<p>3、event.returnValue = false;兼容ie</p>
+<p><strong>事件委托</strong></p>
+<p>利用事件冒泡和事件源对象进行处理</p>
+<p>优点：</p>
+<p>1、性能 不需要循环所有的元素一个个绑定事件</p>
+<p>2、灵活 当有新的子元素时不需要重新绑定事件</p>
 
                 </div>
             </article>
@@ -157,8 +151,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://DennyWanye.GitHub.io/post/eventloop-he-zhi-xing-zhan/" class="post-title gt-a-link">
-                    EventLoop 和 执行栈
+                <a href="https://DennyWanye.GitHub.io/post/react-refs-zhuan-fa/" class="post-title gt-a-link">
+                    React: Refs 转发/回调 Refs
                 </a>
             </div>
         
