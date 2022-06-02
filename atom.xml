@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://DennyWanye.GitHub.io</id>
     <title>DennyWanye</title>
-    <updated>2022-04-06T06:44:05.280Z</updated>
+    <updated>2022-06-02T09:58:24.535Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://DennyWanye.GitHub.io"/>
     <link rel="self" href="https://DennyWanye.GitHub.io/atom.xml"/>
@@ -11,12 +11,13 @@
     <icon>https://DennyWanye.GitHub.io/favicon.ico</icon>
     <rights>All rights reserved 2022, DennyWanye</rights>
     <entry>
-        <title type="html"><![CDATA[React Refs 转发]]></title>
+        <title type="html"><![CDATA[React: Refs 转发/回调 Refs]]></title>
         <id>https://DennyWanye.GitHub.io/post/react-refs-zhuan-fa/</id>
         <link href="https://DennyWanye.GitHub.io/post/react-refs-zhuan-fa/">
         </link>
         <updated>2022-04-06T06:18:46.000Z</updated>
         <content type="html"><![CDATA[<p>之前一直不理解如何在React中，将类组件和函数组件之间进行Ref转发。</p>
+<h3 id="refs-转发">Refs 转发</h3>
 <p>以下是对上述示例发生情况的逐步解释：</p>
 <ol>
 <li>我们通过调用 React.createRef 创建了一个 React ref 并将其赋值给 ref 变量。</li>
@@ -82,10 +83,53 @@ class App extends Component {
 
 export default App
 
-
-
-
 </code></pre>
+<h3 id="回调-refs">回调 Refs</h3>
+<p>React 也支持另一种设置 refs 的方式，称为“回调 refs”。</p>
+<p>不同于传递 createRef() 创建的 ref 属性，你会传递一个函数。这个函数中接受 React 组件实例或 HTML DOM 元素作为参数，以使它们能在其他地方被存储和访问。</p>
+<p>简单的来说，就是你传递一个函数到 <code>ref={callback}</code> 中，callback函数的参数即为当前<code>ref</code>所在的DOM节点。</p>
+<pre><code class="language-jsx">class CustomTextInput extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.textInput = null;
+
+    //当前参数就是目标DOM对象
+    this.setTextInputRef = element =&gt; {
+      this.textInput = element;
+    };
+
+    this.focusTextInput = () =&gt; {
+      // 使用原生 DOM API 使 text 输入框获得焦点
+      if (this.textInput) this.textInput.focus();
+    };
+  }
+
+  componentDidMount() {
+    // 组件挂载后，让文本框自动获得焦点
+    this.focusTextInput();
+  }
+
+  render() {
+    // 使用 `ref` 的回调函数将 text 输入框 DOM 节点的引用存储到 React
+    // 实例上（比如 this.textInput）
+    return (
+      &lt;div&gt;
+        &lt;input
+          type=&quot;text&quot;
+          ref={this.setTextInputRef}
+        /&gt;
+        &lt;input
+          type=&quot;button&quot;
+          value=&quot;Focus the text input&quot;
+          onClick={this.focusTextInput}
+        /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+<p>关于回调 refs 的说明：如果 ref 回调函数是以内联函数的方式定义的，在更新过程中它会被执行两次，第一次传入参数 null，然后第二次会传入参数 DOM 元素。这是因为在每次渲染时会创建一个新的函数实例，所以 React 清空旧的 ref 并且设置新的。通过将 ref 的回调函数定义成 class 的绑定函数的方式可以避免上述问题，但是大多数情况下它是无关紧要的。</p>
 ]]></content>
     </entry>
     <entry>
