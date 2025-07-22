@@ -1,0 +1,217 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>react-helmet：解决单页面应用SEO问题 | DennyWanye</title>
+
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1753155672310">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            DennyWanye
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1753155672310"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    react-helmet：解决单页面应用SEO问题
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-03-31 ·
+                    </time>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/tT_EEc-js/" class="post-tags">
+                            # js
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/BUmk-Nct9/" class="post-tags">
+                            # html
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/qJ0Ds1ZYA/" class="post-tags">
+                            # web
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/At0ty9tCm/" class="post-tags">
+                            # react
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/Bxp2msYRj/" class="post-tags">
+                            # coding
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <figure data-type="image" tabindex="1"><img src="https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;h=300" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;h=300" alt="" loading="lazy"></figure>
+<h3 id="一-单页面seo问题">一、单页面SEO问题</h3>
+<p>单页应用一直有一个令人诟病的问题就是就是其对搜索引擎不友好。</p>
+<p>究其原因，就是单页应用核心就是 JavaScript 应用，而一般的搜索引擎都只在乎你页面的 HTML 而对于其中的 JavaScript 是不会执行的。</p>
+<p>虽然 Google 曾经表示会抓取单页应用（对 Ajax 的结果进行缓存），但是现在已经表示已经不再支持了。</p>
+<figure data-type="image" tabindex="3"><img src="https://blog.poi.cat/images/angular-app-in-google-search.png" alt="在 Google 中搜索 Angular 应用，只能显示一个可怜的标题(2017-6-15)" loading="lazy"></figure>
+<p>在 Google 中搜索 Angular 应用，只能显示一个可怜的标题(2017-6-15)</p>
+<p>难道单页应用就是不能实现 SEO 吗？并不是，还是可以通过一种名叫 Server-side rendering （服务器端预渲染）的方式来实现的。</p>
+<h3 id="二-react-snapshot-react-helmet">二、react-snapshot &amp; react-helmet</h3>
+<p>想调用 React 的 Server-side Rendering 的 API 的话，最简单的方法是使用 react-snapshot。</p>
+<p>它和 creat-react-app（一个类似 Angular Cli 的命令行工具）整合得很好，只需要将 <code>render()</code> 替换成 React-Snaport 提供的 <code>render()</code> 即可。它会在 Developer Mode 的时候调用 <code>Render.render()</code> 和之前一样；在 Production Mode 的时候调用 <code>ReactDomServer.toSting()</code>。</p>
+<p>在运行 <code>react-scripts build</code> 后再运行 <code>react-snapshot</code>，就会开启一个爬虫，将所以的页面遍历一遍后，导出至 HTML。</p>
+<p>运行结果：</p>
+<figure data-type="image" tabindex="4"><img src="https://blog.poi.cat/images/react-snapshot-output.png" alt="React Snapshot" loading="lazy"></figure>
+<p>使用 w3m 访问 About 页面的结果：</p>
+<figure data-type="image" tabindex="5"><img src="https://blog.poi.cat/images/view-solomon-in-w3m.png" alt="w3m 中的 solomon" loading="lazy"></figure>
+<p>同时也保留了单页应用不需要重复加载的优点：</p>
+<figure data-type="image" tabindex="6"><img src="https://blog.poi.cat/images/less-request-in-spa.png" alt="从 About 页面进入之后，我重复切换了几次页面，但是 Network 里都没有出现新的请求" loading="lazy"></figure>
+<h4 id="原理">原理：</h4>
+<p>原理是什么？每一个单页应用都有一个 <code>index.html</code> 作为的入口。</p>
+<p>而使用了 react-snapshot 之后你的单页应用相当于有了同时多个不同入口，或者说你同时拥有了复数多个功能相同的单页应用。</p>
+<h4 id="结论">结论：</h4>
+<p>如果说 react-snapshot 让你的单页应用里的 <code>body</code> 标签搜索引擎可见的话，那 react-helmet 就可以让你的单页应里的 <code>head</code> 标签能被搜索引擎爬到了。</p>
+<p>而 <code>head</code> 中的 <code>meta</code> 标签更是 SEO 的关键之一，通过它我们可以主动给爬虫提供重要的信息，例如文章的作者，发布时间等。</p>
+<p><a href="https://github.com/nfl/react-helmet#readme">Github 地址</a><br>
+<a href="https://zhuanlan.zhihu.com/p/363548678">使用例子</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://DennyWanye.GitHub.io/post/tip/" class="post-title gt-a-link">
+                    Tip
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">Keep track of interesting things</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/DennyWanye" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ~~~~
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://DennyWanye.GitHub.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

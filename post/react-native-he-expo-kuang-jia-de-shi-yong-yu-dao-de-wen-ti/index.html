@@ -1,0 +1,327 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>react native 和 Expo 框架的使用遇到的问题 | DennyWanye</title>
+
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1753155672310">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            DennyWanye
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1753155672310"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    react native 和 Expo 框架的使用遇到的问题
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2024-07-01 ·
+                    </time>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/MiQeYdHL9/" class="post-tags">
+                            # expo
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/V5hQEmkz05/" class="post-tags">
+                            # reatNative
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="问题一commanderror-required-property-androidpackage-is-not-found-in-the-project-appjson-this-is-required-to-open-the-app">问题一：<code>CommandError: Required property 'android.package' is not found in the project app.json. This is required to open the app.</code></h3>
+<p>原因在 <code>package.json</code> 中缺少 <code>android.package</code> 字段，可以在package.json文件中添加如下属性：</p>
+<pre><code class="language-javascript">
+  &quot;android&quot;: {
+    &quot;package&quot;: &quot;com.yourcompany.yourappname&quot;,
+    &quot;versionCode&quot;: 1
+  }
+
+</code></pre>
+<h3 id="问题二关于-expo-image-picker-的使用方法">问题二：关于 <code>expo-image-picker</code> 的使用方法：</h3>
+<pre><code class="language-javascript">import * as ImagePicker from 'expo-image-picker';
+
+//利用 launchImageLibraryAsync 方法来返回一个 uri 资源，让 &lt;Image&gt;来进行显示。
+//其launchImageLibraryAsync() 接收一个指定了不同选项的对象。该对象是 ImagePickerOptions 
+//object。我们可以在调用方法时传递对象来指定不同的选项。
+
+//当 allowsEditing 设置为 true 时，用户可以在 Android 和 iOS 上的选择过程中裁剪图片，但不能
+//在 Web 上裁剪图片。
+const pickImageAsync = async () =&gt; {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    })
+
+    console.log(result)
+
+    if(!result.canceled) {
+      setSelectImage(result.assets[0].uri)
+      console.log(result);
+    } else {
+      alert('You did not select any image.');
+    }
+  }
+
+//&lt;Image&gt; 中的 source 可以是 图片的相对路径和绝对路径，也可以是url，也可以是 uri 
+  &lt;Image source={imageSource} &gt;&lt;/Image&gt;
+
+//为了演示 result 对象包含哪些属性，下面是一个结果对象示例：
+{
+  &quot;assets&quot;: [
+    {
+      &quot;assetId&quot;: null,
+      &quot;base64&quot;: null,
+      &quot;duration&quot;: null,
+      &quot;exif&quot;: null,
+      &quot;height&quot;: 4800,
+      &quot;rotation&quot;: null,
+      &quot;type&quot;: &quot;image&quot;,
+      &quot;uri&quot;: &quot;file:///data/user/0/host.exp.exponent/cache/ExperienceData/%username%252Fsticker-smash-47-beta/ImagePicker/77c4e56f-4ccc-4c83-8634-fc376597b6fb.jpeg&quot;,
+      &quot;width&quot;: 3200
+    }
+  ],
+  &quot;canceled&quot;: false
+}
+
+</code></pre>
+<h3 id="问题三构建项目的问题">问题三：构建项目的问题</h3>
+<p>现在对于expo项目构建的理解：</p>
+<ol>
+<li>本地将代码 上传到 云端，并给出对应的配置</li>
+<li>云端利用metro来根据配置，来进行构建对应的版本</li>
+<li>云端返回对应版本应用的下载链接</li>
+</ol>
+<h4 id="构建development-应用">构建development 应用</h4>
+<pre><code>
+eas --version
+
+//确保你已经登录了
+eas whoami
+
+//生成eas配置,可以生成对应Android和ios平台对应的配置文件 eas.json，此文件生成在项目根目录。
+
+eas init 
+
+eas build:configure
+
+//生成可以链接到本地测试服务器的 expo安装包
+//需要在项目目录安装 expo-dev-client  同时，你需要expo的账户用作远程登录
+//并且 也需要在全局安装eas-cli
+
+npm install expo-dev-client 
+npm install -g eas-cli
+
+eas build --profile=development --platform=android
+
+//生成可以直接可以安装打开的安装包，没有测试环境
+eas build --profile=preview --platform=android
+
+
+</code></pre>
+<p>在本地打包：</p>
+<p>如果你的电脑已经配置好了java、NDK环境，只需执行</p>
+<pre><code>eas build --platform android --profile release --local
+</code></pre>
+<p>报了release相关的错误，请检查eas.json文件中 --&gt; build --&gt; release的设置问题<br>
+error 示例:</p>
+<pre><code>★ eas-cli@10.1.0 is now available.
+To upgrade, run npm install -g eas-cli.
+Proceeding with outdated version.
+
+Missing build profile in eas.json: release
+Error: build command failed.
+</code></pre>
+<p>eas.json文件示例：</p>
+<pre><code>
+{
+  &quot;cli&quot;: {
+    &quot;version&quot;: &quot;&gt;= 10.0.3&quot;
+  },
+  &quot;build&quot;: {
+    &quot;development&quot;: {
+      &quot;developmentClient&quot;: true,
+      &quot;distribution&quot;: &quot;internal&quot;
+    },
+    &quot;preview&quot;: {
+      &quot;distribution&quot;: &quot;internal&quot;
+    },
+    &quot;production&quot;: {},
+    &quot;release&quot;: {
+      &quot;android&quot;: {
+        &quot;buildType&quot;: &quot;apk&quot;
+      }
+    }
+  },
+  &quot;submit&quot;: {
+    &quot;production&quot;: {}
+  }
+}
+
+</code></pre>
+<p>有用的文章链接：https://juejin.cn/post/7357292176945184795</p>
+<h3 id="问题4-authentication-is-required">问题4:  <code>Authentication is required</code></h3>
+<p>运行 <code>npx expo run:android</code> 报错</p>
+<pre><code>Authentication is required
+✖ Failed to create the native project.
+You may want to delete the `./ios` and/or `./android` directories before trying again.
+</code></pre>
+<p>解决方法：</p>
+<ol>
+<li>全局安装 expo脚手架： <code>npm install -g expo-cli</code></li>
+<li>运行 <code>expo whoami</code> 确认是否是登录的状态</li>
+<li>运行 ``expo prebuild`</li>
+</ol>
+<p>link: https://stackoverflow.com/questions/77760368/authentication-required-error-message-when-running-npx-expo-prebuild-in-term</p>
+<h3 id="问题5-expo-apiv2error-entity-not-authorized">问题5: expo ApiV2Error: Entity Not Authorized.</h3>
+<p>原因：the problem was that the owner property in app.json did not match the owner for whatever account you're logged into on expo-cli or your expo go app. So just try to check if owner property is correct.</p>
+<p>解决：</p>
+<pre><code class="language-javascript">npx expo start --offline
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://DennyWanye.GitHub.io/post/how-to-use-tag-in-git/" class="post-title gt-a-link">
+                    怎么样使用Tag标签
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">Keep track of interesting things</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/DennyWanye" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ~~~~
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://DennyWanye.GitHub.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

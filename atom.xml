@@ -1,0 +1,1046 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://DennyWanye.GitHub.io</id>
+    <title>DennyWanye</title>
+    <updated>2025-07-22T03:41:15.113Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://DennyWanye.GitHub.io"/>
+    <link rel="self" href="https://DennyWanye.GitHub.io/atom.xml"/>
+    <subtitle>Keep track of interesting things</subtitle>
+    <logo>https://DennyWanye.GitHub.io/images/avatar.png</logo>
+    <icon>https://DennyWanye.GitHub.io/favicon.ico</icon>
+    <rights>All rights reserved 2025, DennyWanye</rights>
+    <entry>
+        <title type="html"><![CDATA[测量React树的渲染性能]]></title>
+        <id>https://DennyWanye.GitHub.io/post/ce-liang-react-shu-de-xuan-ran-xing-neng/</id>
+        <link href="https://DennyWanye.GitHub.io/post/ce-liang-react-shu-de-xuan-ran-xing-neng/">
+        </link>
+        <updated>2025-07-17T09:16:14.000Z</updated>
+        <content type="html"><![CDATA[<p>测量React树的渲染性能有两种方式：</p>
+<ol>
+<li>利用 <code>&lt;Profiler&gt;</code> 来测量React树的渲染性能： https://zh-hans.react.dev/reference/react/Profiler</li>
+</ol>
+<p>code:<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1753083912585.png" alt="" loading="lazy"></p>
+<p>result:<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1753084008438.png" alt="" loading="lazy"></p>
+<ol start="2">
+<li>利用React DevTool 来进行测量：<br>
+https://zh-hans.react.dev/learn/react-developer-tools</li>
+</ol>
+<p>https://legacy.reactjs.org/docs/optimizing-performance.html?utm_source=chatgpt.com</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[利用Ref的脱围机制来进行性能优化]]></title>
+        <id>https://DennyWanye.GitHub.io/post/li-yong-ref-de-tuo-wei-ji-zhi-lai-jin-xing-xing-neng-you-hua/</id>
+        <link href="https://DennyWanye.GitHub.io/post/li-yong-ref-de-tuo-wei-ji-zhi-lai-jin-xing-xing-neng-you-hua/">
+        </link>
+        <updated>2025-07-17T08:27:52.000Z</updated>
+        <content type="html"><![CDATA[<p>关键信息：</p>
+<p>当你希望组件“记住”某些信息，但又不想让这些信息 触发新的渲染 时，你可以使用 ref 。</p>
+<p>link： https://zh-hans.react.dev/learn/referencing-values-with-refs</p>
+<p>在你的组件内，调用 useRef Hook 并传入你想要引用的初始值作为唯一参数。例如，这里的 ref 引用的值是“0”：</p>
+<pre><code class="language-javascript">const ref = useRef(0);
+
+//useRef 返回一个这样的对象:
+
+{ 
+  current: 0 // 你向 useRef 传入的值
+}
+</code></pre>
+<p>你可以用 ref.current 属性访问该 ref 的当前值。这个值是有意被设置为可变的，意味着你既可以读取它也可以写入它。就像一个 React 追踪不到的、用来存储组件信息的秘密“口袋”。</p>
+<p>这里的 ref 指向一个数字，但是，像 state 一样，你可以让它指向任何东西：字符串、对象，甚至是函数。与 state 不同的是，ref 是一个普通的 JavaScript 对象，具有可以被读取和修改的 current 属性。</p>
+<p>请注意，组件不会在每次递增时重新渲染。 与 state 一样，React 会在每次重新渲染之间保留 ref。<strong>但是，设置 state 会重新渲染组件，更改 ref 不会！</strong></p>
+<p>所以根据Ref 值更新的时候，不会让组件重新渲染的特性来对setState的执行进行判断，当state中的值进行修改的时候，才允许调用setState进行修改，并触发DOM的渲染。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Expo error]]></title>
+        <id>https://DennyWanye.GitHub.io/post/expo-error/</id>
+        <link href="https://DennyWanye.GitHub.io/post/expo-error/">
+        </link>
+        <updated>2025-03-24T08:54:29.000Z</updated>
+        <content type="html"><![CDATA[<p>在我使用新的安卓模拟器的时候，发现了这个问题：</p>
+<h3 id="错误1-no-development-build-comdennywayne123noveltagsystem-for-this-project-is-installed">错误1: No development build (com.dennywayne123.novelTagSystem) for this project is installed</h3>
+<pre><code class="language-javascript">Logs for your project will appear below. Press Ctrl+C to exit. › Opening on Android... CommandError: No development build (com.dennywayne123.novelTagSystem) for this project is installed. Please make and install a development build on the device first. Learn more
+
+</code></pre>
+<p>修复的方法：</p>
+<pre><code>Remove the expo-dev-client dependency from your project's package.json.
+
+Delete node_modules and run npm i.
+
+Start fresh with npx expo start --clear.
+
+</code></pre>
+<h3 id="错误2-npm-view-expo-template-bare-minimumsdk-51-dist-json-exited-with-non-zero-code-1-可能是由于-expo-sdk-51-版本不存在或-npm-访问受限-另外你的-expo-cli-6312-版本-已被标记为-过时legacy而且它不支持-node-17建议迁移到新的-expo-cli">错误2: &quot;npm view expo-template-bare-minimum@sdk-51 dist --json exited with non-zero code: 1&quot; 可能是由于 Expo SDK 51 版本不存在或 npm 访问受限。另外，你的 Expo CLI 6.3.12 版本 已被标记为 过时（legacy），而且它不支持 Node 17+，建议迁移到新的 Expo CLI。</h3>
+<pre><code class="language-javascript">wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % npm run pre
+
+&gt; noveltagsystem@1.1.1 pre
+&gt; expo prebuild
+
+npm view expo-template-bare-minimum@sdk-51 dist --json exited with non-zero code: 1
+✖ Failed to create the native directories
+You may want to delete the ./ios and/or ./android directories before trying again.
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % npx expo prebuild --clean
+
+Your git working tree is clean
+To revert the changes after this command completes, you can run the following:
+  git clean --force &amp;&amp; git reset --hard
+✔ Cleared android, ios code
+npm view expo-template-bare-minimum@sdk-51 dist --json exited with non-zero code: 1
+✖ Failed to create the native directories
+You may want to delete the ./ios and/or ./android directories before trying again.
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % expo --version
+WARNING: The legacy expo-cli does not support Node +17. Migrate to the new local Expo CLI: https://blog.expo.dev/the-new-expo-cli-f4250d8e3421.
+6.3.12
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % node -v
+v20.19.0
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem %
+
+#########
+npx expo prebuild --clean
+
+Your git working tree is clean
+To revert the changes after this command completes, you can run the following:
+  git clean --force &amp;&amp; git reset --hard
+✔ Cleared android, ios code
+npm view expo-template-bare-minimum@sdk-51 dist --json exited with non-zero code: 1
+✖ Failed to create the native directories
+You may want to delete the ./ios and/or ./android directories before trying again.
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % rm -rf ios android
+npm cache clean --force
+npm warn using --force Recommended protections disabled.
+npm error code EACCES
+npm error syscall unlink
+npm error path /Users/wuzhongsen/.npm/_cacache/index-v5/00/00/86536afe32e0263993e1459d71d327dcc3b5ab101e87f48580218696d712
+npm error errno -13
+npm error
+npm error Your cache folder contains root-owned files, due to a bug in
+npm error previous versions of npm which has since been addressed.
+npm error
+npm error To permanently fix this problem, please run:
+npm error   sudo chown -R 501:20 &quot;/Users/wuzhongsen/.npm&quot;
+npm error A complete log of this run can be found in: /Users/wuzhongsen/.npm/_logs/2025-03-24T13_31_08_252Z-debug-0.log
+
+</code></pre>
+<p>解决方法：</p>
+<pre><code class="language-javascript">#使用新的 Expo CLI
+npm uninstall -g expo-cli
+npm install -g expo
+expo --version
+npx expo prebuild --clean
+
+
+#彻底删除 ios、android 并清理缓存
+
+rm -rf ios android
+npm cache clean --force
+
+npx expo prebuild --clean
+
+
+</code></pre>
+<h3 id="错误3-command-failed-lsof-i5554-p-t-stcplisten-说明-端口-5554-被占用这个端口通常是-android-emulator-相关的">错误3 :  &quot;Command failed: lsof -i:5554 -P -t -sTCP:LISTEN&quot; 说明 端口 5554 被占用，这个端口通常是 Android Emulator 相关的。</h3>
+<p>Expo 尝试启动你的开发环境时，无法访问这个端口，可能是因为：</p>
+<p>有其他 Emulator 实例运行，导致端口冲突</p>
+<p>端口被其他进程占用（比如 ADB 或其他应用）</p>
+<pre><code>› Metro waiting on com.dennywayne123.novelTagSystem://expo-development-client/?url=http%3A%2F%2F192.168.1.3%3A8081
+› Scan the QR code above to open the project in a development build. Learn more
+
+› Web is waiting on http://localhost:8081
+
+› Using development build
+› Press s │ switch to Expo Go
+
+› Press a │ open Android
+› Press i │ open iOS simulator
+› Press w │ open web
+
+› Press j │ open debugger
+› Press r │ reload app
+› Press m │ toggle menu
+› Press o │ open project code in your editor
+
+› Press ? │ show all commands
+
+› Opening com.dennywayne123.novelTagSystem://expo-development-client/?url=http%3A%2F%2F192.168.1.3%3A8081 on Pixel_4a_API_33
+Error: Command failed: lsof -i:5554 -P -t -sTCP:LISTEN
+Error: Command failed: lsof -i:5554 -P -t -sTCP:LISTEN
+    at genericNodeError (node:internal/errors:983:15)
+    at wrappedFn (node:internal/errors:537:14)
+    at checkExecSyncError (node:child_process:882:11)
+    at execFileSync (node:child_process:918:15)
+    at getUnixPID (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/start/platforms/android/activateWindow.ts:12:22)
+    at activateWindowAsync (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/start/platforms/android/activateWindow.ts:38:15)
+    at AndroidDeviceManager.activateWindowAsync (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/start/platforms/android/AndroidDeviceManager.ts:160:30)
+    at AndroidPlatformManager.openProjectInCustomRuntimeAsync (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/start/platforms/PlatformManager.ts:170:25)
+    at runAndroidAsync (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/run/android/runAndroidAsync.ts:52:3)
+
+</code></pre>
+<h3 id="错误4-log-usecreateandupdate-error-error-cannot-write-to-class-novels-when-no-flexible-sync-subscription-has-been-created">错误4: LOG  useCreateAndUpdate error: Error: Cannot write to class Novels when no flexible sync subscription has been created.</h3>
+<p>解决方法：</p>
+<pre><code class="language-javascript">const ideas: any = useQueryN(ListOfRealmModels.ideas);
+  const tags: any = useQueryN(ListOfRealmModels.tags);
+  const collections: any = useQueryN(ListOfRealmModels.collections);
+  const objects: any = useQueryN(ListOfRealmModels.object);
+  const events: any = useQueryN(ListOfRealmModels.events);
+  const timelines: any = useQueryN(ListOfRealmModels.timelines);
+  const storys: any = useQueryN(ListOfRealmModels.storys);
+  const userData: any = useQueryN(ListOfRealmModels.userData);
+  //1. 添加对应的novels和chapters
+  const novels: any = useQueryN(ListOfRealmModels.novels);
+  const chapters: any = useQueryN(ListOfRealmModels.chapters);
+  //2. 将novels和chapters加到 subscribeArray 中
+  const subscribeArray: any = [ideas, tags, collections, objects, events, timelines, storys, userData, novels, chapters]
+
+  function subscribeModel(subscribeArray: Array&lt;any&gt;) {
+    // Create an async function so that we can `await` the
+    // promise from `.subscribe()`.
+    subscribeArray.forEach((item, index) =&gt; {
+      const createSubscription = async () =&gt; {
+        await item.subscribe({
+          name: 'subscribe' + index,
+          behavior: WaitForSync.FirstTime,
+        });
+      };
+      createSubscription().catch(console.error);
+    })
+  }
+
+  useEffect(() =&gt; {
+    subscribeModel(subscribeArray)
+  }, []);
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[有限和无限的游戏读后感]]></title>
+        <id>https://DennyWanye.GitHub.io/post/you-xian-he-wu-xian-de-you-xi-du-hou-gan/</id>
+        <link href="https://DennyWanye.GitHub.io/post/you-xian-he-wu-xian-de-you-xi-du-hou-gan/">
+        </link>
+        <updated>2024-09-04T03:10:43.000Z</updated>
+        <content type="html"><![CDATA[<p>《有限与无限的游戏》（Finite and Infinite Games）是詹姆斯·卡斯（James P. Carse）于1986年出版的一本哲学书籍。这本书以一种独特的方式探讨了人生和世界的不同层面，特别是通过“游戏”的隐喻来探讨人类行为和生活方式。</p>
+<p>主要内容和观点</p>
+<ol>
+<li>
+<p>有限游戏 vs. 无限游戏</p>
+<p>•	有限游戏：<br>
+•	有明确的开始和结束。<br>
+•	参与者在既定的规则下竞争。<br>
+•	目标是赢得比赛，赢得胜利意味着游戏的结束。<br>
+•	例如：体育比赛、商业竞争、战争等。<br>
+•	无限游戏：<br>
+•	没有固定的规则和时间限制，规则可以随时改变。<br>
+•	参与者的目标不是赢得比赛，而是继续游戏，保持游戏的延续。<br>
+•	强调的是持续的参与和探索，而非终结。<br>
+•	例如：生活本身、文化的发展、创造性的活动等。</p>
+</li>
+<li>
+<p>游戏的心态</p>
+<p>•	卡斯认为，生活中大部分的行为和决策都可以归类为有限游戏或无限游戏。有限游戏的玩家关注的是控制、权力和胜利，而无限游戏的玩家则更关注开放性、可能性和创造性。</p>
+</li>
+<li>
+<p>规则与自由</p>
+<p>•	在有限游戏中，规则是固定的，打破规则即意味着作弊或失败。<br>
+•	在无限游戏中，规则可以被改变，玩家有更多的自由去探索新的可能性，创造新的规则。</p>
+</li>
+<li>
+<p>赢家与输家</p>
+<p>•	有限游戏中，赢家和输家是明确的，胜利意味着游戏的终结。<br>
+•	无限游戏中，没有最终的赢家或输家，关键在于游戏的持续进行和不断演变。</p>
+</li>
+<li>
+<p>角色与身份</p>
+<p>•	卡斯区分了“角色”和“身份”：<br>
+•	角色是有限游戏中扮演的特定身份，受制于规则和期望。<br>
+•	身份是无限游戏中的自我认知，更加开放和流动。</p>
+</li>
+<li>
+<p>生命的哲学</p>
+<p>•	卡斯通过这些对有限与无限游戏的分析，试图引导读者去反思自己在生活中的选择，是遵循有限游戏的模式，还是追求一种更开放、自由和创造性的无限游戏方式。</p>
+</li>
+</ol>
+<p>总结</p>
+<p>《有限与无限的游戏》鼓励读者超越传统的胜负观念，追求一种更具创造性、开放性和持续性的生活方式。它不仅仅是一本哲学书，更是一种生活的指导，提醒我们在面对生活的各种挑战和选择时，可以采取不同的心态和视角。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[DevOps 知识总结]]></title>
+        <id>https://DennyWanye.GitHub.io/post/devops-zhi-shi-zong-jie/</id>
+        <link href="https://DennyWanye.GitHub.io/post/devops-zhi-shi-zong-jie/">
+        </link>
+        <updated>2024-09-02T06:46:28.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="推荐的书记此为关于如何运用云端工具来做devops的">推荐的书记，此为关于如何运用云端工具来做devops的。</h3>
+<figure data-type="image" tabindex="1"><img src="https://DennyWanye.GitHub.io/post-images/1725259694893.png" alt="" loading="lazy"></figure>
+<h3 id="devops和其他方法的对比">DevOps和其他方法的对比</h3>
+<figure data-type="image" tabindex="2"><img src="https://DennyWanye.GitHub.io/post-images/1725264314267.png" alt="" loading="lazy"></figure>
+<h3 id="devops交付模式流程图">DevOps交付模式流程图</h3>
+<figure data-type="image" tabindex="3"><img src="https://DennyWanye.GitHub.io/post-images/1725267002950.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://DennyWanye.GitHub.io/post-images/1725268505486.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://DennyWanye.GitHub.io/post-images/1725268612504.png" alt="" loading="lazy"></figure>
+<h3 id="devops-组织架构模型图">DevOps 组织架构模型图</h3>
+<figure data-type="image" tabindex="6"><img src="https://DennyWanye.GitHub.io/post-images/1725269344039.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://DennyWanye.GitHub.io/post-images/1725269491153.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://DennyWanye.GitHub.io/post-images/1725342885373.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="9"><img src="https://DennyWanye.GitHub.io/post-images/1725355067480.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="10"><img src="https://DennyWanye.GitHub.io/post-images/1725355242919.png" alt="" loading="lazy"></figure>
+<h3 id="数字化转型的24项核心能力">数字化转型的24项核心能力</h3>
+<figure data-type="image" tabindex="11"><img src="https://DennyWanye.GitHub.io/post-images/1725343138080.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="12"><img src="https://DennyWanye.GitHub.io/post-images/1725343350112.png" alt="" loading="lazy"></figure>
+<h3 id="三种组织的文化类型">三种组织的文化类型</h3>
+<figure data-type="image" tabindex="13"><img src="https://DennyWanye.GitHub.io/post-images/1725343419188.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="14"><img src="https://DennyWanye.GitHub.io/post-images/1725343485364.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="15"><img src="https://DennyWanye.GitHub.io/post-images/1725343547390.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="16"><img src="https://DennyWanye.GitHub.io/post-images/1725343719030.png" alt="" loading="lazy"></figure>
+<p>###管理DevOps项目范围的最佳方法</p>
+<figure data-type="image" tabindex="17"><img src="https://DennyWanye.GitHub.io/post-images/1725355355522.png" alt="" loading="lazy"></figure>
+<h3 id="设计思维的四项原则">设计思维的四项原则</h3>
+<figure data-type="image" tabindex="18"><img src="https://DennyWanye.GitHub.io/post-images/1725355505764.png" alt="" loading="lazy"></figure>
+<h3 id="设计思维的五个阶段">设计思维的五个阶段</h3>
+<figure data-type="image" tabindex="19"><img src="https://DennyWanye.GitHub.io/post-images/1725355542464.png" alt="" loading="lazy"></figure>
+<h3 id="mvpminimum-viable-product-mvp-最小可行产品">MVP(minimum viable product, MVP) 最小可行产品</h3>
+<figure data-type="image" tabindex="20"><img src="https://DennyWanye.GitHub.io/post-images/1725355680607.png" alt="" loading="lazy"></figure>
+<h3 id="精益画布">精益画布</h3>
+<h4 id="第一步先阐述问题">第一步：先阐述问题</h4>
+<p>列出一到三个最重要的问题<br>
+列出备选解决方方案。用户在没有新的解决方案出来之前用什么来解决。</p>
+<h4 id="第二步分析目标客户">第二步：分析目标客户</h4>
+<p>区分客户和用户，为产品掏包的人叫客户，一般用户不会。<br>
+细分目标客户群体，一个客户人群对应了一个商业画布，目标客户群体不同，商业模式中的元素也不同。<br>
+找出早期接纳者</p>
+<h4 id="第三步分析你产品或项目的独特卖点">第三步：分析你产品或项目的独特卖点</h4>
+<p>用一句话说明白你的产品为什么值得购买。</p>
+<h4 id="第四步阐述你的产品能解决什么">第四步：阐述你的产品能解决什么？</h4>
+<p>产品最重要的三个功能。</p>
+<h4 id="第五步渠道">第五步：渠道</h4>
+<p>解决了问题，那么你产品怎么找到客户<br>
+内联式渠道包括：博客、SEO、电子书、白皮书、网络讲堂、公众号<br>
+外联式渠道包括：SEM、新媒体 、直接电话或短信</p>
+<h4 id="第六步收入分析">第六步：收入分析</h4>
+<h4 id="第七步成本分析">第七步：成本分析</h4>
+<p>客户获取成本<br>
+制作和发型最小产品需要多少成本<br>
+有了成本分析和收入分析，你就能找到收支平衡点<br>
+比如说：分析属于你的不容易被人复制的优势。社群、SEM排名、团队、个人权威、现有的顾客</p>
+<h4 id="第八步关键指标">第八步：关键指标</h4>
+<p>有收入和成本了，那就得规划一些考核的指标，制定主要的KPI</p>
+<h4 id="第九步门槛优势">第九步：门槛优势。</h4>
+<figure data-type="image" tabindex="21"><img src="https://DennyWanye.GitHub.io/post-images/1725355761866.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="22"><img src="https://DennyWanye.GitHub.io/post-images/1725356239539.png" alt="" loading="lazy"></figure>
+<h3 id="devops项目推进七原则">DevOps项目推进七原则</h3>
+<figure data-type="image" tabindex="23"><img src="https://DennyWanye.GitHub.io/post-images/1725356733123.png" alt="" loading="lazy"></figure>
+<h3 id="总结通过devops实现敏捷型组织">总结：通过DevOps实现敏捷型组织</h3>
+<figure data-type="image" tabindex="24"><img src="https://DennyWanye.GitHub.io/post-images/1725357212875.png" alt="" loading="lazy"></figure>
+<h3 id="devops架构图">DevOps架构图</h3>
+<figure data-type="image" tabindex="25"><img src="https://DennyWanye.GitHub.io/post-images/1725431822000.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="26"><img src="https://DennyWanye.GitHub.io/post-images/1725432598681.png" alt="" loading="lazy"></figure>
+<h4 id="devops元素周期表">DevOps元素周期表</h4>
+<figure data-type="image" tabindex="27"><img src="https://DennyWanye.GitHub.io/post-images/1725432833563.png" alt="" loading="lazy"></figure>
+<h3 id="devopsmaster是一个教练">DevOpsMaster是一个教练</h3>
+<figure data-type="image" tabindex="28"><img src="https://DennyWanye.GitHub.io/post-images/1725677353427.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="29"><img src="https://DennyWanye.GitHub.io/post-images/1725677405943.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="30"><img src="https://DennyWanye.GitHub.io/post-images/1725677463362.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="31"><img src="https://DennyWanye.GitHub.io/post-images/1725677655445.png" alt="" loading="lazy"></figure>
+<h3 id="swot">SWOT</h3>
+<figure data-type="image" tabindex="32"><img src="https://DennyWanye.GitHub.io/post-images/1725677715830.png" alt="" loading="lazy"></figure>
+<h3 id="devops的理想模式">DevOps的理想模式</h3>
+<figure data-type="image" tabindex="33"><img src="https://DennyWanye.GitHub.io/post-images/1725677962418.png" alt="" loading="lazy"></figure>
+<h3 id="测试驱动开发的模式">测试驱动开发的模式</h3>
+<figure data-type="image" tabindex="34"><img src="https://DennyWanye.GitHub.io/post-images/1725678916482.png" alt="" loading="lazy"></figure>
+<h3 id="devsecops原则">DevSecOps原则</h3>
+<figure data-type="image" tabindex="35"><img src="https://DennyWanye.GitHub.io/post-images/1725679208338.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="36"><img src="https://DennyWanye.GitHub.io/post-images/1725679349207.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="37"><img src="https://DennyWanye.GitHub.io/post-images/1725679372569.png" alt="" loading="lazy"></figure>
+<h3 id="devsecops-三步工作法">DevSecOps 三步工作法：</h3>
+<p><img src="https://DennyWanye.GitHub.io/post-images/1725679464638.png" alt="" loading="lazy"><br>
+<img src="https://DennyWanye.GitHub.io/post-images/1725679511863.png" alt="" loading="lazy"></p>
+<h4 id="cicd安全性">CI/CD安全性</h4>
+<figure data-type="image" tabindex="38"><img src="https://DennyWanye.GitHub.io/post-images/1725679602803.png" alt="" loading="lazy"></figure>
+<h4 id="迁移到devops的7个步骤">迁移到DevOps的7个步骤</h4>
+<figure data-type="image" tabindex="39"><img src="https://DennyWanye.GitHub.io/post-images/1725679679927.png" alt="" loading="lazy"></figure>
+<h3 id="持续交付的定义">持续交付的定义</h3>
+<figure data-type="image" tabindex="40"><img src="https://DennyWanye.GitHub.io/post-images/1725680349142.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="41"><img src="https://DennyWanye.GitHub.io/post-images/1725680390703.png" alt="" loading="lazy"></figure>
+<h3 id="持续交付的5个关键原则">持续交付的5个关键原则</h3>
+<figure data-type="image" tabindex="42"><img src="https://DennyWanye.GitHub.io/post-images/1725680440387.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="43"><img src="https://DennyWanye.GitHub.io/post-images/1725680477075.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="44"><img src="https://DennyWanye.GitHub.io/post-images/1725680632640.png" alt="" loading="lazy"></figure>
+<h3 id="版本管理是基础">版本管理是基础</h3>
+<figure data-type="image" tabindex="45"><img src="https://DennyWanye.GitHub.io/post-images/1725866786264.png" alt="" loading="lazy"></figure>
+<h3 id="持续集成">持续集成</h3>
+<figure data-type="image" tabindex="46"><img src="https://DennyWanye.GitHub.io/post-images/1725866846612.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="47"><img src="https://DennyWanye.GitHub.io/post-images/1725867111130.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="48"><img src="https://DennyWanye.GitHub.io/post-images/1725867158955.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="49"><img src="https://DennyWanye.GitHub.io/post-images/1725867180931.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="50"><img src="https://DennyWanye.GitHub.io/post-images/1725867199628.png" alt="" loading="lazy"></figure>
+<h3 id="测试象限">测试象限</h3>
+<figure data-type="image" tabindex="51"><img src="https://DennyWanye.GitHub.io/post-images/1725867319547.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="52"><img src="https://DennyWanye.GitHub.io/post-images/1725867752739.png" alt="" loading="lazy"></figure>
+<h3 id="代码变更经过部署流水线的过程">代码变更经过部署流水线的过程</h3>
+<figure data-type="image" tabindex="53"><img src="https://DennyWanye.GitHub.io/post-images/1725867911626.png" alt="" loading="lazy"></figure>
+<h3 id="基本的部署流水线">基本的部署流水线</h3>
+<figure data-type="image" tabindex="54"><img src="https://DennyWanye.GitHub.io/post-images/1725867957035.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="55"><img src="https://DennyWanye.GitHub.io/post-images/1725868001419.png" alt="" loading="lazy"></figure>
+<h3 id="提交阶段">提交阶段</h3>
+<figure data-type="image" tabindex="56"><img src="https://DennyWanye.GitHub.io/post-images/1725868352909.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="57"><img src="https://DennyWanye.GitHub.io/post-images/1725868376708.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="58"><img src="https://DennyWanye.GitHub.io/post-images/1725868419523.png" alt="" loading="lazy"></figure>
+<h3 id="持续交付">持续交付</h3>
+<figure data-type="image" tabindex="59"><img src="https://DennyWanye.GitHub.io/post-images/1725869268533.png" alt="" loading="lazy"></figure>
+<h3 id="成熟度模型">成熟度模型</h3>
+<figure data-type="image" tabindex="60"><img src="https://DennyWanye.GitHub.io/post-images/1725869216012.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="61"><img src="https://DennyWanye.GitHub.io/post-images/1725869309140.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="62"><img src="https://DennyWanye.GitHub.io/post-images/1725869360122.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="63"><img src="https://DennyWanye.GitHub.io/post-images/1725869460062.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="64"><img src="https://DennyWanye.GitHub.io/post-images/1725869510315.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="65"><img src="https://DennyWanye.GitHub.io/post-images/1725869552104.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="66"><img src="https://DennyWanye.GitHub.io/post-images/1725869625416.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="67"><img src="https://DennyWanye.GitHub.io/post-images/1725869649074.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="68"><img src="https://DennyWanye.GitHub.io/post-images/1725869712667.png" alt="" loading="lazy"></figure>
+<h3 id="总结">总结</h3>
+<figure data-type="image" tabindex="69"><img src="https://DennyWanye.GitHub.io/post-images/1725869875598.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="70"><img src="https://DennyWanye.GitHub.io/post-images/1725869897064.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="71"><img src="https://DennyWanye.GitHub.io/post-images/1725869912100.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="72"><img src="https://DennyWanye.GitHub.io/post-images/1725869930815.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="73"><img src="https://DennyWanye.GitHub.io/post-images/1725869945816.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="74"><img src="https://DennyWanye.GitHub.io/post-images/1725869965374.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[升级Node版本：V12->V20/V16->V20]]></title>
+        <id>https://DennyWanye.GitHub.io/post/sheng-ji-node-ban-ben-v12-greaterv20v16-greaterv20/</id>
+        <link href="https://DennyWanye.GitHub.io/post/sheng-ji-node-ban-ben-v12-greaterv20v16-greaterv20/">
+        </link>
+        <updated>2024-08-09T02:36:15.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="背景">背景</h3>
+<p>项目上面最近需要将node的版本升级到V20，不过现在项目里面有的用的是V12的node，有的用的是V16的node。</p>
+<h3 id="一-利用nvm将项目的node环境转换为20">一、利用nvm将项目的node环境转换为20</h3>
+<p>nvm 是一种很方便管理本地node版本的工具，可以快速的切换本地的node环境。</p>
+<pre><code class="language-javascript">nvm use 20
+</code></pre>
+<h3 id="二-解决npm-i的报错">二、解决npm i的报错</h3>
+<p>以下是报错和如何解决的：</p>
+<h5 id="报错1">报错1：</h5>
+<pre><code> Could not resolve dependency:
+ peer react-dom@&quot;^15.4.2&quot; from react-addons-test-utils@15.6.2
+ node_modules/react-addons-test-utils
+   dev react-addons-test-utils@&quot;^15.1.0&quot; from the root project
+
+</code></pre>
+<p>原因：<br>
+This package is deprecated as of version 15.5.0<br>
+TestUtils have been moved to react-dom/test-utils<br>
+Shallow renderer has been moved to react-test-renderer/shallow</p>
+<p>解决：<br>
+因为项目里面没有引用，所以删除该包</p>
+<h5 id="报错2">报错2：</h5>
+<pre><code> Could not resolve dependency:
+ peer webpack@&quot;&gt;=1.12.9 &lt;3.0.0&quot; from babel-plugin-webpack-loaders@0.9.0
+ node_modules/babel-plugin-webpack-loaders
+   dev babel-plugin-webpack-loaders@&quot;^0.9.0&quot; from the root project
+</code></pre>
+<p>原因：<br>
+package.json中的webpack版本为3.12.0，而 babel-plugin-webpack-loaders@0.9.0需要的webpack版本为&gt;=1.12.9 ❤️.0.0</p>
+<p>解决：<br>
+因为babel-plugin-webpack-loaders太旧了停止维护，没有更新的版本，所以只能将webpack降低版本，降低为2.7</p>
+<h5 id="报错3">报错3：</h5>
+<pre><code>Could not resolve dependency:
+ peer draft-js@&quot;^0.10.x&quot; from react-draft-wysiwyg@1.12.13
+ node_modules/react-draft-wysiwyg
+   react-draft-wysiwyg@&quot;^1.12.13&quot; from the root project
+</code></pre>
+<p>原因：<br>
+react-draft-wysiwyg需要的为&quot;draft-js&quot;: &quot;<sup>0.10.x”，而package.json中的为&quot;</sup>0.11.7&quot;</p>
+<p>解决：<br>
+因为项目里面没有引用，所以删除该包</p>
+<h5 id="报错4">报错4：</h5>
+<pre><code>'darwin-x64' binaries cannot be used on the 'darwin-arm64v8' platform. Please remove the 'node_modules/sharp/vendor' directory and run 'npm install'.
+</code></pre>
+<p>原因：<br>
+Sharp 需要单独安装适配本机苹果M1芯片的包</p>
+<p>解决：<br>
+发现关于sharp包的安装问题，在M1芯片的Mac上，需要在安装的时候，利用 <code>npm install --cpu=arm64 --os=darwin sharp</code></p>
+<h5 id="报错5">报错5：</h5>
+<pre><code>关于extract-text-webpack-plugin的版本支持3.0以上的webpack的报错，错误暂时找不到了，跟
+报错2类似，而且这个报因为弃用了，所以在npm官网上面搜索不到，我最后是在谷歌搜索里面搜索这个包名称，才找到了之前的地址。
+以下是地址：https://www.npmjs.com/package/extract-text-webpack-plugin
+
+建议遇见这种直接利用url规律替换掉包名称进行访问 https://www.npmjs.com/package/包名称
+
+</code></pre>
+<p>原因：<br>
+extract-text-webpack-plugin的版本支持3.0以上的webpack</p>
+<p>解决：<br>
+找到其git链接后，将其降低至对应webpack2.0版本的包</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[记录MongoDB升级 5.0 to 6.0]]></title>
+        <id>https://DennyWanye.GitHub.io/post/ji-lu-mongodb-sheng-ji-50-to-60/</id>
+        <link href="https://DennyWanye.GitHub.io/post/ji-lu-mongodb-sheng-ji-50-to-60/">
+        </link>
+        <updated>2024-08-09T02:25:52.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="一-确定mongodb的升级版本兼容性影响">一、确定MongoDB的升级版本兼容性影响</h3>
+<p>可以从官网找到：<br>
+https://www.mongodb.com/zh-cn/docs/manual/release-notes/6.0-compatibility/</p>
+<p>先看一遍，在结合本地代码了解需要处理的错误：</p>
+<p>像是这次需要处理的代码如下：</p>
+<ol>
+<li>not support options: usecreateindex, usefindandmodify, autoreconnect</li>
+<li>reconnectinterval, reconnecttries</li>
+<li>关注带有 $regex 查询的功能， test case 要包含这类功能</li>
+<li>删除的操作符</li>
+<li>已删除参数 --tlsFIPSMode</li>
+<li>弃用 db.collection.reIndex()</li>
+<li>检查 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>c</mi><mi>c</mi><mi>u</mi><mi>m</mi><mi>u</mi><mi>l</mi><mi>a</mi><mi>t</mi><mi>o</mi><mi>r</mi><mi mathvariant="normal">、</mi></mrow><annotation encoding="application/x-tex">accumulator、</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord cjk_fallback">、</span></span></span></span>function 和 $where 表达式中已删除字符串和数组函数</li>
+<li>检查 expireAfterSeconds 设为 NaN 的 TTL index</li>
+</ol>
+<pre><code class="language-javascript">//查询 TTL Non index 的脚本
+function getNaNIndexes() {
+   const nan_index = [];
+ 
+   const dbs = db.adminCommand({ listDatabases: 1 }).databases;
+ 
+   dbs.forEach((d) =&gt; {
+      if (d.name != 'local') {
+         const listCollCursor = db
+            .getSiblingDB(d.name)
+            .runCommand({ listCollections: 1 }).cursor;
+ 
+         const collDetails = {
+            db: listCollCursor.ns.split(&quot;.$cmd&quot;)[0],
+            colls: listCollCursor.firstBatch.map((c) =&gt; c.name),
+         };
+ 
+         collDetails.colls.forEach((c) =&gt;
+            db
+               .getSiblingDB(collDetails.db)
+               .getCollection(c)
+               .getIndexes()
+               .forEach((entry) =&gt; {
+                  if (Object.is(entry.expireAfterSeconds, NaN)) {
+                     nan_index.push({ ns: `${collDetails.db}.${c}`, index: entry });
+                  }
+               })
+         );
+      }
+   });
+ 
+   return nan_index;
+};
+ 
+getNaNIndexes();
+ 
+</code></pre>
+<h3 id="二-根据上面做出来的信息对本地代码作出修改">二、根据上面做出来的信息，对本地代码作出修改</h3>
+<p>这一步，主要是根据第一步整理出来的信息做代码检查和修改，确定本地的代码已经做了第一步的兼容性处理。</p>
+<h3 id="三-将本地的项目连接上60版本的mongodb数据库运行并解决报错">三、将本地的项目连接上6.0版本的MongoDB数据库，运行并解决报错</h3>
+<p>这一步，直接在本地项目上面链接6.0版本的数据库，很幸运，没有出现很难解决的报错。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Expo Realm 数据库操作]]></title>
+        <id>https://DennyWanye.GitHub.io/post/expo-realm-shu-ju-ku-cao-zuo/</id>
+        <link href="https://DennyWanye.GitHub.io/post/expo-realm-shu-ju-ku-cao-zuo/">
+        </link>
+        <updated>2024-08-03T04:36:50.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="一-读取操作">一、读取操作</h3>
+<p>用 <code>useQuery</code> 的方法：</p>
+<pre><code class="language-javascript">
+export type RealmQuerySearchText = {
+    searchKey: string,
+    searchValue: any,
+}
+
+export const useQueryN = (flag: flag, searchParams?: RealmQuerySearchText | undefined) =&gt; {
+  return useQuery(flag, item =&gt; {
+    if (searchParams) {
+      return item.filtered(searchParams.searchKey + ' TEXT $0', searchParams.searchValue)
+    } else {
+      return item
+    }
+  });
+}
+
+</code></pre>
+<p>用 <code>useObject</code>的方法没有成功过，不知道怎么传递 <code>_id</code> 数据，不过以下是用 <code>realm.object</code>方法的示例。</p>
+<pre><code class="language-javascript">await realm
+    .objects(UserData)             //UserData 是 schema
+    .filtered(`userId == $0`, userId)
+
+</code></pre>
+<h3 id="二-写入操作">二、写入操作</h3>
+<p>利用 <code>realm.write</code> :</p>
+<p>第一种方式：</p>
+<pre><code class="language-javasciprt">
+//timelinesBeforeSort的schema 中 包含了 events的schema，是以List的方式包含的
+//events必须是一个全新的对象（对于events的主键来说，也就是主键需要新建，不能存在
+//这也就意味着不能用这种方法将已经存在的events 链接到 timelinesBeforeSort的schema上
+
+    await realm.write(() =&gt; {
+      timelinesBeforeSort.events = [...timelinesBeforeSort.events, {
+        _id: new BSON.ObjectId(),
+        what: what,
+        why: why || '',
+        how: how || '',
+        start: start,
+        end: end,
+        who: [...who],
+        where: [...where],
+      }]
+    })
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Expo Realm 配置本地和远端的数据库进行同步]]></title>
+        <id>https://DennyWanye.GitHub.io/post/expo-realm-pei-zhi-ben-di-he-yuan-duan-de-shu-ju-ku-jin-xing-tong-bu/</id>
+        <link href="https://DennyWanye.GitHub.io/post/expo-realm-pei-zhi-ben-di-he-yuan-duan-de-shu-ju-ku-jin-xing-tong-bu/">
+        </link>
+        <updated>2024-07-26T06:08:04.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="开始之前-创建一个appservice并开启同步注意查看一下提示注意项">开始之前 创建一个AppService，并开启同步（注意查看一下提示注意项）</h3>
+<p>这个一步需要在官网进行操作：<br>
+当然你需要先在官网创建一个DB 和APP Service。</p>
+<figure data-type="image" tabindex="1"><img src="https://DennyWanye.GitHub.io/post-images/1721975331662.png" alt="" loading="lazy"></figure>
+<p>注意1: 第一次使用请注意将接受匿名链接开启，否则，你很难连上，可以后续按照你的需要进行增加权限验证功能：<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1721975558074.png" alt="" loading="lazy"></p>
+<p>注意2: 将如果你提示IP Address限制访问的问题，请直接添加一下规则到Network Access中，代表允许任意IP进行访问：<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1721975682205.png" alt="" loading="lazy"></p>
+<p>在后端启用 Flexible Sync。您必须在后端配置 Flexible Sync，然后才能在客户端应用程序中使用：<br>
+https://www.mongodb.com/zh-cn/docs/atlas/app-services/sync/configure/enable-sync/#std-label-enable-flexible-sync</p>
+<h3 id="初始化应用客户端">初始化应用客户端</h3>
+<p>doc: https://www.mongodb.com/zh-cn/docs/atlas/device-sdks/sdk/react-native/app-services/connect-to-app-services-app/#std-label-react-native-connect-to-mongodb-realm-backend-app</p>
+<p>此步骤的目的是为了让localApp和远程创建的app进行访问：<br>
+以下为代码：</p>
+<pre><code class="language-javascript">import React from 'react';
+import {AppProvider, UserProvider, RealmProvider} from '@realm/react';
+function AppWrapperSync() {
+  return (
+    &lt;AppProvider id={APP_ID}&gt;           //1. 输入AppID
+      &lt;UserProvider fallback={LogIn}&gt;    //2.利用UserProvider，fallback进行登录验证，建议一开始使用匿名登录，使用匿名登录需要确认一下 注意1 的设置
+        &lt;RealmProvider                         //此处设置 sync 对象的 flexible: true， 代表进行同步。
+          schema={[YourObjectModel]}
+          sync={syncConfigWithErrorHandling}&gt;
+          &lt;RestOfApp /&gt;
+        &lt;/RealmProvider&gt;
+      &lt;/UserProvider&gt;
+    &lt;/AppProvider&gt;
+  );
+}
+
+  //处理如果同步远端realm失败的情况，作用，同步失败的报错信息影响用户体验
+  const syncConfigWithErrorHandling: any = {
+    flexible: true,                 //设置为true，开启同步
+    onError: (_session: any, error: any) =&gt; {      //处理报错情况，感觉忽略就好
+      console.log(_session)
+      console.log(error);
+    },
+    //用于给remote初始化schemas
+    // initialSubscriptions: {
+    //   update(subs, realm) {
+    //     subs.add(realm.objects(schemas));
+    //   },
+    // }
+    newRealmFileBehavior: realmAccessBehavior,        //用于处理离线时，同步失败的情况
+    existingRealmFileBehavior: realmAccessBehavior,   //用于处理离线时，同步失败的情况
+  }
+
+
+//此为在如果项目离线时，同步的设置，专门针对app离线时候的处理：https://www.mongodb.com/zh-cn/docs/atlas/device-sdks/sdk/react-native/sync-data/configure-a-synced-realm/#access-a-synced-realm-while-offline
+const realmAccessBehavior: Realm.OpenRealmBehaviorConfiguration = {
+    //type: Realm.OpenRealmBehaviorType.OpenImmediately,
+    //@ts-ignore
+    type: 'downloadBeforeOpen',            //https://www.mongodb.com/docs/realm-sdks/react/latest/enums/Realm.OpenRealmBehaviorType.html
+    //@ts-ignore
+    timeOutBehavior: 'openLocalRealm',     //https://www.mongodb.com/docs/realm-sdks/react/latest/enums/Realm.OpenRealmTimeOutBehavior.html
+    timeOut: 1000,
+  };
+
+</code></pre>
+<h3 id="对客户端项目中的用户进行身份验证">对客户端项目中的用户进行身份验证：</h3>
+<p>Login的代码逻辑，可以使用API Key，邮箱/密码等，但是国内网络原因且只是测试，所以使用匿名登录， 注意1<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1721981570743.png" alt="" loading="lazy"></p>
+<pre><code class="language-javacript">
+import { View, Text } from 'react-native';
+import { useEffect } from 'react'
+import { useAuth } from '@realm/react';
+
+
+const LogIn = () =&gt; {
+    // `logInWithAnonymous` logs in a user using an
+    // anonymous Realm Credential.
+    // `result` gives us access to the result of the
+    // current operation. In this case, `logInWithAnonymous`.
+    const { logInWithAnonymous, result } = useAuth();     //直接利用logInWithAnonymous来进行匿名登录
+    // Log in an anyonmous user on component render.
+    // On successful login, this fallback component unmounts.
+    useEffect(() =&gt; {
+        logInWithAnonymous();
+    }, [])
+    return (
+        &lt;View &gt;
+            {!result.error &amp;&amp; &lt;Text&gt;Please log in&lt;/Text&gt;}
+            &lt;View&gt;
+                {result.pending &amp;&amp; &lt;Text&gt;{JSON.stringify(result.pending)}&lt;/Text&gt;}
+                {result.error &amp;&amp; &lt;Text&gt;{JSON.stringify(result.error)}&lt;/Text&gt;}
+            &lt;/View&gt;
+        &lt;/View&gt;
+    );
+};
+
+export default LogIn
+
+</code></pre>
+<p>APP_ID的位置：<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1721979221799.png" alt="" loading="lazy"></p>
+<h3 id="调用订阅方法订阅每一个需要同步的model这时你的数据改动">调用订阅方法，订阅每一个需要同步的model，这时你的数据改动</h3>
+<pre><code class="language-javascript">import React from 'react';
+import { useState, useEffect } from 'react';
+import { useRealm } from '@realm/react';
+import { WaitForSync} from 'realm';
+
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { useQueryN, useCreateAndUpdate, useDelte } from '@/hooks/useRealmNovle';
+import ListOfRealmModels from '@/constants/ListOfRealmModels';
+
+
+  const realm = useRealm()
+  const ideas: any = useQueryN(ListOfRealmModels.ideas);  //此处ideas的值为从本地数据库库中利用 useQuery(&quot;Ideas&quot;)拿出来的值，这个值是带有subscribe方法的。
+  const tags: any = useQueryN(ListOfRealmModels.tags);
+  const collections: any = useQueryN(ListOfRealmModels.collections);
+  const objects: any = useQueryN(ListOfRealmModels.object);
+  const events: any = useQueryN(ListOfRealmModels.events);
+  const subscribeArray: any = [ideas, tags, collections, objects, events]
+
+  function subscribeModel(subscribeArray: Array&lt;any&gt;) {
+    // Create an async function so that we can `await` the
+    // promise from `.subscribe()`.
+    subscribeArray.forEach((item, index) =&gt; {
+      const createSubscription = async () =&gt; {
+        await item.subscribe({
+          name: 'subscribe' + index,
+          behavior: WaitForSync.FirstTime,                  //When you subscribe to a query's results, the results do not contain objects until synced data is downloaded. When you do need to wait for synced objects to finish downloading, configure the waitForSync option.
+        });
+      };
+      createSubscription().catch(console.error);
+    })
+  }
+
+  useEffect(() =&gt; {
+    subscribeModel(subscribeArray)
+  }, []);
+
+</code></pre>
+<h3 id="修改登录方式为邮箱密码登录">修改登录方式为邮箱/密码登录</h3>
+<ol>
+<li>在web的AppService中开启登录方式<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1722318411077.png" alt="" loading="lazy"></li>
+<li>配置邮箱验证<br>
+说明： 暂时设置为Automatically confirm users ，这样子就不需要额外的验证网页了，方便开发<br>
+同理password reset Method设置为 Run a password reset function， 然后设置默认函数（直接点击保存就好了），这个函数虽然无法执行预期的修改功能，但是方便我们开始进行开发，后面可以对这个进行配置。<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1722318478288.png" alt="" loading="lazy"></li>
+<li>利用 <code>useEmailPasswordAuth()</code>来进行登录和注册</li>
+</ol>
+<pre><code class="language-javascript">  const { result, logIn, register } = useEmailPasswordAuth();
+
+  const loginFunction = async () =&gt; {
+    if (!isLogin) {
+      setIsLogin(true)
+      showSnackbar('请输入账号密码进行登录，谢谢🙏。')
+      return
+    }
+    if (email &amp;&amp; password) {
+      logIn({ email, password });
+    } else {
+      showSnackbar('账号或者密码为空，请检查，谢谢🙏。')
+    }
+  }
+
+  const hasEmailErrors = () =&gt; {
+    if (email === '') {
+      return false
+    }
+    return !email.includes('@');
+  };
+
+  const registerFunction = async () =&gt; {
+    if (isLogin) {
+      setIsLogin(false)
+      showSnackbar('请输入账号、密码和用户名进行注册，谢谢🙏。')
+      return
+    }
+    await register({ email, password });
+  };
+
+  useEffect(() =&gt; {             //注意：利用useEffect在注册完成后，触发登录操作，用户注册完，以后，还需要登录激活一下。否则就只能在web 的 App users（左侧）--&gt; Users --&gt; Pending 中才能找到 
+
+    if (result.success &amp;&amp; result.operation === AuthOperationName.Register) {
+      logIn({ email, password });
+    }
+  }, [result, logIn, email, password]);
+</code></pre>
+<h3 id="关于修改已经存在的文档数据">关于修改已经存在的文档数据：</h3>
+<pre><code class="language-javascript">realm.create('UserData', {                  //这个对象需要修改完成后的完整集合数据（?存在疑问，需要验证一下)
+            _id: userData._id,
+            userId: userId,
+            tags: [...userData.tags, writeObj],
+            ideas: [...userData.ideas],
+          }, 'modified');
+
+//此为创建数据的方法
+await realm.write(() =&gt; {
+        realm.create(&lt;SchemaName&gt;, writeObj)
+      })
+</code></pre>
+<h3 id="新添加schema的方法">新添加schema的方法</h3>
+<ol>
+<li>本地添加好model</li>
+</ol>
+<pre><code class="language-javascript">import { BSON, ObjectSchema, Object, List } from &quot;realm&quot;;
+import { Events } from &quot;./Events&quot;;
+
+export class Timelines extends Object&lt;Timelines&gt; {
+    _id!: BSON.ObjectId;
+    name!: string;
+    desc: string = '';
+    events!: List&lt;Events&gt; ;
+
+    static schema: ObjectSchema = {
+        name: 'Timelines',
+        properties: {
+          _id: 'objectId',
+          name: {type: 'string', indexed: 'full-text'},
+          desc: 'string',
+          events: 'Events[]',
+        },
+        primaryKey: '_id',
+      };
+}
+
+</code></pre>
+<ol start="2">
+<li>将其放到初始化和订阅中</li>
+</ol>
+<p>初始化：</p>
+<pre><code class="language-javascript">
+  const schemas: any = [Ideas, Tags, Collections, ObjectOfCollections, Events, **Timelines**,  UserData]
+
+
+//处理如果同步远端realm失败的情况，作用，同步失败的报错信息影响用户体验
+  const syncConfigWithErrorHandling: any = {
+    flexible: true,
+    onError: (_session: any, error: any) =&gt; {
+      console.log(_session)
+      console.log(error);
+    },
+    //是否是用于给remote初始化schemas？
+    initialSubscriptions: {
+      update(subs: any, realm: any) {
+        subs.add(realm.objects(**schemas**));
+      },
+    },
+    newRealmFileBehavior: realmAccessBehavior,
+    existingRealmFileBehavior: realmAccessBehavior,
+  }
+
+
+&lt;PaperProvider&gt;
+      &lt;AppProvider id={APP_ID} &gt;
+        &lt;UserProvider fallback={LogIn}&gt;
+          &lt;RealmProvider
+            path='./NovelTagSys.realm'
+            schema={schemas}
+            sync={syncConfigWithErrorHandling}
+          &gt;
+            &lt;Stack&gt;
+              &lt;Stack.Screen name=&quot;(tabs)&quot; options={{ headerShown: false }} /&gt;
+              &lt;Stack.Screen name=&quot;+not-found&quot; /&gt;
+            &lt;/Stack&gt;
+          &lt;/RealmProvider&gt;
+        &lt;/UserProvider&gt;
+      &lt;/AppProvider&gt;
+    &lt;/PaperProvider&gt;
+
+</code></pre>
+<p>错误：<code>Client attempted a write that is not allowed; it has been reverted</code><br>
+fulllog:</p>
+<pre><code class="language-javascript"> LOG  {&quot;weakInternal&quot;: {Symbol(Realm.WeakSyncSession.external_pointer): {}}}
+ LOG  [SyncError: Client attempted a write that is not allowed; it has been reverted]
+
+</code></pre>
+<ol start="3">
+<li>
+<p>重新启动远端的 sync<br>
+根据文档说明，修改了schema之后，需要 <code>Terminate Sync</code> 之后， 再开始启动<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1722590188452.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>修改新建的 schema 权限，否则前端无法对其进行读写<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1722593173452.png" alt="" loading="lazy"></p>
+</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[在Expo项目中使用 realm ]]></title>
+        <id>https://DennyWanye.GitHub.io/post/zai-expo-xiang-mu-zhong-shi-yong-realm/</id>
+        <link href="https://DennyWanye.GitHub.io/post/zai-expo-xiang-mu-zhong-shi-yong-realm/">
+        </link>
+        <updated>2024-07-09T03:13:16.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="一-安装">一、安装</h3>
+<p>realm的官方有维护一个realm支持的RN、node、Expo、realm、@realm/react的兼容性图表：<br>
+https://github.com/realm/realm-js/blob/main/COMPATIBILITY.md</p>
+<p><code>npx expo install realm @realm/react</code></p>
+<p>Expo 本身不支持 realm， 所以需要用安卓环境来运行：</p>
+<p><code>npm install expo-dev-client</code></p>
+<p><code>npx expo run:android</code></p>
+<h3 id="二-在项目本地运行realm">二、 在项目本地运行Realm</h3>
+<ol>
+<li>配置 ReamlProvider</li>
+</ol>
+<pre><code class="language-javascript">...more code...
+import { RealmProvider } from '@realm/react';
+import { Ideas } from '@/models/Ideas';
+import { Tags } from '@/models/Tags';
+import { Collections } from '@/models/Collections';
+
+...more code...
+
+&lt;PaperProvider&gt;
+
+      //path: 为可设置的安装realm的相对路径
+      //schema为需要提前创建的document 样式
+      //isMemory 为是否在内存中运行，是的话，数据只会储存在内存中，反之，会放到本地
+      &lt;RealmProvider path='./NovelTagSys.realm' schema={[Ideas, Tags, Collections]} inMemory={false}&gt;
+        &lt;ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}&gt;
+          &lt;Stack&gt;
+            &lt;Stack.Screen name=&quot;(tabs)&quot; options={{ headerShown: false }} /&gt;
+            &lt;Stack.Screen name=&quot;+not-found&quot; /&gt;
+          &lt;/Stack&gt;
+        &lt;/ThemeProvider&gt;
+      &lt;/RealmProvider&gt;
+    &lt;/PaperProvider&gt;
+
+</code></pre>
+<ol start="2">
+<li>创建models</li>
+</ol>
+<p>创建嵌套的 schema的方式： https://www.mongodb.com/docs/atlas/device-sdks/sdk/react-native/model-data/relationships-and-embedded-objects/</p>
+<p>这里有一个问题，就是如何将创建的对象和在组件中需要使用的 interface 类型一致。</p>
+<pre><code class="language-javascript">import { BSON, ObjectSchema, Object, List } from &quot;realm&quot;;
+import { TagsTS } from &quot;@/constants/Interface&quot;;
+import { Tags } from &quot;./Tags&quot;;
+
+export class Collections extends Object&lt;Collections&gt; {
+    _id!: BSON.ObjectId;
+    name!: string;
+    desc: string = '';
+    tags!: List&lt;Tags&gt; | TagsTS;
+
+    //static primaryKey = '_id';
+
+    static schema: ObjectSchema = {
+        name: 'Collections',
+        properties: {
+          _id: 'objectId',
+          name: 'string',
+          desc: 'string',
+          tags: 'Tags[]',
+        },
+        primaryKey: '_id',
+      };
+}
+
+
+</code></pre>
+<ol start="3">
+<li>CUDP操作</li>
+</ol>
+<pre><code>
+import { useRealm, useQuery } from '@realm/react';
+import { Tags } from '@/models/Tags';
+
+    const realm = useRealm()
+
+    const tags = useQuery(Tags);
+
+    const toUpdate = realm
+      .objects(Tags)
+      .filtered('name == $0', tag.name);
+
+    //create
+    realm.write(() =&gt; {
+        realm.create(&quot;Tags&quot;, {
+          _id: new BSON.ObjectId(),
+          name: tag.name,
+          type: tag.type,
+          desc: tag.desc,
+          color: tag.color,
+        })
+      })
+
+    //update
+    realm.write(() =&gt; {
+        toUpdate[0].name = tag.name;
+        toUpdate[0].type = tag.type;
+        toUpdate[0].desc = tag.desc;
+      });
+
+    //delete
+    const toDelete = realm
+      .objects(Tags)
+      .filtered('name == $0', deleteTagName);
+
+    realm.write(() =&gt; {
+      realm.delete(toDelete)
+    })
+
+</code></pre>
+<h3 id="qa">QA</h3>
+<h4 id="问题一-在-one-to-many-的-schema-中进行对嵌套的-子schema传递值的时候发现如果传递的是相同的数组会导致其清空数据库中-子schema对应的值">问题一、在 One-to-Many 的 schema 中进行对嵌套的 子schema，传递值的时候，发现如果传递的是相同的数组，会导致其清空数据库中 子schema，对应的值。</h4>
+<p>如下 Error，我想要将 <code>collectionTags</code> 的值更新到 <code>toUpdate[0].tags</code> 中，但是如果它们相同的话，反而会清除realm中  <code>toUpdate[0].tags</code>  的值。</p>
+<p>应该是在将数据库中获取的 子schema 对应的值，需要进行解构赋值操作，才能传给 <code>realm.write</code> 进行更新。</p>
+<pre><code class="language-javascirpt">
+      realm.write(() =&gt; {
+        toUpdate[0].name = collectionNmae;
+        toUpdate[0].desc = collectionDesc;
+        toUpdate[0].tags = [...collectionTags];  //需要这样操作一下
+      });
+
+//以下操作也会清除 toUpdate[0].tags对应数据库中的值
+
+      realm.write(() =&gt; {
+        toUpdate[0].name = collectionNmae;
+        toUpdate[0].desc = collectionDesc;
+        // toUpdate[0].tags = [...collectionTags];
+        toUpdate[0].tags = toUpdate[0].tags;
+      });
+
+</code></pre>
+<h5 id="error">Error：</h5>
+<pre><code> LOG  toUpdate
+ LOG  [{&quot;_id&quot;: [ObjectId], &quot;desc&quot;: &quot;this is a really big pig(changedasni ga )&quot;, &quot;name&quot;: &quot;pig king&quot;, &quot;tags&quot;: [Array]}]
+ LOG  toUpdate[0].tags
+ LOG  [{&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(87,50%,70%,1)&quot;, &quot;desc&quot;: &quot;猪皮够厚，能挨揍&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;扛揍&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(4,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能睡，吃完就睡&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;嗜睡&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(106,50%,70%,1)&quot;, &quot;desc&quot;: &quot;能进化成天蓬小猪&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;能进化&quot;, &quot;type&quot;: &quot;可能性&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(147,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能吃特别能吃&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;暴食II&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(304,50%,70%,1)&quot;, &quot;desc&quot;: &quot;这只是一个称号&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;猪猪1号&quot;, &quot;type&quot;: &quot;称号&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(127,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能吃特别能吃特别能吃&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;暴食III&quot;, &quot;type&quot;: &quot;特长&quot;}]
+ LOG  collectionTags
+ LOG  [{&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(87,50%,70%,1)&quot;, &quot;desc&quot;: &quot;猪皮够厚，能挨揍&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;扛揍&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(4,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能睡，吃完就睡&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;嗜睡&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(106,50%,70%,1)&quot;, &quot;desc&quot;: &quot;能进化成天蓬小猪&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;能进化&quot;, &quot;type&quot;: &quot;可能性&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(147,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能吃特别能吃&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;暴食II&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(304,50%,70%,1)&quot;, &quot;desc&quot;: &quot;这只是一个称号&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;猪猪1号&quot;, &quot;type&quot;: &quot;称号&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(127,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能吃特别能吃特别能吃&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;暴食III&quot;, &quot;type&quot;: &quot;特长&quot;}]
+
+</code></pre>
+<h3 id="问题二-怎么找到realm的文件">问题二 怎么找到realm的文件</h3>
+<p>Andriod:<br>
+首先用 Andriod Stadio 来打开，并启动文件:</p>
+<ol>
+<li><code>expo prebuild</code> 生成 andriod 和 ios 文件夹</li>
+<li>安装 gradle : <code>brew install gradle</code>。 注意： 如果你在文件夹 Andriod 下执行这个命令，它会顺手帮你将该文件夹下面的依赖安装好，会花一定的时间。</li>
+<li>用Andriod Stadio打开 andriod 文件夹。</li>
+<li>在 Andriod Stadio &gt; viwe &gt; Tool Windows &gt; Deveice Explorer 中，找到 <code>realm.path</code> 对应的 .ream 文件，双击/右键鼠标对应文件 &gt; save as ... 保存好文件</li>
+<li>用 Realm Stadio 打开对应文件</li>
+</ol>
+<p>IOS： 直接用 RealmStadio打开  <code>realm.path</code> 对应的 .ream 文件就行了。</p>
+]]></content>
+    </entry>
+</feed>

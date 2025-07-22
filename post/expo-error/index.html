@@ -1,0 +1,335 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Expo error | DennyWanye</title>
+
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1753155672310">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            DennyWanye
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1753155672310"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Expo error
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2025-03-24 ·
+                    </time>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/MiQeYdHL9/" class="post-tags">
+                            # expo
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/ixSzJG6Cnt/" class="post-tags">
+                            # realm
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/V5hQEmkz05/" class="post-tags">
+                            # reatNative
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>在我使用新的安卓模拟器的时候，发现了这个问题：</p>
+<h3 id="错误1-no-development-build-comdennywayne123noveltagsystem-for-this-project-is-installed">错误1: No development build (com.dennywayne123.novelTagSystem) for this project is installed</h3>
+<pre><code class="language-javascript">Logs for your project will appear below. Press Ctrl+C to exit. › Opening on Android... CommandError: No development build (com.dennywayne123.novelTagSystem) for this project is installed. Please make and install a development build on the device first. Learn more
+
+</code></pre>
+<p>修复的方法：</p>
+<pre><code>Remove the expo-dev-client dependency from your project's package.json.
+
+Delete node_modules and run npm i.
+
+Start fresh with npx expo start --clear.
+
+</code></pre>
+<h3 id="错误2-npm-view-expo-template-bare-minimumsdk-51-dist-json-exited-with-non-zero-code-1-可能是由于-expo-sdk-51-版本不存在或-npm-访问受限-另外你的-expo-cli-6312-版本-已被标记为-过时legacy而且它不支持-node-17建议迁移到新的-expo-cli">错误2: &quot;npm view expo-template-bare-minimum@sdk-51 dist --json exited with non-zero code: 1&quot; 可能是由于 Expo SDK 51 版本不存在或 npm 访问受限。另外，你的 Expo CLI 6.3.12 版本 已被标记为 过时（legacy），而且它不支持 Node 17+，建议迁移到新的 Expo CLI。</h3>
+<pre><code class="language-javascript">wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % npm run pre
+
+&gt; noveltagsystem@1.1.1 pre
+&gt; expo prebuild
+
+npm view expo-template-bare-minimum@sdk-51 dist --json exited with non-zero code: 1
+✖ Failed to create the native directories
+You may want to delete the ./ios and/or ./android directories before trying again.
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % npx expo prebuild --clean
+
+Your git working tree is clean
+To revert the changes after this command completes, you can run the following:
+  git clean --force &amp;&amp; git reset --hard
+✔ Cleared android, ios code
+npm view expo-template-bare-minimum@sdk-51 dist --json exited with non-zero code: 1
+✖ Failed to create the native directories
+You may want to delete the ./ios and/or ./android directories before trying again.
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % expo --version
+WARNING: The legacy expo-cli does not support Node +17. Migrate to the new local Expo CLI: https://blog.expo.dev/the-new-expo-cli-f4250d8e3421.
+6.3.12
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % node -v
+v20.19.0
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem %
+
+#########
+npx expo prebuild --clean
+
+Your git working tree is clean
+To revert the changes after this command completes, you can run the following:
+  git clean --force &amp;&amp; git reset --hard
+✔ Cleared android, ios code
+npm view expo-template-bare-minimum@sdk-51 dist --json exited with non-zero code: 1
+✖ Failed to create the native directories
+You may want to delete the ./ios and/or ./android directories before trying again.
+wuzhongsen@wuzhongsendeMacBook-Pro novelTagSystem % rm -rf ios android
+npm cache clean --force
+npm warn using --force Recommended protections disabled.
+npm error code EACCES
+npm error syscall unlink
+npm error path /Users/wuzhongsen/.npm/_cacache/index-v5/00/00/86536afe32e0263993e1459d71d327dcc3b5ab101e87f48580218696d712
+npm error errno -13
+npm error
+npm error Your cache folder contains root-owned files, due to a bug in
+npm error previous versions of npm which has since been addressed.
+npm error
+npm error To permanently fix this problem, please run:
+npm error   sudo chown -R 501:20 &quot;/Users/wuzhongsen/.npm&quot;
+npm error A complete log of this run can be found in: /Users/wuzhongsen/.npm/_logs/2025-03-24T13_31_08_252Z-debug-0.log
+
+</code></pre>
+<p>解决方法：</p>
+<pre><code class="language-javascript">#使用新的 Expo CLI
+npm uninstall -g expo-cli
+npm install -g expo
+expo --version
+npx expo prebuild --clean
+
+
+#彻底删除 ios、android 并清理缓存
+
+rm -rf ios android
+npm cache clean --force
+
+npx expo prebuild --clean
+
+
+</code></pre>
+<h3 id="错误3-command-failed-lsof-i5554-p-t-stcplisten-说明-端口-5554-被占用这个端口通常是-android-emulator-相关的">错误3 :  &quot;Command failed: lsof -i:5554 -P -t -sTCP:LISTEN&quot; 说明 端口 5554 被占用，这个端口通常是 Android Emulator 相关的。</h3>
+<p>Expo 尝试启动你的开发环境时，无法访问这个端口，可能是因为：</p>
+<p>有其他 Emulator 实例运行，导致端口冲突</p>
+<p>端口被其他进程占用（比如 ADB 或其他应用）</p>
+<pre><code>› Metro waiting on com.dennywayne123.novelTagSystem://expo-development-client/?url=http%3A%2F%2F192.168.1.3%3A8081
+› Scan the QR code above to open the project in a development build. Learn more
+
+› Web is waiting on http://localhost:8081
+
+› Using development build
+› Press s │ switch to Expo Go
+
+› Press a │ open Android
+› Press i │ open iOS simulator
+› Press w │ open web
+
+› Press j │ open debugger
+› Press r │ reload app
+› Press m │ toggle menu
+› Press o │ open project code in your editor
+
+› Press ? │ show all commands
+
+› Opening com.dennywayne123.novelTagSystem://expo-development-client/?url=http%3A%2F%2F192.168.1.3%3A8081 on Pixel_4a_API_33
+Error: Command failed: lsof -i:5554 -P -t -sTCP:LISTEN
+Error: Command failed: lsof -i:5554 -P -t -sTCP:LISTEN
+    at genericNodeError (node:internal/errors:983:15)
+    at wrappedFn (node:internal/errors:537:14)
+    at checkExecSyncError (node:child_process:882:11)
+    at execFileSync (node:child_process:918:15)
+    at getUnixPID (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/start/platforms/android/activateWindow.ts:12:22)
+    at activateWindowAsync (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/start/platforms/android/activateWindow.ts:38:15)
+    at AndroidDeviceManager.activateWindowAsync (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/start/platforms/android/AndroidDeviceManager.ts:160:30)
+    at AndroidPlatformManager.openProjectInCustomRuntimeAsync (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/start/platforms/PlatformManager.ts:170:25)
+    at runAndroidAsync (/Users/wuzhongsen/project/novelTagSystem/node_modules/@expo/cli/src/run/android/runAndroidAsync.ts:52:3)
+
+</code></pre>
+<h3 id="错误4-log-usecreateandupdate-error-error-cannot-write-to-class-novels-when-no-flexible-sync-subscription-has-been-created">错误4: LOG  useCreateAndUpdate error: Error: Cannot write to class Novels when no flexible sync subscription has been created.</h3>
+<p>解决方法：</p>
+<pre><code class="language-javascript">const ideas: any = useQueryN(ListOfRealmModels.ideas);
+  const tags: any = useQueryN(ListOfRealmModels.tags);
+  const collections: any = useQueryN(ListOfRealmModels.collections);
+  const objects: any = useQueryN(ListOfRealmModels.object);
+  const events: any = useQueryN(ListOfRealmModels.events);
+  const timelines: any = useQueryN(ListOfRealmModels.timelines);
+  const storys: any = useQueryN(ListOfRealmModels.storys);
+  const userData: any = useQueryN(ListOfRealmModels.userData);
+  //1. 添加对应的novels和chapters
+  const novels: any = useQueryN(ListOfRealmModels.novels);
+  const chapters: any = useQueryN(ListOfRealmModels.chapters);
+  //2. 将novels和chapters加到 subscribeArray 中
+  const subscribeArray: any = [ideas, tags, collections, objects, events, timelines, storys, userData, novels, chapters]
+
+  function subscribeModel(subscribeArray: Array&lt;any&gt;) {
+    // Create an async function so that we can `await` the
+    // promise from `.subscribe()`.
+    subscribeArray.forEach((item, index) =&gt; {
+      const createSubscription = async () =&gt; {
+        await item.subscribe({
+          name: 'subscribe' + index,
+          behavior: WaitForSync.FirstTime,
+        });
+      };
+      createSubscription().catch(console.error);
+    })
+  }
+
+  useEffect(() =&gt; {
+    subscribeModel(subscribeArray)
+  }, []);
+
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://DennyWanye.GitHub.io/post/you-xian-he-wu-xian-de-you-xi-du-hou-gan/" class="post-title gt-a-link">
+                    有限和无限的游戏读后感
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">Keep track of interesting things</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/DennyWanye" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ~~~~
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://DennyWanye.GitHub.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>在Expo项目中使用 realm  | DennyWanye</title>
+
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1753155672310">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            DennyWanye
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1753155672310"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    在Expo项目中使用 realm 
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2024-07-09 ·
+                    </time>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/MiQeYdHL9/" class="post-tags">
+                            # expo
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/ixSzJG6Cnt/" class="post-tags">
+                            # realm
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/V5hQEmkz05/" class="post-tags">
+                            # reatNative
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/At0ty9tCm/" class="post-tags">
+                            # react
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/Bxp2msYRj/" class="post-tags">
+                            # coding
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="一-安装">一、安装</h3>
+<p>realm的官方有维护一个realm支持的RN、node、Expo、realm、@realm/react的兼容性图表：<br>
+https://github.com/realm/realm-js/blob/main/COMPATIBILITY.md</p>
+<p><code>npx expo install realm @realm/react</code></p>
+<p>Expo 本身不支持 realm， 所以需要用安卓环境来运行：</p>
+<p><code>npm install expo-dev-client</code></p>
+<p><code>npx expo run:android</code></p>
+<h3 id="二-在项目本地运行realm">二、 在项目本地运行Realm</h3>
+<ol>
+<li>配置 ReamlProvider</li>
+</ol>
+<pre><code class="language-javascript">...more code...
+import { RealmProvider } from '@realm/react';
+import { Ideas } from '@/models/Ideas';
+import { Tags } from '@/models/Tags';
+import { Collections } from '@/models/Collections';
+
+...more code...
+
+&lt;PaperProvider&gt;
+
+      //path: 为可设置的安装realm的相对路径
+      //schema为需要提前创建的document 样式
+      //isMemory 为是否在内存中运行，是的话，数据只会储存在内存中，反之，会放到本地
+      &lt;RealmProvider path='./NovelTagSys.realm' schema={[Ideas, Tags, Collections]} inMemory={false}&gt;
+        &lt;ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}&gt;
+          &lt;Stack&gt;
+            &lt;Stack.Screen name=&quot;(tabs)&quot; options={{ headerShown: false }} /&gt;
+            &lt;Stack.Screen name=&quot;+not-found&quot; /&gt;
+          &lt;/Stack&gt;
+        &lt;/ThemeProvider&gt;
+      &lt;/RealmProvider&gt;
+    &lt;/PaperProvider&gt;
+
+</code></pre>
+<ol start="2">
+<li>创建models</li>
+</ol>
+<p>创建嵌套的 schema的方式： https://www.mongodb.com/docs/atlas/device-sdks/sdk/react-native/model-data/relationships-and-embedded-objects/</p>
+<p>这里有一个问题，就是如何将创建的对象和在组件中需要使用的 interface 类型一致。</p>
+<pre><code class="language-javascript">import { BSON, ObjectSchema, Object, List } from &quot;realm&quot;;
+import { TagsTS } from &quot;@/constants/Interface&quot;;
+import { Tags } from &quot;./Tags&quot;;
+
+export class Collections extends Object&lt;Collections&gt; {
+    _id!: BSON.ObjectId;
+    name!: string;
+    desc: string = '';
+    tags!: List&lt;Tags&gt; | TagsTS;
+
+    //static primaryKey = '_id';
+
+    static schema: ObjectSchema = {
+        name: 'Collections',
+        properties: {
+          _id: 'objectId',
+          name: 'string',
+          desc: 'string',
+          tags: 'Tags[]',
+        },
+        primaryKey: '_id',
+      };
+}
+
+
+</code></pre>
+<ol start="3">
+<li>CUDP操作</li>
+</ol>
+<pre><code>
+import { useRealm, useQuery } from '@realm/react';
+import { Tags } from '@/models/Tags';
+
+    const realm = useRealm()
+
+    const tags = useQuery(Tags);
+
+    const toUpdate = realm
+      .objects(Tags)
+      .filtered('name == $0', tag.name);
+
+    //create
+    realm.write(() =&gt; {
+        realm.create(&quot;Tags&quot;, {
+          _id: new BSON.ObjectId(),
+          name: tag.name,
+          type: tag.type,
+          desc: tag.desc,
+          color: tag.color,
+        })
+      })
+
+    //update
+    realm.write(() =&gt; {
+        toUpdate[0].name = tag.name;
+        toUpdate[0].type = tag.type;
+        toUpdate[0].desc = tag.desc;
+      });
+
+    //delete
+    const toDelete = realm
+      .objects(Tags)
+      .filtered('name == $0', deleteTagName);
+
+    realm.write(() =&gt; {
+      realm.delete(toDelete)
+    })
+
+</code></pre>
+<h3 id="qa">QA</h3>
+<h4 id="问题一-在-one-to-many-的-schema-中进行对嵌套的-子schema传递值的时候发现如果传递的是相同的数组会导致其清空数据库中-子schema对应的值">问题一、在 One-to-Many 的 schema 中进行对嵌套的 子schema，传递值的时候，发现如果传递的是相同的数组，会导致其清空数据库中 子schema，对应的值。</h4>
+<p>如下 Error，我想要将 <code>collectionTags</code> 的值更新到 <code>toUpdate[0].tags</code> 中，但是如果它们相同的话，反而会清除realm中  <code>toUpdate[0].tags</code>  的值。</p>
+<p>应该是在将数据库中获取的 子schema 对应的值，需要进行解构赋值操作，才能传给 <code>realm.write</code> 进行更新。</p>
+<pre><code class="language-javascirpt">
+      realm.write(() =&gt; {
+        toUpdate[0].name = collectionNmae;
+        toUpdate[0].desc = collectionDesc;
+        toUpdate[0].tags = [...collectionTags];  //需要这样操作一下
+      });
+
+//以下操作也会清除 toUpdate[0].tags对应数据库中的值
+
+      realm.write(() =&gt; {
+        toUpdate[0].name = collectionNmae;
+        toUpdate[0].desc = collectionDesc;
+        // toUpdate[0].tags = [...collectionTags];
+        toUpdate[0].tags = toUpdate[0].tags;
+      });
+
+</code></pre>
+<h5 id="error">Error：</h5>
+<pre><code> LOG  toUpdate
+ LOG  [{&quot;_id&quot;: [ObjectId], &quot;desc&quot;: &quot;this is a really big pig(changedasni ga )&quot;, &quot;name&quot;: &quot;pig king&quot;, &quot;tags&quot;: [Array]}]
+ LOG  toUpdate[0].tags
+ LOG  [{&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(87,50%,70%,1)&quot;, &quot;desc&quot;: &quot;猪皮够厚，能挨揍&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;扛揍&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(4,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能睡，吃完就睡&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;嗜睡&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(106,50%,70%,1)&quot;, &quot;desc&quot;: &quot;能进化成天蓬小猪&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;能进化&quot;, &quot;type&quot;: &quot;可能性&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(147,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能吃特别能吃&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;暴食II&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(304,50%,70%,1)&quot;, &quot;desc&quot;: &quot;这只是一个称号&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;猪猪1号&quot;, &quot;type&quot;: &quot;称号&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(127,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能吃特别能吃特别能吃&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;暴食III&quot;, &quot;type&quot;: &quot;特长&quot;}]
+ LOG  collectionTags
+ LOG  [{&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(87,50%,70%,1)&quot;, &quot;desc&quot;: &quot;猪皮够厚，能挨揍&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;扛揍&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(4,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能睡，吃完就睡&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;嗜睡&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(106,50%,70%,1)&quot;, &quot;desc&quot;: &quot;能进化成天蓬小猪&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;能进化&quot;, &quot;type&quot;: &quot;可能性&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(147,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能吃特别能吃&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;暴食II&quot;, &quot;type&quot;: &quot;特长&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(304,50%,70%,1)&quot;, &quot;desc&quot;: &quot;这只是一个称号&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;猪猪1号&quot;, &quot;type&quot;: &quot;称号&quot;}, {&quot;_id&quot;: [ObjectId], &quot;color&quot;: &quot;hsla(127,50%,70%,1)&quot;, &quot;desc&quot;: &quot;特别能吃特别能吃特别能吃&quot;, &quot;manufacturer&quot;: [Array], &quot;name&quot;: &quot;暴食III&quot;, &quot;type&quot;: &quot;特长&quot;}]
+
+</code></pre>
+<h3 id="问题二-怎么找到realm的文件">问题二 怎么找到realm的文件</h3>
+<p>Andriod:<br>
+首先用 Andriod Stadio 来打开，并启动文件:</p>
+<ol>
+<li><code>expo prebuild</code> 生成 andriod 和 ios 文件夹</li>
+<li>安装 gradle : <code>brew install gradle</code>。 注意： 如果你在文件夹 Andriod 下执行这个命令，它会顺手帮你将该文件夹下面的依赖安装好，会花一定的时间。</li>
+<li>用Andriod Stadio打开 andriod 文件夹。</li>
+<li>在 Andriod Stadio &gt; viwe &gt; Tool Windows &gt; Deveice Explorer 中，找到 <code>realm.path</code> 对应的 .ream 文件，双击/右键鼠标对应文件 &gt; save as ... 保存好文件</li>
+<li>用 Realm Stadio 打开对应文件</li>
+</ol>
+<p>IOS： 直接用 RealmStadio打开  <code>realm.path</code> 对应的 .ream 文件就行了。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://DennyWanye.GitHub.io/post/react-feng-zhuang-dan-chuang-zu-jian/" class="post-title gt-a-link">
+                    React 封装弹窗组建
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">Keep track of interesting things</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/DennyWanye" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ~~~~
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://DennyWanye.GitHub.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

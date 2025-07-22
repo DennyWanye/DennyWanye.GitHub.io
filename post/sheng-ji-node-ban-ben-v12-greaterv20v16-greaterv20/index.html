@@ -1,0 +1,238 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>升级Node版本：V12-&gt;V20/V16-&gt;V20 | DennyWanye</title>
+
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1753155672310">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            DennyWanye
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1753155672310"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    升级Node版本：V12-&gt;V20/V16-&gt;V20
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2024-08-09 ·
+                    </time>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/Lrc0kT6Ac/" class="post-tags">
+                            # node
+                        </a>
+                    
+                        <a href="https://DennyWanye.GitHub.io/tag/Bxp2msYRj/" class="post-tags">
+                            # coding
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="背景">背景</h3>
+<p>项目上面最近需要将node的版本升级到V20，不过现在项目里面有的用的是V12的node，有的用的是V16的node。</p>
+<h3 id="一-利用nvm将项目的node环境转换为20">一、利用nvm将项目的node环境转换为20</h3>
+<p>nvm 是一种很方便管理本地node版本的工具，可以快速的切换本地的node环境。</p>
+<pre><code class="language-javascript">nvm use 20
+</code></pre>
+<h3 id="二-解决npm-i的报错">二、解决npm i的报错</h3>
+<p>以下是报错和如何解决的：</p>
+<h5 id="报错1">报错1：</h5>
+<pre><code> Could not resolve dependency:
+ peer react-dom@&quot;^15.4.2&quot; from react-addons-test-utils@15.6.2
+ node_modules/react-addons-test-utils
+   dev react-addons-test-utils@&quot;^15.1.0&quot; from the root project
+
+</code></pre>
+<p>原因：<br>
+This package is deprecated as of version 15.5.0<br>
+TestUtils have been moved to react-dom/test-utils<br>
+Shallow renderer has been moved to react-test-renderer/shallow</p>
+<p>解决：<br>
+因为项目里面没有引用，所以删除该包</p>
+<h5 id="报错2">报错2：</h5>
+<pre><code> Could not resolve dependency:
+ peer webpack@&quot;&gt;=1.12.9 &lt;3.0.0&quot; from babel-plugin-webpack-loaders@0.9.0
+ node_modules/babel-plugin-webpack-loaders
+   dev babel-plugin-webpack-loaders@&quot;^0.9.0&quot; from the root project
+</code></pre>
+<p>原因：<br>
+package.json中的webpack版本为3.12.0，而 babel-plugin-webpack-loaders@0.9.0需要的webpack版本为&gt;=1.12.9 ❤️.0.0</p>
+<p>解决：<br>
+因为babel-plugin-webpack-loaders太旧了停止维护，没有更新的版本，所以只能将webpack降低版本，降低为2.7</p>
+<h5 id="报错3">报错3：</h5>
+<pre><code>Could not resolve dependency:
+ peer draft-js@&quot;^0.10.x&quot; from react-draft-wysiwyg@1.12.13
+ node_modules/react-draft-wysiwyg
+   react-draft-wysiwyg@&quot;^1.12.13&quot; from the root project
+</code></pre>
+<p>原因：<br>
+react-draft-wysiwyg需要的为&quot;draft-js&quot;: &quot;<sup>0.10.x”，而package.json中的为&quot;</sup>0.11.7&quot;</p>
+<p>解决：<br>
+因为项目里面没有引用，所以删除该包</p>
+<h5 id="报错4">报错4：</h5>
+<pre><code>'darwin-x64' binaries cannot be used on the 'darwin-arm64v8' platform. Please remove the 'node_modules/sharp/vendor' directory and run 'npm install'.
+</code></pre>
+<p>原因：<br>
+Sharp 需要单独安装适配本机苹果M1芯片的包</p>
+<p>解决：<br>
+发现关于sharp包的安装问题，在M1芯片的Mac上，需要在安装的时候，利用 <code>npm install --cpu=arm64 --os=darwin sharp</code></p>
+<h5 id="报错5">报错5：</h5>
+<pre><code>关于extract-text-webpack-plugin的版本支持3.0以上的webpack的报错，错误暂时找不到了，跟
+报错2类似，而且这个报因为弃用了，所以在npm官网上面搜索不到，我最后是在谷歌搜索里面搜索这个包名称，才找到了之前的地址。
+以下是地址：https://www.npmjs.com/package/extract-text-webpack-plugin
+
+建议遇见这种直接利用url规律替换掉包名称进行访问 https://www.npmjs.com/package/包名称
+
+</code></pre>
+<p>原因：<br>
+extract-text-webpack-plugin的版本支持3.0以上的webpack</p>
+<p>解决：<br>
+找到其git链接后，将其降低至对应webpack2.0版本的包</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://DennyWanye.GitHub.io/post/ji-lu-mongodb-sheng-ji-50-to-60/" class="post-title gt-a-link">
+                    记录MongoDB升级 5.0 to 6.0
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">Keep track of interesting things</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/DennyWanye" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ~~~~
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://DennyWanye.GitHub.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

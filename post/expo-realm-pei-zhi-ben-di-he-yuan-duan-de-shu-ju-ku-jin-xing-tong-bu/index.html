@@ -1,0 +1,451 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Expo Realm 配置本地和远端的数据库进行同步 | DennyWanye</title>
+
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1753155672310">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            DennyWanye
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1753155672310"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Expo Realm 配置本地和远端的数据库进行同步
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2024-07-26 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="开始之前-创建一个appservice并开启同步注意查看一下提示注意项">开始之前 创建一个AppService，并开启同步（注意查看一下提示注意项）</h3>
+<p>这个一步需要在官网进行操作：<br>
+当然你需要先在官网创建一个DB 和APP Service。</p>
+<figure data-type="image" tabindex="1"><img src="https://DennyWanye.GitHub.io/post-images/1721975331662.png" alt="" loading="lazy"></figure>
+<p>注意1: 第一次使用请注意将接受匿名链接开启，否则，你很难连上，可以后续按照你的需要进行增加权限验证功能：<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1721975558074.png" alt="" loading="lazy"></p>
+<p>注意2: 将如果你提示IP Address限制访问的问题，请直接添加一下规则到Network Access中，代表允许任意IP进行访问：<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1721975682205.png" alt="" loading="lazy"></p>
+<p>在后端启用 Flexible Sync。您必须在后端配置 Flexible Sync，然后才能在客户端应用程序中使用：<br>
+https://www.mongodb.com/zh-cn/docs/atlas/app-services/sync/configure/enable-sync/#std-label-enable-flexible-sync</p>
+<h3 id="初始化应用客户端">初始化应用客户端</h3>
+<p>doc: https://www.mongodb.com/zh-cn/docs/atlas/device-sdks/sdk/react-native/app-services/connect-to-app-services-app/#std-label-react-native-connect-to-mongodb-realm-backend-app</p>
+<p>此步骤的目的是为了让localApp和远程创建的app进行访问：<br>
+以下为代码：</p>
+<pre><code class="language-javascript">import React from 'react';
+import {AppProvider, UserProvider, RealmProvider} from '@realm/react';
+function AppWrapperSync() {
+  return (
+    &lt;AppProvider id={APP_ID}&gt;           //1. 输入AppID
+      &lt;UserProvider fallback={LogIn}&gt;    //2.利用UserProvider，fallback进行登录验证，建议一开始使用匿名登录，使用匿名登录需要确认一下 注意1 的设置
+        &lt;RealmProvider                         //此处设置 sync 对象的 flexible: true， 代表进行同步。
+          schema={[YourObjectModel]}
+          sync={syncConfigWithErrorHandling}&gt;
+          &lt;RestOfApp /&gt;
+        &lt;/RealmProvider&gt;
+      &lt;/UserProvider&gt;
+    &lt;/AppProvider&gt;
+  );
+}
+
+  //处理如果同步远端realm失败的情况，作用，同步失败的报错信息影响用户体验
+  const syncConfigWithErrorHandling: any = {
+    flexible: true,                 //设置为true，开启同步
+    onError: (_session: any, error: any) =&gt; {      //处理报错情况，感觉忽略就好
+      console.log(_session)
+      console.log(error);
+    },
+    //用于给remote初始化schemas
+    // initialSubscriptions: {
+    //   update(subs, realm) {
+    //     subs.add(realm.objects(schemas));
+    //   },
+    // }
+    newRealmFileBehavior: realmAccessBehavior,        //用于处理离线时，同步失败的情况
+    existingRealmFileBehavior: realmAccessBehavior,   //用于处理离线时，同步失败的情况
+  }
+
+
+//此为在如果项目离线时，同步的设置，专门针对app离线时候的处理：https://www.mongodb.com/zh-cn/docs/atlas/device-sdks/sdk/react-native/sync-data/configure-a-synced-realm/#access-a-synced-realm-while-offline
+const realmAccessBehavior: Realm.OpenRealmBehaviorConfiguration = {
+    //type: Realm.OpenRealmBehaviorType.OpenImmediately,
+    //@ts-ignore
+    type: 'downloadBeforeOpen',            //https://www.mongodb.com/docs/realm-sdks/react/latest/enums/Realm.OpenRealmBehaviorType.html
+    //@ts-ignore
+    timeOutBehavior: 'openLocalRealm',     //https://www.mongodb.com/docs/realm-sdks/react/latest/enums/Realm.OpenRealmTimeOutBehavior.html
+    timeOut: 1000,
+  };
+
+</code></pre>
+<h3 id="对客户端项目中的用户进行身份验证">对客户端项目中的用户进行身份验证：</h3>
+<p>Login的代码逻辑，可以使用API Key，邮箱/密码等，但是国内网络原因且只是测试，所以使用匿名登录， 注意1<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1721981570743.png" alt="" loading="lazy"></p>
+<pre><code class="language-javacript">
+import { View, Text } from 'react-native';
+import { useEffect } from 'react'
+import { useAuth } from '@realm/react';
+
+
+const LogIn = () =&gt; {
+    // `logInWithAnonymous` logs in a user using an
+    // anonymous Realm Credential.
+    // `result` gives us access to the result of the
+    // current operation. In this case, `logInWithAnonymous`.
+    const { logInWithAnonymous, result } = useAuth();     //直接利用logInWithAnonymous来进行匿名登录
+    // Log in an anyonmous user on component render.
+    // On successful login, this fallback component unmounts.
+    useEffect(() =&gt; {
+        logInWithAnonymous();
+    }, [])
+    return (
+        &lt;View &gt;
+            {!result.error &amp;&amp; &lt;Text&gt;Please log in&lt;/Text&gt;}
+            &lt;View&gt;
+                {result.pending &amp;&amp; &lt;Text&gt;{JSON.stringify(result.pending)}&lt;/Text&gt;}
+                {result.error &amp;&amp; &lt;Text&gt;{JSON.stringify(result.error)}&lt;/Text&gt;}
+            &lt;/View&gt;
+        &lt;/View&gt;
+    );
+};
+
+export default LogIn
+
+</code></pre>
+<p>APP_ID的位置：<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1721979221799.png" alt="" loading="lazy"></p>
+<h3 id="调用订阅方法订阅每一个需要同步的model这时你的数据改动">调用订阅方法，订阅每一个需要同步的model，这时你的数据改动</h3>
+<pre><code class="language-javascript">import React from 'react';
+import { useState, useEffect } from 'react';
+import { useRealm } from '@realm/react';
+import { WaitForSync} from 'realm';
+
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { useQueryN, useCreateAndUpdate, useDelte } from '@/hooks/useRealmNovle';
+import ListOfRealmModels from '@/constants/ListOfRealmModels';
+
+
+  const realm = useRealm()
+  const ideas: any = useQueryN(ListOfRealmModels.ideas);  //此处ideas的值为从本地数据库库中利用 useQuery(&quot;Ideas&quot;)拿出来的值，这个值是带有subscribe方法的。
+  const tags: any = useQueryN(ListOfRealmModels.tags);
+  const collections: any = useQueryN(ListOfRealmModels.collections);
+  const objects: any = useQueryN(ListOfRealmModels.object);
+  const events: any = useQueryN(ListOfRealmModels.events);
+  const subscribeArray: any = [ideas, tags, collections, objects, events]
+
+  function subscribeModel(subscribeArray: Array&lt;any&gt;) {
+    // Create an async function so that we can `await` the
+    // promise from `.subscribe()`.
+    subscribeArray.forEach((item, index) =&gt; {
+      const createSubscription = async () =&gt; {
+        await item.subscribe({
+          name: 'subscribe' + index,
+          behavior: WaitForSync.FirstTime,                  //When you subscribe to a query's results, the results do not contain objects until synced data is downloaded. When you do need to wait for synced objects to finish downloading, configure the waitForSync option.
+        });
+      };
+      createSubscription().catch(console.error);
+    })
+  }
+
+  useEffect(() =&gt; {
+    subscribeModel(subscribeArray)
+  }, []);
+
+</code></pre>
+<h3 id="修改登录方式为邮箱密码登录">修改登录方式为邮箱/密码登录</h3>
+<ol>
+<li>在web的AppService中开启登录方式<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1722318411077.png" alt="" loading="lazy"></li>
+<li>配置邮箱验证<br>
+说明： 暂时设置为Automatically confirm users ，这样子就不需要额外的验证网页了，方便开发<br>
+同理password reset Method设置为 Run a password reset function， 然后设置默认函数（直接点击保存就好了），这个函数虽然无法执行预期的修改功能，但是方便我们开始进行开发，后面可以对这个进行配置。<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1722318478288.png" alt="" loading="lazy"></li>
+<li>利用 <code>useEmailPasswordAuth()</code>来进行登录和注册</li>
+</ol>
+<pre><code class="language-javascript">  const { result, logIn, register } = useEmailPasswordAuth();
+
+  const loginFunction = async () =&gt; {
+    if (!isLogin) {
+      setIsLogin(true)
+      showSnackbar('请输入账号密码进行登录，谢谢🙏。')
+      return
+    }
+    if (email &amp;&amp; password) {
+      logIn({ email, password });
+    } else {
+      showSnackbar('账号或者密码为空，请检查，谢谢🙏。')
+    }
+  }
+
+  const hasEmailErrors = () =&gt; {
+    if (email === '') {
+      return false
+    }
+    return !email.includes('@');
+  };
+
+  const registerFunction = async () =&gt; {
+    if (isLogin) {
+      setIsLogin(false)
+      showSnackbar('请输入账号、密码和用户名进行注册，谢谢🙏。')
+      return
+    }
+    await register({ email, password });
+  };
+
+  useEffect(() =&gt; {             //注意：利用useEffect在注册完成后，触发登录操作，用户注册完，以后，还需要登录激活一下。否则就只能在web 的 App users（左侧）--&gt; Users --&gt; Pending 中才能找到 
+
+    if (result.success &amp;&amp; result.operation === AuthOperationName.Register) {
+      logIn({ email, password });
+    }
+  }, [result, logIn, email, password]);
+</code></pre>
+<h3 id="关于修改已经存在的文档数据">关于修改已经存在的文档数据：</h3>
+<pre><code class="language-javascript">realm.create('UserData', {                  //这个对象需要修改完成后的完整集合数据（?存在疑问，需要验证一下)
+            _id: userData._id,
+            userId: userId,
+            tags: [...userData.tags, writeObj],
+            ideas: [...userData.ideas],
+          }, 'modified');
+
+//此为创建数据的方法
+await realm.write(() =&gt; {
+        realm.create(&lt;SchemaName&gt;, writeObj)
+      })
+</code></pre>
+<h3 id="新添加schema的方法">新添加schema的方法</h3>
+<ol>
+<li>本地添加好model</li>
+</ol>
+<pre><code class="language-javascript">import { BSON, ObjectSchema, Object, List } from &quot;realm&quot;;
+import { Events } from &quot;./Events&quot;;
+
+export class Timelines extends Object&lt;Timelines&gt; {
+    _id!: BSON.ObjectId;
+    name!: string;
+    desc: string = '';
+    events!: List&lt;Events&gt; ;
+
+    static schema: ObjectSchema = {
+        name: 'Timelines',
+        properties: {
+          _id: 'objectId',
+          name: {type: 'string', indexed: 'full-text'},
+          desc: 'string',
+          events: 'Events[]',
+        },
+        primaryKey: '_id',
+      };
+}
+
+</code></pre>
+<ol start="2">
+<li>将其放到初始化和订阅中</li>
+</ol>
+<p>初始化：</p>
+<pre><code class="language-javascript">
+  const schemas: any = [Ideas, Tags, Collections, ObjectOfCollections, Events, **Timelines**,  UserData]
+
+
+//处理如果同步远端realm失败的情况，作用，同步失败的报错信息影响用户体验
+  const syncConfigWithErrorHandling: any = {
+    flexible: true,
+    onError: (_session: any, error: any) =&gt; {
+      console.log(_session)
+      console.log(error);
+    },
+    //是否是用于给remote初始化schemas？
+    initialSubscriptions: {
+      update(subs: any, realm: any) {
+        subs.add(realm.objects(**schemas**));
+      },
+    },
+    newRealmFileBehavior: realmAccessBehavior,
+    existingRealmFileBehavior: realmAccessBehavior,
+  }
+
+
+&lt;PaperProvider&gt;
+      &lt;AppProvider id={APP_ID} &gt;
+        &lt;UserProvider fallback={LogIn}&gt;
+          &lt;RealmProvider
+            path='./NovelTagSys.realm'
+            schema={schemas}
+            sync={syncConfigWithErrorHandling}
+          &gt;
+            &lt;Stack&gt;
+              &lt;Stack.Screen name=&quot;(tabs)&quot; options={{ headerShown: false }} /&gt;
+              &lt;Stack.Screen name=&quot;+not-found&quot; /&gt;
+            &lt;/Stack&gt;
+          &lt;/RealmProvider&gt;
+        &lt;/UserProvider&gt;
+      &lt;/AppProvider&gt;
+    &lt;/PaperProvider&gt;
+
+</code></pre>
+<p>错误：<code>Client attempted a write that is not allowed; it has been reverted</code><br>
+fulllog:</p>
+<pre><code class="language-javascript"> LOG  {&quot;weakInternal&quot;: {Symbol(Realm.WeakSyncSession.external_pointer): {}}}
+ LOG  [SyncError: Client attempted a write that is not allowed; it has been reverted]
+
+</code></pre>
+<ol start="3">
+<li>
+<p>重新启动远端的 sync<br>
+根据文档说明，修改了schema之后，需要 <code>Terminate Sync</code> 之后， 再开始启动<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1722590188452.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>修改新建的 schema 权限，否则前端无法对其进行读写<br>
+<img src="https://DennyWanye.GitHub.io/post-images/1722593173452.png" alt="" loading="lazy"></p>
+</li>
+</ol>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://DennyWanye.GitHub.io/post/zai-expo-xiang-mu-zhong-shi-yong-realm/" class="post-title gt-a-link">
+                    在Expo项目中使用 realm 
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">Keep track of interesting things</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/DennyWanye" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ~~~~
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://DennyWanye.GitHub.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

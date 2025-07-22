@@ -1,0 +1,304 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>DevOps 知识总结 | DennyWanye</title>
+
+<link rel="shortcut icon" href="https://DennyWanye.GitHub.io/favicon.ico?v=1753155672310">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://DennyWanye.GitHub.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            DennyWanye
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1753155672310"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    DevOps 知识总结
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2024-09-02 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="推荐的书记此为关于如何运用云端工具来做devops的">推荐的书记，此为关于如何运用云端工具来做devops的。</h3>
+<figure data-type="image" tabindex="1"><img src="https://DennyWanye.GitHub.io/post-images/1725259694893.png" alt="" loading="lazy"></figure>
+<h3 id="devops和其他方法的对比">DevOps和其他方法的对比</h3>
+<figure data-type="image" tabindex="2"><img src="https://DennyWanye.GitHub.io/post-images/1725264314267.png" alt="" loading="lazy"></figure>
+<h3 id="devops交付模式流程图">DevOps交付模式流程图</h3>
+<figure data-type="image" tabindex="3"><img src="https://DennyWanye.GitHub.io/post-images/1725267002950.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://DennyWanye.GitHub.io/post-images/1725268505486.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://DennyWanye.GitHub.io/post-images/1725268612504.png" alt="" loading="lazy"></figure>
+<h3 id="devops-组织架构模型图">DevOps 组织架构模型图</h3>
+<figure data-type="image" tabindex="6"><img src="https://DennyWanye.GitHub.io/post-images/1725269344039.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://DennyWanye.GitHub.io/post-images/1725269491153.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://DennyWanye.GitHub.io/post-images/1725342885373.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="9"><img src="https://DennyWanye.GitHub.io/post-images/1725355067480.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="10"><img src="https://DennyWanye.GitHub.io/post-images/1725355242919.png" alt="" loading="lazy"></figure>
+<h3 id="数字化转型的24项核心能力">数字化转型的24项核心能力</h3>
+<figure data-type="image" tabindex="11"><img src="https://DennyWanye.GitHub.io/post-images/1725343138080.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="12"><img src="https://DennyWanye.GitHub.io/post-images/1725343350112.png" alt="" loading="lazy"></figure>
+<h3 id="三种组织的文化类型">三种组织的文化类型</h3>
+<figure data-type="image" tabindex="13"><img src="https://DennyWanye.GitHub.io/post-images/1725343419188.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="14"><img src="https://DennyWanye.GitHub.io/post-images/1725343485364.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="15"><img src="https://DennyWanye.GitHub.io/post-images/1725343547390.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="16"><img src="https://DennyWanye.GitHub.io/post-images/1725343719030.png" alt="" loading="lazy"></figure>
+<p>###管理DevOps项目范围的最佳方法</p>
+<figure data-type="image" tabindex="17"><img src="https://DennyWanye.GitHub.io/post-images/1725355355522.png" alt="" loading="lazy"></figure>
+<h3 id="设计思维的四项原则">设计思维的四项原则</h3>
+<figure data-type="image" tabindex="18"><img src="https://DennyWanye.GitHub.io/post-images/1725355505764.png" alt="" loading="lazy"></figure>
+<h3 id="设计思维的五个阶段">设计思维的五个阶段</h3>
+<figure data-type="image" tabindex="19"><img src="https://DennyWanye.GitHub.io/post-images/1725355542464.png" alt="" loading="lazy"></figure>
+<h3 id="mvpminimum-viable-product-mvp-最小可行产品">MVP(minimum viable product, MVP) 最小可行产品</h3>
+<figure data-type="image" tabindex="20"><img src="https://DennyWanye.GitHub.io/post-images/1725355680607.png" alt="" loading="lazy"></figure>
+<h3 id="精益画布">精益画布</h3>
+<h4 id="第一步先阐述问题">第一步：先阐述问题</h4>
+<p>列出一到三个最重要的问题<br>
+列出备选解决方方案。用户在没有新的解决方案出来之前用什么来解决。</p>
+<h4 id="第二步分析目标客户">第二步：分析目标客户</h4>
+<p>区分客户和用户，为产品掏包的人叫客户，一般用户不会。<br>
+细分目标客户群体，一个客户人群对应了一个商业画布，目标客户群体不同，商业模式中的元素也不同。<br>
+找出早期接纳者</p>
+<h4 id="第三步分析你产品或项目的独特卖点">第三步：分析你产品或项目的独特卖点</h4>
+<p>用一句话说明白你的产品为什么值得购买。</p>
+<h4 id="第四步阐述你的产品能解决什么">第四步：阐述你的产品能解决什么？</h4>
+<p>产品最重要的三个功能。</p>
+<h4 id="第五步渠道">第五步：渠道</h4>
+<p>解决了问题，那么你产品怎么找到客户<br>
+内联式渠道包括：博客、SEO、电子书、白皮书、网络讲堂、公众号<br>
+外联式渠道包括：SEM、新媒体 、直接电话或短信</p>
+<h4 id="第六步收入分析">第六步：收入分析</h4>
+<h4 id="第七步成本分析">第七步：成本分析</h4>
+<p>客户获取成本<br>
+制作和发型最小产品需要多少成本<br>
+有了成本分析和收入分析，你就能找到收支平衡点<br>
+比如说：分析属于你的不容易被人复制的优势。社群、SEM排名、团队、个人权威、现有的顾客</p>
+<h4 id="第八步关键指标">第八步：关键指标</h4>
+<p>有收入和成本了，那就得规划一些考核的指标，制定主要的KPI</p>
+<h4 id="第九步门槛优势">第九步：门槛优势。</h4>
+<figure data-type="image" tabindex="21"><img src="https://DennyWanye.GitHub.io/post-images/1725355761866.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="22"><img src="https://DennyWanye.GitHub.io/post-images/1725356239539.png" alt="" loading="lazy"></figure>
+<h3 id="devops项目推进七原则">DevOps项目推进七原则</h3>
+<figure data-type="image" tabindex="23"><img src="https://DennyWanye.GitHub.io/post-images/1725356733123.png" alt="" loading="lazy"></figure>
+<h3 id="总结通过devops实现敏捷型组织">总结：通过DevOps实现敏捷型组织</h3>
+<figure data-type="image" tabindex="24"><img src="https://DennyWanye.GitHub.io/post-images/1725357212875.png" alt="" loading="lazy"></figure>
+<h3 id="devops架构图">DevOps架构图</h3>
+<figure data-type="image" tabindex="25"><img src="https://DennyWanye.GitHub.io/post-images/1725431822000.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="26"><img src="https://DennyWanye.GitHub.io/post-images/1725432598681.png" alt="" loading="lazy"></figure>
+<h4 id="devops元素周期表">DevOps元素周期表</h4>
+<figure data-type="image" tabindex="27"><img src="https://DennyWanye.GitHub.io/post-images/1725432833563.png" alt="" loading="lazy"></figure>
+<h3 id="devopsmaster是一个教练">DevOpsMaster是一个教练</h3>
+<figure data-type="image" tabindex="28"><img src="https://DennyWanye.GitHub.io/post-images/1725677353427.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="29"><img src="https://DennyWanye.GitHub.io/post-images/1725677405943.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="30"><img src="https://DennyWanye.GitHub.io/post-images/1725677463362.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="31"><img src="https://DennyWanye.GitHub.io/post-images/1725677655445.png" alt="" loading="lazy"></figure>
+<h3 id="swot">SWOT</h3>
+<figure data-type="image" tabindex="32"><img src="https://DennyWanye.GitHub.io/post-images/1725677715830.png" alt="" loading="lazy"></figure>
+<h3 id="devops的理想模式">DevOps的理想模式</h3>
+<figure data-type="image" tabindex="33"><img src="https://DennyWanye.GitHub.io/post-images/1725677962418.png" alt="" loading="lazy"></figure>
+<h3 id="测试驱动开发的模式">测试驱动开发的模式</h3>
+<figure data-type="image" tabindex="34"><img src="https://DennyWanye.GitHub.io/post-images/1725678916482.png" alt="" loading="lazy"></figure>
+<h3 id="devsecops原则">DevSecOps原则</h3>
+<figure data-type="image" tabindex="35"><img src="https://DennyWanye.GitHub.io/post-images/1725679208338.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="36"><img src="https://DennyWanye.GitHub.io/post-images/1725679349207.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="37"><img src="https://DennyWanye.GitHub.io/post-images/1725679372569.png" alt="" loading="lazy"></figure>
+<h3 id="devsecops-三步工作法">DevSecOps 三步工作法：</h3>
+<p><img src="https://DennyWanye.GitHub.io/post-images/1725679464638.png" alt="" loading="lazy"><br>
+<img src="https://DennyWanye.GitHub.io/post-images/1725679511863.png" alt="" loading="lazy"></p>
+<h4 id="cicd安全性">CI/CD安全性</h4>
+<figure data-type="image" tabindex="38"><img src="https://DennyWanye.GitHub.io/post-images/1725679602803.png" alt="" loading="lazy"></figure>
+<h4 id="迁移到devops的7个步骤">迁移到DevOps的7个步骤</h4>
+<figure data-type="image" tabindex="39"><img src="https://DennyWanye.GitHub.io/post-images/1725679679927.png" alt="" loading="lazy"></figure>
+<h3 id="持续交付的定义">持续交付的定义</h3>
+<figure data-type="image" tabindex="40"><img src="https://DennyWanye.GitHub.io/post-images/1725680349142.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="41"><img src="https://DennyWanye.GitHub.io/post-images/1725680390703.png" alt="" loading="lazy"></figure>
+<h3 id="持续交付的5个关键原则">持续交付的5个关键原则</h3>
+<figure data-type="image" tabindex="42"><img src="https://DennyWanye.GitHub.io/post-images/1725680440387.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="43"><img src="https://DennyWanye.GitHub.io/post-images/1725680477075.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="44"><img src="https://DennyWanye.GitHub.io/post-images/1725680632640.png" alt="" loading="lazy"></figure>
+<h3 id="版本管理是基础">版本管理是基础</h3>
+<figure data-type="image" tabindex="45"><img src="https://DennyWanye.GitHub.io/post-images/1725866786264.png" alt="" loading="lazy"></figure>
+<h3 id="持续集成">持续集成</h3>
+<figure data-type="image" tabindex="46"><img src="https://DennyWanye.GitHub.io/post-images/1725866846612.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="47"><img src="https://DennyWanye.GitHub.io/post-images/1725867111130.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="48"><img src="https://DennyWanye.GitHub.io/post-images/1725867158955.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="49"><img src="https://DennyWanye.GitHub.io/post-images/1725867180931.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="50"><img src="https://DennyWanye.GitHub.io/post-images/1725867199628.png" alt="" loading="lazy"></figure>
+<h3 id="测试象限">测试象限</h3>
+<figure data-type="image" tabindex="51"><img src="https://DennyWanye.GitHub.io/post-images/1725867319547.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="52"><img src="https://DennyWanye.GitHub.io/post-images/1725867752739.png" alt="" loading="lazy"></figure>
+<h3 id="代码变更经过部署流水线的过程">代码变更经过部署流水线的过程</h3>
+<figure data-type="image" tabindex="53"><img src="https://DennyWanye.GitHub.io/post-images/1725867911626.png" alt="" loading="lazy"></figure>
+<h3 id="基本的部署流水线">基本的部署流水线</h3>
+<figure data-type="image" tabindex="54"><img src="https://DennyWanye.GitHub.io/post-images/1725867957035.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="55"><img src="https://DennyWanye.GitHub.io/post-images/1725868001419.png" alt="" loading="lazy"></figure>
+<h3 id="提交阶段">提交阶段</h3>
+<figure data-type="image" tabindex="56"><img src="https://DennyWanye.GitHub.io/post-images/1725868352909.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="57"><img src="https://DennyWanye.GitHub.io/post-images/1725868376708.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="58"><img src="https://DennyWanye.GitHub.io/post-images/1725868419523.png" alt="" loading="lazy"></figure>
+<h3 id="持续交付">持续交付</h3>
+<figure data-type="image" tabindex="59"><img src="https://DennyWanye.GitHub.io/post-images/1725869268533.png" alt="" loading="lazy"></figure>
+<h3 id="成熟度模型">成熟度模型</h3>
+<figure data-type="image" tabindex="60"><img src="https://DennyWanye.GitHub.io/post-images/1725869216012.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="61"><img src="https://DennyWanye.GitHub.io/post-images/1725869309140.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="62"><img src="https://DennyWanye.GitHub.io/post-images/1725869360122.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="63"><img src="https://DennyWanye.GitHub.io/post-images/1725869460062.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="64"><img src="https://DennyWanye.GitHub.io/post-images/1725869510315.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="65"><img src="https://DennyWanye.GitHub.io/post-images/1725869552104.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="66"><img src="https://DennyWanye.GitHub.io/post-images/1725869625416.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="67"><img src="https://DennyWanye.GitHub.io/post-images/1725869649074.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="68"><img src="https://DennyWanye.GitHub.io/post-images/1725869712667.png" alt="" loading="lazy"></figure>
+<h3 id="总结">总结</h3>
+<figure data-type="image" tabindex="69"><img src="https://DennyWanye.GitHub.io/post-images/1725869875598.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="70"><img src="https://DennyWanye.GitHub.io/post-images/1725869897064.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="71"><img src="https://DennyWanye.GitHub.io/post-images/1725869912100.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="72"><img src="https://DennyWanye.GitHub.io/post-images/1725869930815.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="73"><img src="https://DennyWanye.GitHub.io/post-images/1725869945816.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="74"><img src="https://DennyWanye.GitHub.io/post-images/1725869965374.png" alt="" loading="lazy"></figure>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://DennyWanye.GitHub.io/post/sheng-ji-node-ban-ben-v12-greaterv20v16-greaterv20/" class="post-title gt-a-link">
+                    升级Node版本：V12-&gt;V20/V16-&gt;V20
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">Keep track of interesting things</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/DennyWanye" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ~~~~
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://DennyWanye.GitHub.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
